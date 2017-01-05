@@ -1,0 +1,90 @@
+body {
+    background: #040F16;
+    font-family: 'Mountains of Christmas', cursive;
+}
+
+h1 {
+    color: #01BAEF;
+    position: relative;
+    margin-top: 200px;
+    text-align: center;
+    letter-spacing: 0.1em;
+    font-size: 4em;
+    text-shadow: 0 0 15px #F0A202;
+}
+
+p {
+    color: #01BAEF;
+    position: relative;
+    text-align: center;
+    letter-spacing: 0.2em;
+    font-size: 2em;
+    text-shadow: 0 0 15px #F0A202;
+}
+
+.wire {
+    text-align: center;
+    white-space: nowrap;
+    padding: 0;
+    position: absolute;
+    width: 100%;
+    top: -80px;
+    border-bottom: 3px solid #FDB833;
+    height: 100px;
+}
+
+.wire li {
+    position: relative;
+    list-style: none;
+    margin: 0 15px;
+    padding: 0;
+    display: inline-block;
+    width: 20px;
+    height: 50px;
+    border-radius: 50%;
+    top: 102px;
+    animation-name: even-light-flash;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+
+.wire li:before {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 10px;
+    border-radius: 5px;
+    top: -5px;
+    left: 2px;
+    background: #444444;
+}
+
+.wire li:nth-child(odd) {
+    animation-name: odd-light-flash;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+
+@keyframes even-light-flash {
+    0%, 100% {
+        background: rgba(23, 137, 252, 1.0);
+        box-shadow: 0 2px 20px 4px rgba(23, 137, 252, 1.0);
+    }
+    50% {
+        background: rgba(23, 137, 252, 0.5);
+        box-shadow: 0 2px 20px 4px rgba(23, 137, 252, 0.5);
+    }
+}
+
+@keyframes odd-light-flash {
+    50% {
+        background: rgba(253, 255, 252, 1.0);
+        box-shadow: 0 2px 20px 4px rgba(253, 255, 252, 1.0);
+    }
+    0%, 100% {
+        background: rgba(253, 255, 252, 0.5);
+        box-shadow: 0 2px 20px 4px rgba(253, 255, 252, 0.5);
+    }
+}
