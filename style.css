@@ -1,5 +1,5 @@
 body {
-    background: #040F16;
+    background: #020100;
     font-family: 'Mountains of Christmas', cursive;
 }
 
@@ -19,9 +19,9 @@ p {
     text-align: center;
     letter-spacing: 0.2em;
     font-size: 2em;
-    text-shadow: 0 0 15px #F0A202;
 }
 
+/* styles for the string */
 .wire {
     text-align: center;
     white-space: nowrap;
@@ -33,6 +33,7 @@ p {
     height: 100px;
 }
 
+/* styles for the even numbered bulbs */
 .wire li {
     position: relative;
     list-style: none;
@@ -49,6 +50,7 @@ p {
     animation-fill-mode: both;
 }
 
+/* Adding a little content after the wire to make a bulb holder */
 .wire li:before {
     content: "";
     position: absolute;
@@ -60,6 +62,7 @@ p {
     background: #444444;
 }
 
+/* Adding styling to change odd bulbs */
 .wire li:nth-child(odd) {
     animation-name: odd-light-flash;
     animation-duration: 1s;
@@ -86,5 +89,238 @@ p {
     0%, 100% {
         background: rgba(253, 255, 252, 0.5);
         box-shadow: 0 2px 20px 4px rgba(253, 255, 252, 0.5);
+    }
+}
+
+/* Styles for a Candelabra */
+.menorah {
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    white-space: nowrap;
+    padding: 0;
+    position: absolute;
+    width: 50%;
+    top: 500px;
+    border-bottom: 50px solid #FDB833;
+}
+
+/* Styles for the Candelabra base */
+.menorah:before {
+    content: "";
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    position: absolute;
+    width: 50px;
+    height: 175px;
+    border-radius: 0 0 5px 5px;
+    top: 175px;
+    left: 0;
+    background: #FDB833;
+}
+
+/* Styles for the candles */
+.menorah li {
+    position: relative;
+    list-style: none;
+    margin: 0 15px;
+    padding: 0;
+    display: inline-block;
+    width: 50px;
+    top: 15px;
+    border-radius: 10px;
+    border-bottom: 10px solid #000;
+}
+
+.menorah li.shamesh {
+    position: relative;
+    list-style: none;
+    margin: 0 15px;
+    padding: 0;
+    display: inline-block;
+    width: 50px;
+    height: 150px;
+    top: 15px;
+    border-radius: 10px;
+    border-bottom: 10px solid #000;
+}
+
+.menorah li:nth-child(1) {
+    height: 55px;
+    background: #808080;
+}
+
+.menorah li:nth-child(2) {
+    height: 45px;
+    background: #800000;
+}
+
+.menorah li:nth-child(3) {
+    height: 15px;
+    background: #ffa500;
+}
+
+.menorah li:nth-child(4) {
+    height: 75px;
+    background: #ffc0cb;
+}
+
+.menorah li:nth-child(5) {
+    background: #ffffff;
+}
+
+.menorah li:nth-child(6) {
+    height: 35px;
+    background: #ffe761;
+}
+
+.menorah li:nth-child(7) {
+    height: 55px;
+    background: #ed1c24;
+}
+
+.menorah li:nth-child(8) {
+    height: 65px;
+    background: #1789fc;
+}
+
+.menorah li:nth-child(9) {
+    height: 25px;
+    background: #ff00ff;
+}
+
+/* Styles for the flames */
+.menorah li .flame-1 {
+    content: "";
+    margin: 0 15px;
+    position: absolute;
+    width: 15px;
+    height: 50px;
+    border-radius: 50%;
+    top: -45px;
+    left: 0px;
+    animation-name: flame-1;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+
+.menorah li .flame-2 {
+    content: "";
+    margin: 0 15px;
+    position: absolute;
+    width: 15px;
+    height: 40px;
+    border-radius: 50%;
+    top: 10px;
+    left: -15px;
+    animation-name: flame-2;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+
+.menorah li .flame-3 {
+    content: "";
+    margin: 0 15px;
+    position: absolute;
+    width: 15px;
+    height: 30px;
+    border-radius: 50%;
+    top: 10px;
+    left: -15px;
+    animation-name: flame-3;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+
+.menorah li .flame-4 {
+    content: "";
+    margin: 0 15px;
+    position: absolute;
+    width: 15px;
+    height: 20px;
+    border-radius: 50%;
+    top: 10px;
+    left: -15px;
+    animation-name: flame-4;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+
+.menorah li .flame-5 {
+    content: "";
+    margin: 0 15px;
+    position: absolute;
+    width: 15px;
+    height: 10px;
+    border-radius: 50%;
+    top: 10px;
+    left: -15px;
+    animation-name: flame-5;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+
+/* Animations for the different flames */
+@keyframes flame-1 {
+    0%, 100% {
+        background: rgba(128, 0, 0, 1.0);
+        box-shadow: 0 2px 20px 4px rgba(128, 0, 0, 1.0);
+    }
+    50% {
+        background: rgba(128, 0, 0, 0.5);
+        box-shadow: 0 2px 20px 4px rgba(128, 0, 0, 0.5);
+    }
+}
+
+@keyframes flame-2 {
+    0%, 100% {
+        background: rgba(255, 165, 0, 1.0);
+        box-shadow: 0 2px 20px 4px rgba(255, 165, 0, 1.0);
+    }
+    50% {
+        background: rgba(255, 165, 0, 0.5);
+        box-shadow: 0 2px 20px 4px rgba(255, 165, 0, 0.5);
+    }
+}
+
+@keyframes flame-3 {
+    0%, 100% {
+        background: rgba(255, 231, 97, 1.0);
+        box-shadow: 0 2px 20px 4px rgba(255, 231, 97, 1.0);
+    }
+    50% {
+        background: rgba(255, 231, 97, 0.5);
+        box-shadow: 0 2px 20px 4px rgba(255, 231, 97, 0.5);
+    }
+}
+
+@keyframes flame-4 {
+    0%, 100% {
+        background: rgba(255, 255, 255, 1.0);
+        box-shadow: 0 2px 20px 4px rgba(255, 255, 255, 1.0);
+    }
+    50% {
+        background: rgba(255, 255, 255, 0.5);
+        box-shadow: 0 2px 20px 4px rgba(255, 255, 255, 0.5);
+    }
+}
+
+@keyframes flame-5 {
+    0%, 100% {
+        background: rgba(23, 137, 252, 1.0);
+        box-shadow: 0 2px 20px 4px rgba(23, 137, 252, 1.0);
+    }
+    50% {
+        background: rgba(23, 137, 252, 0.5);
+        box-shadow: 0 2px 20px 4px rgba(23, 137, 252, 0.5);
     }
 }
