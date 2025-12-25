@@ -1,326 +1,2941 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-hanukkah: linear-gradient(135deg, #050915 0%, #0d1c36 50%, #050915 100%);
+  --bg-christmas: linear-gradient(
+    135deg,
+    #120808 0%,
+    #1f0f0f 50%,
+    #120808 100%
+  );
+  --glass: rgba(255, 255, 255, 0.08);
+  --glass-strong: rgba(255, 255, 255, 0.14);
+  --border: rgba(255, 255, 255, 0.12);
+  --text-primary: #f6f7fb;
+  --text-secondary: #c8d3e8;
+  --hanukkah-accent: #6eb7ff;
+  --hanukkah-deep: #1f74d6;
+  --christmas-accent: #ff7b7b;
+  --christmas-green: #3fcf97;
+  --shadow-strong: 20px 40px 60px rgba(0, 0, 0, 0.6);
+  --shadow-soft: 12px 24px 36px rgba(0, 0, 0, 0.3);
+  --radius: 18px;
+  --glow: drop-shadow(6px 12px 18px rgba(255, 255, 255, 0.45));
+}
+
 body {
-    background: #020100;
-    font-family: 'Mountains of Christmas', cursive;
+  background: var(--bg-hanukkah);
+  font-family: "Lato", system-ui, -apple-system, sans-serif;
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.6s ease;
 }
 
-h1 {
-    color: #01BAEF;
-    position: relative;
-    margin-top: 200px;
-    text-align: center;
-    letter-spacing: 0.1em;
-    font-size: 4em;
-    text-shadow: 0 0 15px #F0A202;
+body[data-mode="hanukkah"] {
+  background: var(--bg-hanukkah);
 }
 
-p {
-    color: #01BAEF;
-    position: relative;
-    text-align: center;
-    letter-spacing: 0.2em;
-    font-size: 2em;
+body[data-mode="christmas"] {
+  background: var(--bg-christmas);
 }
 
-/* styles for the string */
+.page-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+  position: relative;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* String lights */
 .wire {
-    text-align: center;
-    white-space: nowrap;
-    padding: 0;
-    position: absolute;
-    width: 100%;
-    top: -80px;
-    border-bottom: 3px solid #FDB833;
-    height: 100px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  pointer-events: none;
+  z-index: 30;
+  background: radial-gradient(
+    circle at 50% 120px,
+    rgba(255, 255, 255, 0.06),
+    transparent 40%
+  );
+  transition: opacity 0.5s ease;
 }
 
-/* styles for the even numbered bulbs */
-.wire li {
-    position: relative;
-    list-style: none;
-    margin: 0 15px;
-    padding: 0;
-    display: inline-block;
-    width: 20px;
-    height: 50px;
-    border-radius: 50%;
-    top: 102px;
-    animation-name: even-light-flash;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
+.wire.lights-off {
+  opacity: 0.3;
 }
 
-/* Adding a little content after the wire to make a bulb holder */
-.wire li:before {
-    content: "";
-    position: absolute;
-    width: 15px;
-    height: 10px;
-    border-radius: 5px;
-    top: -5px;
-    left: 2px;
-    background: #444444;
+.wire.lights-off .light-bulb {
+  background: #333 !important;
+  box-shadow: none !important;
+  animation: bulb-sway 3s ease-in-out infinite !important;
+  filter: none !important;
 }
 
-/* Adding styling to change odd bulbs */
-.wire li:nth-child(odd) {
-    animation-name: odd-light-flash;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
+/* Light Switch Panel */
+.light-switch-panel {
+  position: fixed;
+  top: 130px;
+  right: 20px;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(180deg, #e8e8e0, #d0d0c8);
+  padding: 12px 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
-@keyframes even-light-flash {
-    0%, 100% {
-        background: rgba(23, 137, 252, 1.0);
-        box-shadow: 0 2px 20px 4px rgba(23, 137, 252, 1.0);
-    }
-    50% {
-        background: rgba(23, 137, 252, 0.5);
-        box-shadow: 0 2px 20px 4px rgba(23, 137, 252, 0.5);
-    }
+/* Light Switch Container */
+.light-switch-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
 }
 
-@keyframes odd-light-flash {
-    50% {
-        background: rgba(253, 255, 252, 1.0);
-        box-shadow: 0 2px 20px 4px rgba(253, 255, 252, 1.0);
-    }
-    0%, 100% {
-        background: rgba(253, 255, 252, 0.5);
-        box-shadow: 0 2px 20px 4px rgba(253, 255, 252, 0.5);
-    }
+.light-switch-plate {
+  width: 50px;
+  height: 80px;
+  background: linear-gradient(180deg, #f5f5f0, #e8e8e0, #d8d8d0);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
 }
 
-/* Styles for a Candelabra */
+.switch-screws {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 0;
+}
+
+.screw {
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #888, #aaa, #888);
+  border-radius: 50%;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+.screw::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 5px;
+  height: 1px;
+  background: #666;
+}
+
+.switch-toggle {
+  width: 28px;
+  height: 40px;
+  background: linear-gradient(180deg, #f0f0e8, #d8d8d0);
+  border-radius: 4px;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.15s ease;
+  transform-origin: center center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.switch-track {
+  width: 34px;
+  height: 50px;
+  background: linear-gradient(180deg, #333, #1a1a1a);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.switch-paddle {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #fff, #e8e8e0);
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Light Switch - On */
+.light-switch-container.lights-on .switch-toggle {
+  transform: perspective(100px) rotateX(-25deg);
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(255, 215, 0, 0.3),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.light-switch-container.lights-on .light-switch-plate {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Light Switch - Off */
+.light-switch-container.lights-off .switch-toggle {
+  transform: perspective(100px) rotateX(25deg);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.switch-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.light-switch-container:hover .light-switch-plate {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35), 0 0 25px rgba(255, 215, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Dimmer control */
+.dimmer-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dimmer-slider {
+  width: 50px;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(90deg, #333, #666);
+  border-radius: 3px;
+  outline: none;
+}
+
+.dimmer-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(180deg, #ffd700, #daa520);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dimmer-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(180deg, #ffd700, #daa520);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: none;
+}
+
+.dimmer-label {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.wire::before {
+  content: "";
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(60, 60, 60, 0.75) 5%,
+    rgba(40, 40, 40, 0.9) 45%,
+    rgba(60, 60, 60, 0.75) 90%,
+    transparent 100%
+  );
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.light-bulb {
+  position: absolute;
+  top: 28px;
+  width: 16px;
+  height: 28px;
+  border-radius: 8px 8px 12px 12px;
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(255, 255, 255, 0.35);
+  animation: bulb-sway 3s ease-in-out infinite;
+}
+
+.light-bulb::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(180deg, #666, #333);
+  border-radius: 2px 2px 0 0;
+}
+
+.light-bulb::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 3px;
+  width: 5px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+}
+
+body[data-mode="hanukkah"] .light-bulb:nth-child(odd) {
+  background: linear-gradient(180deg, #a8d8ff, #4da6ff);
+  box-shadow: 0 0 20px 8px rgba(77, 166, 255, 0.5),
+    0 10px 30px rgba(77, 166, 255, 0.3);
+  animation: bulb-sway 3s ease-in-out infinite,
+    glow-blue 1.6s ease-in-out infinite;
+}
+
+body[data-mode="hanukkah"] .light-bulb:nth-child(even) {
+  background: linear-gradient(180deg, #ffffff, #e8f4ff);
+  box-shadow: 0 0 20px 8px rgba(255, 255, 255, 0.5),
+    0 10px 26px rgba(255, 255, 255, 0.3);
+  animation: bulb-sway 3s ease-in-out infinite,
+    glow-white 1.6s ease-in-out infinite;
+}
+
+body[data-mode="christmas"] .light-bulb:nth-child(5n + 1) {
+  background: linear-gradient(180deg, #ff8a8a, #ff4444);
+  box-shadow: 0 0 20px 8px rgba(255, 68, 68, 0.5),
+    0 10px 30px rgba(255, 68, 68, 0.3);
+  animation: bulb-sway 3s ease-in-out infinite,
+    glow-red 1.8s ease-in-out infinite;
+}
+
+body[data-mode="christmas"] .light-bulb:nth-child(5n + 2) {
+  background: linear-gradient(180deg, #7aff7a, #44dd44);
+  box-shadow: 0 0 20px 8px rgba(68, 221, 68, 0.5),
+    0 10px 28px rgba(68, 221, 68, 0.3);
+  animation: bulb-sway 3s ease-in-out infinite,
+    glow-green 1.8s ease-in-out infinite;
+}
+
+body[data-mode="christmas"] .light-bulb:nth-child(5n + 3) {
+  background: linear-gradient(180deg, #ffe566, #ffcc00);
+  box-shadow: 0 0 20px 8px rgba(255, 204, 0, 0.5),
+    0 10px 32px rgba(255, 204, 0, 0.3);
+  animation: bulb-sway 3s ease-in-out infinite,
+    glow-gold 1.8s ease-in-out infinite;
+}
+
+body[data-mode="christmas"] .light-bulb:nth-child(5n + 4) {
+  background: linear-gradient(180deg, #8ad4ff, #4da6ff);
+  box-shadow: 0 0 20px 8px rgba(77, 166, 255, 0.5),
+    0 10px 28px rgba(77, 166, 255, 0.3);
+  animation: bulb-sway 3s ease-in-out infinite,
+    glow-blue 1.8s ease-in-out infinite;
+}
+
+body[data-mode="christmas"] .light-bulb:nth-child(5n + 5) {
+  background: linear-gradient(180deg, #ffffff, #e8e8e8);
+  box-shadow: 0 0 20px 8px rgba(255, 255, 255, 0.5),
+    0 10px 26px rgba(255, 255, 255, 0.3);
+  animation: bulb-sway 3s ease-in-out infinite,
+    glow-white 1.8s ease-in-out infinite;
+}
+
+@keyframes bulb-sway {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes glow-blue {
+  0%,
+  100% {
+    filter: brightness(1) drop-shadow(3px 6px 12px rgba(77, 166, 255, 0.9));
+  }
+  50% {
+    filter: brightness(0.85) drop-shadow(2px 4px 6px rgba(77, 166, 255, 0.45));
+  }
+}
+
+@keyframes glow-white {
+  0%,
+  100% {
+    filter: brightness(1) drop-shadow(3px 6px 12px rgba(255, 255, 255, 0.9));
+  }
+  50% {
+    filter: brightness(0.85) drop-shadow(2px 4px 6px rgba(255, 255, 255, 0.45));
+  }
+}
+
+@keyframes glow-red {
+  0%,
+  100% {
+    filter: brightness(1) drop-shadow(3px 6px 12px rgba(255, 68, 68, 0.9));
+  }
+  50% {
+    filter: brightness(0.85) drop-shadow(2px 4px 6px rgba(255, 68, 68, 0.45));
+  }
+}
+
+@keyframes glow-green {
+  0%,
+  100% {
+    filter: brightness(1) drop-shadow(3px 6px 12px rgba(68, 221, 68, 0.9));
+  }
+  50% {
+    filter: brightness(0.85) drop-shadow(2px 4px 6px rgba(68, 221, 68, 0.45));
+  }
+}
+
+@keyframes glow-gold {
+  0%,
+  100% {
+    filter: brightness(1) drop-shadow(3px 6px 12px rgba(255, 204, 0, 0.9));
+  }
+  50% {
+    filter: brightness(0.85) drop-shadow(2px 4px 6px rgba(255, 204, 0, 0.45));
+  }
+}
+
+/* Toggle */
+.toggle-container-wrapper {
+  position: sticky;
+  top: 100px;
+  z-index: 35;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 60px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.toggle-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  background: var(--glass);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-soft);
+}
+
+.toggle-option .toggle-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.toggle-option:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-strong);
+}
+
+.toggle-switch {
+  position: relative;
+  width: 86px;
+  height: 44px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #1c88ff, #5fc6ff);
+  border-radius: 44px;
+  box-shadow: 10px 20px 30px rgba(95, 198, 255, 0.45);
+  transition: all 0.35s ease;
+  padding: 4px;
+}
+
+.slider-knob {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #0b1220;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: transform 0.35s ease;
+}
+
+input:checked + .slider {
+  background: linear-gradient(90deg, #ff5757, #ff9f7b);
+  box-shadow: 0 12px 30px rgba(255, 121, 121, 0.35);
+}
+
+input:checked + .slider .slider-knob {
+  transform: translateX(42px);
+}
+
+body[data-mode="hanukkah"] .hanukkah-option {
+  color: #9fd4ff;
+  border-color: rgba(110, 183, 255, 0.35);
+  box-shadow: 0 0 24px rgba(110, 183, 255, 0.35);
+}
+
+body[data-mode="christmas"] .christmas-option {
+  color: #ffb6b6;
+  border-color: rgba(255, 123, 123, 0.35);
+  box-shadow: 0 0 24px rgba(255, 123, 123, 0.35);
+}
+
+/* Titles */
+h1 {
+  font-family: "Playfair Display", serif;
+  text-align: center;
+  font-size: clamp(2.6rem, 4vw, 3.4rem);
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  transition: color 0.35s ease, text-shadow 0.35s ease;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  margin-bottom: 26px;
+}
+
+body[data-mode="hanukkah"] h1 {
+  color: #a9d8ff;
+  text-shadow: 0 10px 28px rgba(110, 183, 255, 0.4);
+}
+
+body[data-mode="christmas"] h1 {
+  color: #ffc1c1;
+  text-shadow: 0 10px 28px rgba(255, 123, 123, 0.4);
+}
+
+/* Cards / Panels */
+.instructions-card,
+.tree-customization,
+.decoration-controls,
+.night-selector-visual,
+.menorah-container,
+.tree-wrapper,
+.animated-scene {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(14px);
+}
+
+.instructions-card {
+  padding: 18px 20px;
+  margin-bottom: 20px;
+}
+
+.instructions-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.info-icon {
+  width: 22px;
+  height: 22px;
+  color: var(--text-secondary);
+}
+
+.instructions-card p {
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* Night Selector (Hanukkah) */
+.night-selector-visual {
+  padding: 28px 24px 32px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.selector-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.mini-menorah {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 12px;
+  align-items: end;
+  justify-items: center;
+  margin: 0 auto 28px;
+  max-width: 480px;
+  padding: 20px 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mini-candle {
+  width: 14px;
+  height: 38px;
+  border-radius: 7px 7px 5px 5px;
+  background: linear-gradient(180deg, #1f3f70, #12284a);
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s;
+}
+
+.mini-candle:hover:not(.shamash) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(110, 183, 255, 0.3);
+}
+
+.mini-candle.shamash {
+  height: 50px;
+  width: 16px;
+  margin: 0 6px;
+  background: linear-gradient(180deg, #f0f0f0, #c8d8e8);
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+}
+
+.mini-candle::after {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 14px;
+  border-radius: 50% 50% 45% 45%;
+  background: linear-gradient(180deg, #ffd37d, #ff7b00);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  box-shadow: 0 0 12px 4px rgba(255, 180, 0, 0.5);
+}
+
+.mini-candle.preview-lit {
+  box-shadow: 0 10px 20px rgba(110, 183, 255, 0.5);
+  transform: translateY(-3px);
+  background: linear-gradient(180deg, #5fa6f5, #2f70c8);
+}
+
+.mini-candle.preview-lit::after {
+  opacity: 1;
+}
+
+/* Night Display */
+.night-display {
+  display: inline-block;
+  padding: 20px 32px;
+  border-radius: 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 58, 95, 0.6),
+    rgba(15, 30, 50, 0.8)
+  );
+  border: 2px solid rgba(110, 183, 255, 0.3);
+  margin-bottom: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.night-display-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.night-stars .star {
+  font-size: 1.6rem;
+  color: #ffd700;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+  animation: star-pulse 2s ease-in-out infinite;
+}
+
+@keyframes star-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(0.9);
+  }
+}
+
+.night-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.night-display .night-label {
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.night-display .night-number {
+  font-family: "Playfair Display", serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffd700;
+  text-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+  line-height: 1;
+}
+
+.night-progress {
+  height: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.night-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #4da6ff, #ffd700);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px rgba(77, 166, 255, 0.5);
+}
+
+/* Menorah Style Selector */
+.menorah-style-selector {
+  margin-bottom: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.style-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+}
+
+.style-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.style-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.style-btn svg {
+  width: 50px;
+  height: 40px;
+}
+
+.style-btn span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.style-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(110, 183, 255, 0.4);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.style-btn.active {
+  background: linear-gradient(
+    135deg,
+    rgba(77, 166, 255, 0.2),
+    rgba(110, 183, 255, 0.1)
+  );
+  border-color: rgba(110, 183, 255, 0.6);
+  color: var(--text-primary);
+  box-shadow: 0 0 20px rgba(110, 183, 255, 0.3);
+}
+
+/* Light button toggle states */
+.action-btn.primary.lit {
+  background: linear-gradient(120deg, #ff8a8a, #ff5555);
+}
+
+.action-btn.primary .flame-icon {
+  transition: all 0.3s ease;
+  width: 24px;
+  height: 28px;
+}
+
+.action-btn.primary.lit .flame-icon {
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9)) brightness(1.2);
+}
+
+.action-btn.primary.lit .flame-icon .flame-outer,
+.action-btn.primary.lit .flame-icon .flame-inner,
+.action-btn.primary.lit .flame-icon .flame-core {
+  animation: flame-flicker 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes flame-flicker {
+  0% {
+    transform: scaleY(1) scaleX(1);
+  }
+  100% {
+    transform: scaleY(1.05) scaleX(0.95);
+  }
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s;
+  color: #0b1220;
+  box-shadow: var(--shadow-soft);
+}
+
+.action-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.action-btn.primary {
+  background: linear-gradient(120deg, #8bd0ff, #4fa6ff);
+}
+
+/* Menorah Preview Container */
+.menorah-preview-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.menorah-preview-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.menorah-preview-svg {
+  width: 160px;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3),
+    0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.preview-flame {
+  transition: opacity 0.3s ease;
+}
+
+.preview-flame.lit {
+  opacity: 1 !important;
+}
+
+/* Enhanced Menorah Light Button */
+.menorah-light-btn {
+  position: relative;
+  overflow: hidden;
+  padding: 16px 36px;
+  font-size: 1.1rem;
+  background: linear-gradient(120deg, #6eb7ff 0%, #4fa6ff 50%, #3d9aff 100%);
+  box-shadow: 0 6px 20px rgba(79, 166, 255, 0.4),
+    0 0 30px rgba(110, 183, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.menorah-light-btn:hover {
+  box-shadow: 0 8px 30px rgba(79, 166, 255, 0.5),
+    0 0 40px rgba(110, 183, 255, 0.3);
+}
+
+.menorah-light-btn .btn-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: btn-glow-sweep 3s ease-in-out infinite;
+}
+
+@keyframes btn-glow-sweep {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.menorah-light-btn.lit {
+  background: linear-gradient(120deg, #ffb347 0%, #ff8a5c 50%, #ff6b6b 100%);
+  box-shadow: 0 6px 20px rgba(255, 140, 100, 0.4),
+    0 0 30px rgba(255, 170, 100, 0.3);
+}
+
+.action-btn.secondary {
+  background: linear-gradient(120deg, #4b5563, #2f3640);
+  color: #e6e8ef;
+}
+
+.action-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-strong);
+  filter: brightness(1.06);
+}
+
+/* Menorah */
+.menorah-container {
+  padding: 50px 30px 50px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  min-height: 450px;
+}
+
+/* Room background with walls */
+.menorah-room-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, #2a1f1a 0%, #3d2d25 100%);
+  z-index: 0;
+}
+
+/* Left wall panel */
+.menorah-room-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100%;
+  background: linear-gradient(90deg, #1a1210 0%, #2a1f1a 60%, #3a2a22 100%);
+  border-right: 4px solid #4a3a32;
+  box-shadow: inset -10px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Right wall panel */
+.menorah-room-bg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20%;
+  height: 100%;
+  background: linear-gradient(-90deg, #1a1210 0%, #2a1f1a 60%, #3a2a22 100%);
+  border-left: 4px solid #4a3a32;
+  box-shadow: inset 10px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Window frame */
+.menorah-window-frame {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(420px, 55%);
+  height: calc(100% - 70px);
+  background: #1a0f0a;
+  border: 14px solid #5d4037;
+  border-radius: 8px 8px 0 0;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 0, 0, 0.4),
+    0 5px 25px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Glass pane effect */
+.menorah-window-frame .window-glass {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(200, 220, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(200, 220, 255, 0.05) 100%
+  );
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Glass reflection lines */
+.menorah-window-frame .window-glass::before {
+  content: "";
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 30%;
+  height: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-radius: 2px;
+  transform: skewY(-5deg);
+}
+
+/* Window divider (mullion) */
+.menorah-window-frame .window-mullion {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 100%;
+  background: linear-gradient(90deg, #4a3528, #6d4c38, #4a3528);
+  z-index: 11;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Horizontal mullion */
+.menorah-window-frame .window-mullion-h {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(180deg, #4a3528, #6d4c38, #4a3528);
+  z-index: 11;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Night sky inside window */
+.menorah-window-frame::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    #0a0a1a 0%,
+    #0f1428 40%,
+    #141e3a 70%,
+    #1a2850 100%
+  );
+}
+
+/* Stars in the night sky */
+.menorah-window-frame::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(2px 2px at 15% 20%, #fff 100%, transparent),
+    radial-gradient(2px 2px at 30% 35%, #fff 100%, transparent),
+    radial-gradient(1px 1px at 45% 15%, #fff 100%, transparent),
+    radial-gradient(2px 2px at 60% 40%, #fff 100%, transparent),
+    radial-gradient(1px 1px at 75% 25%, #fff 100%, transparent),
+    radial-gradient(2px 2px at 85% 45%, #fff 100%, transparent),
+    radial-gradient(1px 1px at 20% 55%, #fff 100%, transparent),
+    radial-gradient(1px 1px at 40% 60%, #fff 100%, transparent),
+    radial-gradient(2px 2px at 65% 50%, #fff 100%, transparent),
+    radial-gradient(1px 1px at 80% 65%, #fff 100%, transparent);
+  animation: twinkle-stars 3s ease-in-out infinite;
+}
+
+@keyframes twinkle-stars {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Moon inside window - top right corner */
+.menorah-moon {
+  position: absolute;
+  top: 40px;
+  left: calc(50% + 100px);
+  width: 35px;
+  height: 35px;
+  background: radial-gradient(circle at 30% 30%, #fffacd, #f0e68c);
+  border-radius: 50%;
+  box-shadow: 0 0 15px 6px rgba(255, 250, 205, 0.3),
+    0 0 30px 12px rgba(255, 250, 205, 0.1);
+  z-index: 2;
+}
+
+/* Window sill/ledge */
+.menorah-window-sill {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(450px, 68%);
+  height: 45px;
+  background: linear-gradient(180deg, #e8ddd0, #d4c9b8, #c4b9a8, #b8a898);
+  border-radius: 0 0 6px 6px;
+  box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.75),
+    inset 0 4px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 3;
+}
+
+/* Window sill wood grain */
+.menorah-window-sill::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 1px;
+}
+
+/* Window sill front edge */
+.menorah-window-sill::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: linear-gradient(180deg, #d4c9b8, #b8a898);
+  border-radius: 0 0 4px 4px;
+}
+
 .menorah {
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-    text-align: center;
-    white-space: nowrap;
-    padding: 0;
-    position: absolute;
-    width: 50%;
-    top: 500px;
-    border-bottom: 50px solid #FDB833;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(9, minmax(32px, 1fr));
+  gap: 12px;
+  align-items: end;
+  width: min(720px, 90vw);
+  padding-bottom: 72px;
+  z-index: 3;
+  transform: translateX(-30px);
 }
 
-/* Styles for the Candelabra base */
-.menorah:before {
-    content: "";
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-    position: absolute;
+/* Horizontal bar connecting all candles */
+.menorah::before {
+  content: "";
+  position: absolute;
+  bottom: 55px;
+  left: 0;
+  width: 100%;
+  height: 9px;
+  background: linear-gradient(180deg, #d4d4d4, #a0a0a0);
+  border-radius: 9px;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.45);
+  transition: all 0.4s ease;
+}
+
+/* Base plate connecting to horizontal bar */
+.menorah::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 55px;
+  background: linear-gradient(180deg, #c0c0c0, #808080);
+  border-radius: 8px 8px 30px 30px;
+  box-shadow: 0 8px 25px rgba(192, 192, 192, 0.35);
+  transition: all 0.4s ease;
+}
+
+/* Center stem for shamash */
+.menorah .candle-wrapper.shamash::before {
+  content: "";
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 40px;
+  background: linear-gradient(180deg, #c0c0c0, #707070);
+  border-radius: 6px;
+  z-index: -1;
+  transition: all 0.4s ease;
+}
+
+/* Vertical stems for regular candles - connect to horizontal bar */
+.menorah .candle-wrapper:not(.shamash)::before {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 18px;
+  background: linear-gradient(180deg, #c0c0c0, #909090);
+  border-radius: 3px;
+  z-index: -1;
+}
+
+/* Menorah style variations */
+.menorah.menorah-style-modern::before {
+  background: linear-gradient(180deg, #d4d4d4, #a0a0a0);
+  height: 6px;
+}
+
+.menorah.menorah-style-modern::after {
+  background: linear-gradient(180deg, #c0c0c0, #808080);
+  border-radius: 4px;
+}
+
+.menorah.menorah-style-modern .candle-wrapper.shamash::before {
+  background: linear-gradient(180deg, #c0c0c0, #707070);
+}
+
+.menorah.menorah-style-traditional::before {
+  background: linear-gradient(180deg, #ffd700, #daa520);
+  box-shadow: 0 2px 10px rgba(255, 215, 0, 0.4);
+  height: 10px;
+  border-radius: 5px;
+}
+
+.menorah.menorah-style-traditional::after {
+  background: linear-gradient(180deg, #ffd700, #b8860b);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+}
+
+.menorah.menorah-style-traditional .candle-wrapper.shamash::before {
+  background: linear-gradient(180deg, #ffd700, #b8860b);
+}
+
+.menorah.menorah-style-traditional .candle-wrapper:not(.shamash)::before {
+  background: linear-gradient(180deg, #ffd700, #daa520);
+}
+
+.menorah.menorah-style-oil::before {
+  background: linear-gradient(180deg, #a0522d, #6d3d1f);
+  height: 12px;
+  border-radius: 6px;
+}
+
+.menorah.menorah-style-oil::after {
+  background: linear-gradient(180deg, #8b4513, #5d3d1f);
+  height: 22px;
+  border-radius: 10px;
+}
+
+.menorah.menorah-style-oil .candle-wrapper.shamash::before {
+  background: linear-gradient(180deg, #8b4513, #5d3d1f);
+  height: 45px;
+}
+
+.menorah.menorah-style-oil .candle-wrapper:not(.shamash)::before {
+  background: linear-gradient(180deg, #8b4513, #6d3d1f);
+}
+
+.menorah.menorah-style-temple::before {
+  background: linear-gradient(180deg, #ffd700, #fff8dc, #daa520);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+  height: 12px;
+}
+
+.menorah.menorah-style-temple::after {
+  background: linear-gradient(180deg, #ffd700, #daa520);
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.5);
+  height: 22px;
+}
+
+.menorah.menorah-style-temple .candle-wrapper.shamash::before {
+  background: linear-gradient(180deg, #fff8dc, #ffd700, #daa520);
+  width: 28px;
+  height: 65px;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.menorah.menorah-style-temple .candle-wrapper:not(.shamash)::before {
+  background: linear-gradient(180deg, #ffd700, #daa520);
+  width: 8px;
+}
+
+.candle-wrapper {
+  position: relative;
+  width: 38px;
+  justify-self: center;
+  filter: var(--glow);
+}
+
+.candle-wrapper.shamash {
+  transform: translateY(-18px);
+}
+
+.candle-svg {
+  overflow: visible;
+}
+
+.candle-wrapper.lit .flame-group {
+  opacity: 1 !important;
+  animation: flame-dance 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes flame-dance {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(-2px) scale(1.03);
+  }
+}
+
+/* Hanukkah Scene */
+.animated-scene {
+  margin-top: 28px;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.scene-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scene-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Dreidel 3D spinning animation */
+.dreidel-3d-container {
+  perspective: 1000px;
+  width: 180px;
+  height: 260px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dreidel-3d {
+  position: relative;
+  width: 70px;
+  height: 70px; /* Just the cube body height */
+  margin: 50px auto 0;
+  transform-style: preserve-3d;
+  animation: spin-dreidel-3d 4s linear infinite;
+}
+
+/* Base style for every face - cube body only (no triangles) */
+.dreidel-face {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  backface-visibility: visible;
+}
+
+.dreidel-face svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Positioning the 4 sides around the center - faces pushed out by half width */
+.dreidel-front {
+  transform: rotateY(0deg) translateZ(35px);
+}
+.dreidel-right {
+  transform: rotateY(90deg) translateZ(35px);
+}
+.dreidel-back {
+  transform: rotateY(180deg) translateZ(35px);
+}
+.dreidel-left {
+  transform: rotateY(270deg) translateZ(35px);
+}
+
+/* Top face - closes the cube */
+.dreidel-top {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #ffd700, #daa520);
+  top: 0;
+  left: 0;
+  transform: rotateX(90deg) translateZ(35px);
+}
+
+/* Bottom pyramid triangles - 4 triangles meeting at a point */
+.dreidel-pyramid {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  top: 70px;
+  left: 0;
+  transform-style: preserve-3d;
+}
+
+.dreidel-pyramid-face {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  backface-visibility: visible;
+  transform-origin: top center;
+}
+
+/* Triangle pointing down - using clip-path */
+.dreidel-pyramid-face svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Each pyramid face tilts inward to meet at the bottom point */
+/* The angle is calculated so 4 triangles meet: approx 30 degrees */
+.dreidel-pyramid-front {
+  transform: rotateY(0deg) translateZ(35px) rotateX(-30deg);
+}
+.dreidel-pyramid-right {
+  transform: rotateY(90deg) translateZ(35px) rotateX(-30deg);
+}
+.dreidel-pyramid-back {
+  transform: rotateY(180deg) translateZ(35px) rotateX(-30deg);
+}
+.dreidel-pyramid-left {
+  transform: rotateY(270deg) translateZ(35px) rotateX(-30deg);
+}
+
+/* Dreidel handle - on top of the cube */
+/* .dreidel-handle {
+  position: absolute;
+  width: 16px;
+  height: 32px;
+  background: linear-gradient(90deg, #b8860b, #ffd700, #b8860b);
+  left: 27px;
+  top: -32px;
+  transform: translateZ(0);
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 -2px 8px rgba(255, 215, 0, 0.3);
+} */
+
+/* Handle top knob */
+/* .dreidel-handle::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 14px;
+  background: linear-gradient(135deg, #ffd700, #b8860b);
+  border-radius: 4px;
+} */
+
+/* Container for the 3D handle */
+.dreidel-handle-3d {
+  position: absolute;
+  width: 16px;
+  height: 30px;
+  left: 27px; /* (70px body width - 16px handle width) / 2 */
+  top: -30px;
+  transform-style: preserve-3d;
+}
+
+.handle-face {
+  position: absolute;
+  width: 16px;
+  height: 30px;
+  background: #ffd700;
+  border: 0.5px solid #b8860b;
+}
+
+/* Positioning the sides of the pillar */
+.handle-front {
+  transform: translateZ(9px);
+  background: linear-gradient(#ffec8b, #ffd700);
+}
+.handle-back {
+  transform: rotateY(180deg) translateZ(9px);
+  background: linear-gradient(#ffec8b, #ffd700);
+}
+.handle-right {
+  transform: rotateY(90deg) translateZ(9px);
+  background: linear-gradient(#ffec8b, #ffd700);
+}
+.handle-left {
+  transform: rotateY(-90deg) translateZ(9px);
+  background: linear-gradient(#ffec8b, #ffd700);
+}
+
+/* The top cap of the handle */
+.handle-top {
+  width: 16px;
+  height: 16px;
+  top: 0;
+  transform: rotateX(90deg) translateZ(9px);
+  background: #ffec8b;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/* 3D knob on top of the handle */
+.handle-top::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: 3px;
+  top: 3px;
+  background: #ffec8b;
+  transform: translateZ(3px); /* Raises it slightly off the top */
+  border: 1px solid #b8860b;
+}
+
+/* Dreidel table/surface */
+.dreidel-table {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 40px;
+  z-index: -1;
+}
+
+.dreidel-table-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.dreidel-ground-shadow {
+  position: absolute;
+  bottom: 55px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 16px;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: shadow-pulse-3d 4s ease-in-out infinite;
+}
+
+@keyframes spin-dreidel-3d {
+  from {
+    transform: rotateX(-15deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(-15deg) rotateY(-360deg);
+  }
+}
+
+@keyframes shadow-pulse-3d {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateX(-50%) scale(0.85);
+    opacity: 0.5;
+  }
+}
+
+/* Gelt box glow animation */
+.gelt-svg {
+  width: 180px;
+  height: 140px;
+}
+
+.gelt-svg .box-glow {
+  animation: box-glow-pulse 2s ease-in-out infinite;
+}
+
+.gelt-svg .coin {
+  animation: coin-glow 2.4s ease-in-out infinite;
+}
+
+.coin-2 {
+  animation-delay: 0.2s;
+}
+.coin-3 {
+  animation-delay: 0.4s;
+}
+.coin-4 {
+  animation-delay: 0.6s;
+}
+.coin-5 {
+  animation-delay: 0.8s;
+}
+.coin-6 {
+  animation-delay: 1s;
+}
+
+@keyframes box-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.1;
+    filter: blur(2px);
+  }
+  50% {
+    opacity: 0.25;
+    filter: blur(4px);
+  }
+}
+
+@keyframes coin-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(255, 215, 0, 1));
+  }
+}
+
+/* Latke in pan animation with flame */
+.latke-svg {
+  width: 180px;
+  height: 160px;
+}
+
+.latke-svg .oil-shimmer {
+  animation: oil-shimmer 3s ease-in-out infinite;
+}
+
+.latke-svg .latke-body {
+  animation: latke-sizzle 0.15s ease-in-out infinite;
+}
+
+.latke-svg .steam {
+  animation: steam-rise 2.4s ease-in-out infinite;
+}
+
+.latke-svg .steam.s2 {
+  animation-delay: 0.4s;
+}
+.latke-svg .steam.s3 {
+  animation-delay: 0.8s;
+}
+
+.latke-svg .sizzle-bubble {
+  animation: sizzle-pop 1.2s ease-in-out infinite;
+}
+
+.latke-svg .sizzle-bubble.b2 {
+  animation-delay: 0.2s;
+}
+.latke-svg .sizzle-bubble.b3 {
+  animation-delay: 0.4s;
+}
+.latke-svg .sizzle-bubble.b4 {
+  animation-delay: 0.6s;
+}
+.latke-svg .sizzle-bubble.b5 {
+  animation-delay: 0.8s;
+}
+
+/* Pan flame animations */
+.latke-svg .flame {
+  animation: flame-flicker 0.4s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+}
+
+.latke-svg .flame.f2 {
+  animation-delay: 0.1s;
+}
+.latke-svg .flame.f3 {
+  animation-delay: 0.2s;
+}
+.latke-svg .flame.f4 {
+  animation-delay: 0.15s;
+}
+.latke-svg .flame.f5 {
+  animation-delay: 0.25s;
+}
+
+.latke-svg .flame-inner {
+  animation: flame-inner-flicker 0.3s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+}
+
+.latke-svg .flame-inner.fi2 {
+  animation-delay: 0.1s;
+}
+.latke-svg .flame-inner.fi3 {
+  animation-delay: 0.15s;
+}
+
+@keyframes flame-flicker {
+  0% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scaleY(1.15) scaleX(0.9);
+    opacity: 1;
+  }
+}
+
+@keyframes flame-inner-flicker {
+  0% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scaleY(1.1) scaleX(0.95);
+    opacity: 1;
+  }
+}
+
+@keyframes oil-shimmer {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes latke-sizzle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.5px);
+  }
+}
+
+@keyframes steam-rise {
+  0% {
+    opacity: 0.1;
+    transform: translateY(5px) scaleX(0.8);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-8px) scaleX(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scaleX(0.9);
+  }
+}
+
+@keyframes sizzle-pop {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.2);
+  }
+}
+
+/* Sufganiyah animation */
+.sufganiyah-svg {
+  width: 120px;
+  height: 110px;
+}
+
+.sufganiyah-svg .jelly-center {
+  animation: jelly-wobble 2s ease-in-out infinite;
+}
+
+.sufganiyah-svg .jelly-drip {
+  animation: jelly-drip 2.5s ease-in-out infinite;
+}
+
+@keyframes jelly-wobble {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes jelly-drip {
+  0%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dashoffset: 8;
+  }
+}
+
+/* Oil Jug animation */
+.oil-jug-svg {
+  width: 120px;
+  height: 160px;
+}
+
+.scene-item.oil-jug {
+  flex-direction: column;
+  gap: 8px;
+}
+
+.oil-jug-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+  letter-spacing: 0.1em;
+}
+
+.oil-jug-svg .jug-glow {
+  animation: jug-glow-pulse 2.5s ease-in-out infinite;
+}
+
+.oil-jug-svg .oil-surface {
+  animation: oil-ripple 3s ease-in-out infinite;
+}
+
+.oil-jug-svg .oil-inside {
+  animation: oil-shimmer-glow 2s ease-in-out infinite;
+}
+
+.oil-jug-svg .oil-bubble {
+  animation: bubble-rise 2s ease-in-out infinite;
+}
+
+.oil-jug-svg .oil-bubble.b2 {
+  animation-delay: 0.5s;
+}
+
+.oil-jug-svg .oil-bubble.b3 {
+  animation-delay: 1s;
+}
+
+@keyframes jug-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes oil-ripple {
+  0%,
+  100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(1.02);
+  }
+}
+
+@keyframes oil-shimmer-glow {
+  0%,
+  100% {
+    opacity: 0.85;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes bubble-rise {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-5px) scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+/* WD-40 Can Animation */
+.wd40-svg {
+  width: 90px;
+  height: 130px;
+}
+
+.wd40-svg .spray {
+  animation: spray-out 1.5s ease-in-out infinite;
+}
+
+.wd40-svg .spray.s2 {
+  animation-delay: 0.2s;
+}
+
+.wd40-svg .spray.s3 {
+  animation-delay: 0.4s;
+}
+
+@keyframes spray-out {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+  20% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.4;
+    transform: translate(15px, -10px) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(25px, -15px) scale(0.8);
+  }
+}
+
+/* Christmas Section */
+.christmas-section {
+  margin-top: 28px;
+}
+
+.tree-customization {
+  padding: 18px 20px;
+  margin-bottom: 18px;
+}
+
+.tree-customization h3,
+.decoration-controls h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 14px;
+}
+
+.customization-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px 18px;
+}
+
+.custom-control {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--text-secondary);
+}
+
+.custom-control label {
+  letter-spacing: 0.05em;
+}
+
+.custom-control select,
+.custom-control input[type="range"] {
+  width: 100%;
+  appearance: none;
+  background: var(--glass-strong);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: var(--text-primary);
+  font-weight: 600;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.custom-control select:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Tree Type Style Selector - matches menorah style */
+.tree-type-control {
+  grid-column: 1 / -1;
+}
+
+.tree-style-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.tree-style-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tree-style-btn svg {
+  width: 50px;
+  height: 45px;
+}
+
+.tree-style-btn span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.tree-style-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 123, 123, 0.4);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.tree-style-btn.active {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 123, 123, 0.2),
+    rgba(255, 150, 150, 0.1)
+  );
+  border-color: rgba(255, 123, 123, 0.6);
+  color: var(--text-primary);
+  box-shadow: 0 0 20px rgba(255, 123, 123, 0.3);
+}
+
+.custom-control input[type="range"] {
+  padding: 0;
+  height: 10px;
+}
+
+.custom-control input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(120deg, #ffa5a5, #ff7b7b);
+  box-shadow: 0 6px 18px rgba(255, 123, 123, 0.35);
+}
+
+.range-value {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.decoration-controls {
+  padding: 18px 20px 20px;
+}
+
+.control-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.deco-btn,
+.topper-btn {
+  background: var(--glass-strong);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.deco-btn svg,
+.topper-btn svg {
+  width: 32px;
+  height: 32px;
+}
+
+.deco-btn:hover,
+.topper-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.deco-btn.active,
+.topper-btn.active {
+  border-color: rgba(255, 123, 123, 0.6);
+  box-shadow: 0 0 18px rgba(255, 123, 123, 0.35);
+}
+
+.topper-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  color: var(--text-secondary);
+}
+
+.topper-btn span {
+  font-weight: 700;
+}
+
+.tree-wrapper {
+  padding: 18px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1a0f0a 0%, #2a1510 50%, #1a0f0a 100%);
+}
+
+/* Room background elements */
+.tree-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    /* Window on left side */ radial-gradient(
+      ellipse 80px 100px at 8% 30%,
+      rgba(30, 60, 100, 0.4) 0%,
+      transparent 70%
+    ),
+    /* Warm lamp glow on right */
+      radial-gradient(
+        ellipse 120px 120px at 92% 25%,
+        rgba(255, 180, 80, 0.15) 0%,
+        transparent 70%
+      ),
+    /* Floor reflection */
+      linear-gradient(180deg, transparent 70%, rgba(139, 90, 43, 0.2) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Wall decorations - wreath shadow */
+.tree-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 6%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 8px solid rgba(46, 125, 50, 0.4);
+  box-shadow: 0 0 15px rgba(46, 125, 50, 0.2);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Tree fireplace SVG container */
+.tree-fireplace {
+  position: absolute;
+  bottom: 0;
+  left: 2%;
+  width: 340px;
+  height: 290px;
+  z-index: 0;
+}
+
+.tree-fireplace svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Fireplace flames animation for tree scene */
+.tree-fireplace .fire-flame {
+  animation: tree-fire-flicker 0.5s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+}
+
+.tree-fireplace .fire-flame.f2 {
+  animation-delay: 0.1s;
+}
+
+.tree-fireplace .fire-flame.f3 {
+  animation-delay: 0.2s;
+}
+
+.tree-fireplace .fire-inner {
+  animation: tree-fire-flicker 0.35s ease-in-out infinite alternate;
+  animation-delay: 0.15s;
+}
+
+@keyframes tree-fire-flicker {
+  0% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scaleY(1.01) scaleX(0.99);
+    opacity: 1;
+  }
+}
+
+.tree-fireplace .fp-stocking {
+  animation: none;
+}
+
+.tree-fireplace .fp-stocking:nth-child(2) {
+  animation-delay: 0s;
+}
+
+.tree-fireplace .fp-stocking:nth-child(3) {
+  animation-delay: 0s;
+}
+
+.tree-container {
+  position: relative;
+  width: min(500px, 95vw);
+  height: 580px;
+  cursor: crosshair;
+  z-index: 1;
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.1);
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.christmas-tree {
+  width: 100%;
+  height: 100%;
+  filter: var(--glow);
+}
+
+.tree-topper {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  z-index: 5;
+  filter: drop-shadow(0 0 16px rgba(255, 214, 108, 0.65));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tree-topper svg {
+  width: 100%;
+  height: 100%;
+}
+
+.tree-topper.star svg {
+  animation: star-spin 5s linear infinite;
+}
+
+.tree-topper.angel svg {
+  animation: topper-glow 2.6s ease-in-out infinite;
+}
+
+@keyframes star-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#treeLayers polygon {
+  transition: filter 0.3s ease;
+}
+
+#treeLayers polygon:hover {
+  filter: brightness(1.05) drop-shadow(0 0 10px rgba(255, 255, 255, 0.12));
+}
+
+.decorations {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.decoration {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.decoration:hover {
+  transform: translate(-50%, -50%) scale(1.15);
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+}
+
+/* Decoration animations */
+@keyframes decoration-place {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes decoration-remove {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+.decoration-preview {
+  pointer-events: none;
+}
+
+/* Hint for removing decorations */
+.decoration::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 2px dashed transparent;
+  border-radius: 50%;
+  transition: border-color 0.2s;
+}
+
+.decoration:hover::after {
+  border-color: rgba(255, 100, 100, 0.5);
+}
+
+.decoration.lights .light-glow {
+  animation: light-twinkle 1.2s ease-in-out infinite;
+}
+
+.decoration.string-lights .light-glow {
+  animation: light-twinkle 1.2s ease-in-out infinite;
+}
+
+.decoration.string-lights .light-glow:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.decoration.string-lights .light-glow:nth-child(3) {
+  animation-delay: 0.8s;
+}
+
+@keyframes light-twinkle {
+  0%,
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+  }
+  50% {
+    opacity: 0.7;
+    filter: drop-shadow(0 0 16px rgba(255, 215, 0, 1));
+  }
+}
+
+/* Christmas Scene */
+.christmas-scene {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-items: stretch;
+}
+
+/* Santa scene */
+.santa-svg {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+}
+
+.santa-svg .sleigh {
+  animation: sleigh-rock 3s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.santa-svg .santa {
+  animation: santa-wave 2s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.santa-svg .smoke {
+  animation: smoke-rise 2.5s ease-in-out infinite;
+}
+
+.santa-svg .smoke.s2 {
+  animation-delay: 0.3s;
+}
+.santa-svg .smoke.s3 {
+  animation-delay: 0.6s;
+}
+.santa-svg .smoke.s4 {
+  animation-delay: 0.9s;
+}
+
+@keyframes sleigh-rock {
+  0%,
+  100% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+}
+
+@keyframes santa-wave {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes smoke-rise {
+  0% {
+    transform: translateY(5px) scale(0.8);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-8px) scale(1.1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-18px) scale(0.9);
+    opacity: 0;
+  }
+}
+
+.twinkle-star {
+  animation: twinkle 1.6s ease-in-out infinite;
+}
+
+.twinkle-star.ts2 {
+  animation-delay: 0.3s;
+}
+.twinkle-star.ts3 {
+  animation-delay: 0.6s;
+}
+.twinkle-star.ts4 {
+  animation-delay: 0.9s;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.8));
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.9);
+    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 1));
+  }
+}
+
+/* Rudolph */
+.rudolph-svg {
+  width: 140px;
+  height: 150px;
+}
+
+.rudolph-svg .red-nose {
+  animation: nose-glow 1.2s ease-in-out infinite;
+}
+
+@keyframes nose-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.8))
+      drop-shadow(0 0 20px rgba(255, 0, 0, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 1))
+      drop-shadow(0 0 35px rgba(255, 0, 0, 0.6));
+  }
+}
+
+/* Snowflakes */
+.scene-item.snowflakes {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.snow-control {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.snow-btn {
+  padding: 6px 10px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.snow-btn:hover {
+  background: var(--glass-strong);
+  transform: translateY(-1px);
+}
+
+.snow-btn.active {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.snow-scene {
+  position: relative;
+  width: 100%;
+  min-width: 180px;
+  height: 140px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #1a2a4a 0%, #2a4a6a 100%);
+}
+
+.snowflakes-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.snowflake-particle {
+  animation: snowfall linear infinite;
+  will-change: transform;
+}
+
+@keyframes snowfall {
+  0% {
+    transform: translateY(-20px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(160px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Different snowflake sizes and speeds */
+.snowflake-particle.small {
+  animation-duration: 5s;
+}
+
+.snowflake-particle.medium {
+  animation-duration: 4s;
+}
+
+.snowflake-particle.large {
+  animation-duration: 3s;
+}
+
+/* Blizzard mode styling */
+.snow-scene.blizzard {
+  background: linear-gradient(180deg, #3a4a5a 0%, #5a6a7a 100%);
+}
+
+.snow-scene.blizzard .snowflake-particle {
+  animation-name: snowfall-wind;
+}
+
+@keyframes snowfall-wind {
+  0% {
+    transform: translateY(-20px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(70px) translateX(20px) rotate(180deg);
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(160px) translateX(-10px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Stocking */
+.scene-item.stocking {
+  flex-direction: column;
+}
+
+.stocking-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.stocking-svg {
+  width: 100px;
+  height: 150px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.stocking-gifts .gift {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.stocking-gifts .gift.hidden {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.stocking-gifts .gift.visible {
+  animation: gift-pop 0.5s ease-out forwards;
+}
+
+@keyframes gift-pop {
+  0% {
+    transform: translateY(20px) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-5px) scale(1.1);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.stuff-stocking-btn {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #43a047, #2e7d32);
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(67, 160, 71, 0.4);
+}
+
+.stuff-stocking-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 16px rgba(67, 160, 71, 0.5);
+}
+
+.stuff-stocking-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Gingerbread */
+.gingerbread-svg {
+  width: 100px;
+  height: 130px;
+  animation: gb-dance 1.5s ease-in-out infinite;
+}
+
+/* Fireplace */
+.fireplace-svg {
+  width: 220px;
+  height: 180px;
+}
+
+.fireplace-flames .flame {
+  animation: fireplace-flicker 0.6s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+}
+
+.fireplace-flames .flame-inner {
+  animation: fireplace-flicker 0.4s ease-in-out infinite alternate;
+  animation-delay: 0.1s;
+}
+
+.fireplace-flames .flame-core {
+  animation: fireplace-flicker 0.3s ease-in-out infinite alternate;
+  animation-delay: 0.2s;
+}
+
+@keyframes fireplace-flicker {
+  0% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scaleY(1.1) scaleX(0.95);
+    opacity: 1;
+  }
+}
+
+.ember {
+  animation: ember-glow 1s ease-in-out infinite;
+}
+
+.ember.e2 {
+  animation-delay: 0.2s;
+}
+.ember.e3 {
+  animation-delay: 0.4s;
+}
+.ember.e4 {
+  animation-delay: 0.6s;
+}
+
+@keyframes ember-glow {
+  0%,
+  100% {
+    opacity: 0.6;
+    filter: drop-shadow(0 0 2px rgba(255, 69, 0, 0.5));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(255, 69, 0, 1));
+  }
+}
+
+.fp-stocking {
+  animation: stocking-sway 3s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+.fp-stocking-2 {
+  animation-delay: 0.5s;
+}
+.fp-stocking-3 {
+  animation-delay: 1s;
+}
+
+@keyframes stocking-sway {
+  0%,
+  100% {
+    transform: translate(var(--tx, 80px), 9px) rotate(-1deg);
+  }
+  50% {
+    transform: translate(var(--tx, 80px), 9px) rotate(1deg);
+  }
+}
+
+.fp-stocking-1 {
+  --tx: 25px;
+}
+.fp-stocking-2 {
+  --tx: 80px;
+}
+.fp-stocking-3 {
+  --tx: 135px;
+}
+
+/* Removal hint styling */
+.removal-hint {
+  display: block;
+  margin-top: 8px;
+  color: #ff9999;
+  font-size: 0.9em;
+}
+
+@keyframes gb-dance {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  25% {
+    transform: translateY(-6px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  75% {
+    transform: translateY(-6px) rotate(2deg);
+  }
+}
+
+/* Gifts */
+.gifts-svg {
+  width: 180px;
+  height: 140px;
+}
+
+.gifts-svg rect {
+  animation: gift-glow 3s ease-in-out infinite;
+}
+
+@keyframes gift-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.1));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+  }
+}
+
+/* Misc */
+.scene-item svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.action-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .toggle-container {
+    margin-top: 90px;
+    flex-wrap: wrap;
+  }
+
+  .tree-container {
+    height: 460px;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-container {
+    padding: 24px 16px 100px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .mini-menorah {
+    gap: 6px;
+  }
+
+  .tree-container {
+    height: 380px;
+  }
+
+  .tree-topper {
     width: 50px;
-    height: 175px;
-    border-radius: 0 0 5px 5px;
-    top: 175px;
-    left: 0;
-    background: #FDB833;
-}
-
-/* Styles for the candles */
-.menorah li {
-    position: relative;
-    list-style: none;
-    margin: 0 15px;
-    padding: 0;
-    display: inline-block;
-    width: 50px;
-    top: 15px;
-    border-radius: 10px;
-    border-bottom: 10px solid #000;
-}
-
-.menorah li.shamesh {
-    position: relative;
-    list-style: none;
-    margin: 0 15px;
-    padding: 0;
-    display: inline-block;
-    width: 50px;
-    height: 150px;
-    top: 15px;
-    border-radius: 10px;
-    border-bottom: 10px solid #000;
-}
-
-.menorah li:nth-child(1) {
-    height: 55px;
-    background: #808080;
-}
-
-.menorah li:nth-child(2) {
-    height: 45px;
-    background: #800000;
-}
-
-.menorah li:nth-child(3) {
-    height: 15px;
-    background: #ffa500;
-}
-
-.menorah li:nth-child(4) {
-    height: 75px;
-    background: #ffc0cb;
-}
-
-.menorah li:nth-child(5) {
-    background: #ffffff;
-}
-
-.menorah li:nth-child(6) {
-    height: 35px;
-    background: #ffe761;
-}
-
-.menorah li:nth-child(7) {
-    height: 55px;
-    background: #ed1c24;
-}
-
-.menorah li:nth-child(8) {
-    height: 65px;
-    background: #1789fc;
-}
-
-.menorah li:nth-child(9) {
-    height: 25px;
-    background: #ff00ff;
-}
-
-/* Styles for the flames */
-.menorah li .flame-1 {
-    content: "";
-    margin: 0 15px;
-    position: absolute;
-    width: 15px;
     height: 50px;
-    border-radius: 50%;
-    top: -45px;
-    left: 0px;
-    animation-name: flame-1;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-}
-
-.menorah li .flame-2 {
-    content: "";
-    margin: 0 15px;
-    position: absolute;
-    width: 15px;
-    height: 40px;
-    border-radius: 50%;
-    top: 10px;
-    left: -15px;
-    animation-name: flame-2;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-}
-
-.menorah li .flame-3 {
-    content: "";
-    margin: 0 15px;
-    position: absolute;
-    width: 15px;
-    height: 30px;
-    border-radius: 50%;
-    top: 10px;
-    left: -15px;
-    animation-name: flame-3;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-}
-
-.menorah li .flame-4 {
-    content: "";
-    margin: 0 15px;
-    position: absolute;
-    width: 15px;
-    height: 20px;
-    border-radius: 50%;
-    top: 10px;
-    left: -15px;
-    animation-name: flame-4;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-}
-
-.menorah li .flame-5 {
-    content: "";
-    margin: 0 15px;
-    position: absolute;
-    width: 15px;
-    height: 10px;
-    border-radius: 50%;
-    top: 10px;
-    left: -15px;
-    animation-name: flame-5;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-}
-
-/* Animations for the different flames */
-@keyframes flame-1 {
-    0%, 100% {
-        background: rgba(128, 0, 0, 1.0);
-        box-shadow: 0 2px 20px 4px rgba(128, 0, 0, 1.0);
-    }
-    50% {
-        background: rgba(128, 0, 0, 0.5);
-        box-shadow: 0 2px 20px 4px rgba(128, 0, 0, 0.5);
-    }
-}
-
-@keyframes flame-2 {
-    0%, 100% {
-        background: rgba(255, 165, 0, 1.0);
-        box-shadow: 0 2px 20px 4px rgba(255, 165, 0, 1.0);
-    }
-    50% {
-        background: rgba(255, 165, 0, 0.5);
-        box-shadow: 0 2px 20px 4px rgba(255, 165, 0, 0.5);
-    }
-}
-
-@keyframes flame-3 {
-    0%, 100% {
-        background: rgba(255, 231, 97, 1.0);
-        box-shadow: 0 2px 20px 4px rgba(255, 231, 97, 1.0);
-    }
-    50% {
-        background: rgba(255, 231, 97, 0.5);
-        box-shadow: 0 2px 20px 4px rgba(255, 231, 97, 0.5);
-    }
-}
-
-@keyframes flame-4 {
-    0%, 100% {
-        background: rgba(255, 255, 255, 1.0);
-        box-shadow: 0 2px 20px 4px rgba(255, 255, 255, 1.0);
-    }
-    50% {
-        background: rgba(255, 255, 255, 0.5);
-        box-shadow: 0 2px 20px 4px rgba(255, 255, 255, 0.5);
-    }
-}
-
-@keyframes flame-5 {
-    0%, 100% {
-        background: rgba(23, 137, 252, 1.0);
-        box-shadow: 0 2px 20px 4px rgba(23, 137, 252, 1.0);
-    }
-    50% {
-        background: rgba(23, 137, 252, 0.5);
-        box-shadow: 0 2px 20px 4px rgba(23, 137, 252, 0.5);
-    }
+  }
 }

@@ -1,144 +1,5133 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hanukkah Lights</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Mountains+of+Christmas" rel="stylesheet">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Holiday Lights</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <div class="page-container">
-        <ul class="wire">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-        <h1>Merry Hanukkah</h1>
-        <p>Eat some latkes and don't forget to light your candles.</p>
-        <ul class="menorah">
-            <li>
-                <div class="flame-1">
-                    <div class="flame-2">
-                        <div class="flame-3">
-                            <div class="flame-4">
-                                <div class="flame-5"></div>
-                            </div>
-                        </div>
-                    </div>
+      <!-- String Lights -->
+      <div class="wire" id="stringLights"></div>
+      <div class="light-switch-panel" id="lightSwitchPanel">
+        <div
+          class="light-switch-container"
+          id="stringLightsToggle"
+          title="Toggle String Lights"
+        >
+          <div class="light-switch-plate">
+            <div class="switch-screws">
+              <div class="screw"></div>
+              <div class="screw"></div>
+            </div>
+            <div class="switch-track">
+              <div class="switch-toggle" id="switchToggle">
+                <div class="switch-paddle"></div>
+              </div>
+            </div>
+          </div>
+          <span class="switch-label">LIGHTS</span>
+        </div>
+        <div class="dimmer-control">
+          <input
+            type="range"
+            id="lightDimmer"
+            min="20"
+            max="100"
+            value="100"
+            class="dimmer-slider"
+          />
+          <span class="dimmer-label">DIM</span>
+        </div>
+      </div>
+
+      <!-- Mode Toggle -->
+      <div class="toggle-container-wrapper">
+        <div class="toggle-container">
+          <div class="toggle-option hanukkah-option" data-mode="hanukkah">
+            <svg class="toggle-icon" viewBox="0 0 64 64" fill="currentColor">
+              <rect x="30" y="20" width="4" height="30" rx="1" fill="#ffd700" />
+              <rect x="14" y="28" width="4" height="22" rx="1" fill="#4da6ff" />
+              <rect x="22" y="28" width="4" height="22" rx="1" fill="#4da6ff" />
+              <rect x="38" y="28" width="4" height="22" rx="1" fill="#4da6ff" />
+              <rect x="46" y="28" width="4" height="22" rx="1" fill="#4da6ff" />
+              <ellipse cx="32" cy="17" rx="4" ry="6" fill="#ff9500" />
+              <rect x="10" y="50" width="44" height="6" rx="2" fill="#ffd700" />
+            </svg>
+            <span>Hanukkah</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="modeToggle" />
+            <span class="slider">
+              <span class="slider-knob"></span>
+            </span>
+          </label>
+          <div class="toggle-option christmas-option" data-mode="christmas">
+            <svg class="toggle-icon" viewBox="0 0 64 64" fill="currentColor">
+              <polygon points="32,8 12,50 52,50" fill="#228b22" />
+              <polygon points="32,18 18,45 46,45" fill="#2e8b2e" />
+              <rect x="27" y="50" width="10" height="10" fill="#8b4513" />
+              <polygon points="32,5 30,12 34,12" fill="#ffd700" />
+              <circle cx="25" cy="35" r="3" fill="#ff3333" />
+              <circle cx="38" cy="40" r="3" fill="#ffd700" />
+              <circle cx="32" cy="28" r="2" fill="#4da6ff" />
+            </svg>
+            <span>Christmas</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dynamic Title -->
+      <h1 id="mainTitle">Happy Hanukkah</h1>
+      <p id="mainSubtitle" class="subtitle">Celebrate the Festival of Lights</p>
+
+      <!-- Hanukkah Section -->
+      <div class="hanukkah-section" id="hanukkahSection">
+        <!-- Instructions -->
+        <div class="instructions-card">
+          <div class="instructions-header">
+            <svg
+              class="info-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
+            <span>How to Light Your Menorah</span>
+          </div>
+          <p>
+            Click on any candle to select the current night of Hanukkah. The
+            Shamash (helper candle) in the center will always light first, then
+            candles will light from right to left, following tradition.
+          </p>
+        </div>
+
+        <!-- Night Selector - Interactive Menorah Preview -->
+        <div class="night-selector-visual">
+          <!-- Night Display -->
+          <div class="night-display">
+            <div class="night-display-inner">
+              <div class="night-stars">
+                <span class="star">✡</span>
+              </div>
+              <div class="night-info">
+                <span class="night-label">Night of Hanukkah</span>
+                <span class="night-number" id="nightNumber">1</span>
+              </div>
+              <div class="night-stars">
+                <span class="star">✡</span>
+              </div>
+            </div>
+            <div class="night-progress">
+              <div
+                class="night-progress-bar"
+                id="nightProgressBar"
+                style="width: 12.5%"
+              ></div>
+            </div>
+          </div>
+          <p class="selector-label">Select Tonight's Candles</p>
+
+          <!-- Mini Menorah for night selection - candles are numbered 1-8 from right to left -->
+          <div class="mini-menorah" id="miniMenorah">
+            <div class="mini-candle" data-night="8" data-position="left"></div>
+            <div class="mini-candle" data-night="7" data-position="left"></div>
+            <div class="mini-candle" data-night="6" data-position="left"></div>
+            <div class="mini-candle" data-night="5" data-position="left"></div>
+            <div class="mini-candle shamash" data-night="0"></div>
+            <div class="mini-candle" data-night="4" data-position="right"></div>
+            <div class="mini-candle" data-night="3" data-position="right"></div>
+            <div class="mini-candle" data-night="2" data-position="right"></div>
+            <div class="mini-candle" data-night="1" data-position="right"></div>
+          </div>
+
+          <!-- Menorah Style Selector -->
+          <div class="menorah-style-selector">
+            <p class="style-label">Menorah Style</p>
+            <div class="style-options">
+              <button
+                class="style-btn active"
+                data-style="modern"
+                title="Modern Menorah"
+              >
+                <svg viewBox="0 0 60 50">
+                  <defs>
+                    <linearGradient
+                      id="modernSilver"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="100%"
+                    >
+                      <stop offset="0%" style="stop-color: #e8e8e8" />
+                      <stop offset="50%" style="stop-color: #c0c0c0" />
+                      <stop offset="100%" style="stop-color: #a0a0a0" />
+                    </linearGradient>
+                    <linearGradient
+                      id="modernBlue"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%"
+                    >
+                      <stop offset="0%" style="stop-color: #3d8bff" />
+                      <stop offset="50%" style="stop-color: #6eb7ff" />
+                      <stop offset="100%" style="stop-color: #3d8bff" />
+                    </linearGradient>
+                    <filter id="modernGlow">
+                      <feGaussianBlur stdDeviation="1" result="blur" />
+                      <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <!-- Sleek base -->
+                  <rect
+                    x="5"
+                    y="42"
+                    width="50"
+                    height="5"
+                    rx="2"
+                    fill="url(#modernSilver)"
+                  />
+                  <rect
+                    x="8"
+                    y="40"
+                    width="44"
+                    height="3"
+                    rx="1"
+                    fill="url(#modernSilver)"
+                  />
+                  <!-- Center elevated stem for shamash -->
+                  <rect
+                    x="27"
+                    y="12"
+                    width="6"
+                    height="28"
+                    rx="2"
+                    fill="url(#modernSilver)"
+                  />
+                  <!-- Shamash candle (elevated) -->
+                  <rect
+                    x="27"
+                    y="5"
+                    width="6"
+                    height="10"
+                    rx="2"
+                    fill="url(#modernBlue)"
+                  />
+                  <ellipse
+                    cx="30"
+                    cy="3"
+                    rx="3"
+                    ry="4"
+                    fill="#ff8c00"
+                    filter="url(#modernGlow)"
+                  />
+                  <!-- 8 candles with metal cups -->
+                  <rect
+                    x="5"
+                    y="38"
+                    width="4"
+                    height="5"
+                    rx="1"
+                    fill="url(#modernSilver)"
+                  />
+                  <rect
+                    x="5"
+                    y="22"
+                    width="4"
+                    height="18"
+                    rx="1"
+                    fill="url(#modernBlue)"
+                  />
+                  <ellipse
+                    cx="7"
+                    cy="20"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#modernGlow)"
+                  />
+                  <rect
+                    x="12"
+                    y="38"
+                    width="4"
+                    height="5"
+                    rx="1"
+                    fill="url(#modernSilver)"
+                  />
+                  <rect
+                    x="12"
+                    y="22"
+                    width="4"
+                    height="18"
+                    rx="1"
+                    fill="url(#modernBlue)"
+                  />
+                  <ellipse
+                    cx="14"
+                    cy="20"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#modernGlow)"
+                  />
+                  <rect
+                    x="19"
+                    y="38"
+                    width="4"
+                    height="5"
+                    rx="1"
+                    fill="url(#modernSilver)"
+                  />
+                  <rect
+                    x="19"
+                    y="22"
+                    width="4"
+                    height="18"
+                    rx="1"
+                    fill="url(#modernBlue)"
+                  />
+                  <ellipse
+                    cx="21"
+                    cy="20"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#modernGlow)"
+                  />
+                  <rect
+                    x="37"
+                    y="38"
+                    width="4"
+                    height="5"
+                    rx="1"
+                    fill="url(#modernSilver)"
+                  />
+                  <rect
+                    x="37"
+                    y="22"
+                    width="4"
+                    height="18"
+                    rx="1"
+                    fill="url(#modernBlue)"
+                  />
+                  <ellipse
+                    cx="39"
+                    cy="20"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#modernGlow)"
+                  />
+                  <rect
+                    x="44"
+                    y="38"
+                    width="4"
+                    height="5"
+                    rx="1"
+                    fill="url(#modernSilver)"
+                  />
+                  <rect
+                    x="44"
+                    y="22"
+                    width="4"
+                    height="18"
+                    rx="1"
+                    fill="url(#modernBlue)"
+                  />
+                  <ellipse
+                    cx="46"
+                    cy="20"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#modernGlow)"
+                  />
+                  <rect
+                    x="51"
+                    y="38"
+                    width="4"
+                    height="5"
+                    rx="1"
+                    fill="url(#modernSilver)"
+                  />
+                  <rect
+                    x="51"
+                    y="22"
+                    width="4"
+                    height="18"
+                    rx="1"
+                    fill="url(#modernBlue)"
+                  />
+                  <ellipse
+                    cx="53"
+                    cy="20"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#modernGlow)"
+                  />
+                </svg>
+                <span>Modern</span>
+              </button>
+              <button
+                class="style-btn"
+                data-style="traditional"
+                title="Traditional Menorah"
+              >
+                <svg viewBox="0 0 60 50">
+                  <defs>
+                    <linearGradient
+                      id="tradGold"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="100%"
+                    >
+                      <stop offset="0%" style="stop-color: #fff8dc" />
+                      <stop offset="50%" style="stop-color: #ffd700" />
+                      <stop offset="100%" style="stop-color: #b8860b" />
+                    </linearGradient>
+                    <linearGradient
+                      id="tradCandle"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%"
+                    >
+                      <stop offset="0%" style="stop-color: #3d8bff" />
+                      <stop offset="50%" style="stop-color: #87ceeb" />
+                      <stop offset="100%" style="stop-color: #3d8bff" />
+                    </linearGradient>
+                    <filter id="tradGlow">
+                      <feGaussianBlur stdDeviation="1" />
+                    </filter>
+                  </defs>
+                  <!-- curved base -->
+                  <ellipse
+                    cx="30"
+                    cy="46"
+                    rx="22"
+                    ry="3"
+                    fill="url(#tradGold)"
+                  />
+                  <rect
+                    x="12"
+                    y="42"
+                    width="36"
+                    height="5"
+                    rx="2"
+                    fill="url(#tradGold)"
+                  />
+                  <!-- Center stem -->
+                  <rect
+                    x="28"
+                    y="10"
+                    width="4"
+                    height="32"
+                    rx="1"
+                    fill="url(#tradGold)"
+                  />
+                  <!-- Curved branches -->
+                  <path
+                    d="M6,18 Q6,30 14,38 L14,42"
+                    stroke="url(#tradGold)"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M13,18 Q13,28 19,36 L19,42"
+                    stroke="url(#tradGold)"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M20,18 Q20,26 24,34 L24,42"
+                    stroke="url(#tradGold)"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M54,18 Q54,30 46,38 L46,42"
+                    stroke="url(#tradGold)"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M47,18 Q47,28 41,36 L41,42"
+                    stroke="url(#tradGold)"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M40,18 Q40,26 36,34 L36,42"
+                    stroke="url(#tradGold)"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                  <!-- Candles with flames -->
+                  <rect
+                    x="4"
+                    y="8"
+                    width="4"
+                    height="12"
+                    rx="1"
+                    fill="url(#tradCandle)"
+                  />
+                  <ellipse
+                    cx="6"
+                    cy="6"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#tradGlow)"
+                  />
+                  <rect
+                    x="11"
+                    y="8"
+                    width="4"
+                    height="12"
+                    rx="1"
+                    fill="url(#tradCandle)"
+                  />
+                  <ellipse
+                    cx="13"
+                    cy="6"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#tradGlow)"
+                  />
+                  <rect
+                    x="18"
+                    y="8"
+                    width="4"
+                    height="12"
+                    rx="1"
+                    fill="url(#tradCandle)"
+                  />
+                  <ellipse
+                    cx="20"
+                    cy="6"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#tradGlow)"
+                  />
+                  <!-- Shamash -->
+                  <rect
+                    x="28"
+                    y="2"
+                    width="4"
+                    height="10"
+                    rx="1"
+                    fill="#f0f0f0"
+                  />
+                  <ellipse
+                    cx="30"
+                    cy="0"
+                    rx="2.5"
+                    ry="3.5"
+                    fill="#ffd700"
+                    filter="url(#tradGlow)"
+                  />
+                  <rect
+                    x="38"
+                    y="8"
+                    width="4"
+                    height="12"
+                    rx="1"
+                    fill="url(#tradCandle)"
+                  />
+                  <ellipse
+                    cx="40"
+                    cy="6"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#tradGlow)"
+                  />
+                  <rect
+                    x="45"
+                    y="8"
+                    width="4"
+                    height="12"
+                    rx="1"
+                    fill="url(#tradCandle)"
+                  />
+                  <ellipse
+                    cx="47"
+                    cy="6"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#tradGlow)"
+                  />
+                  <rect
+                    x="52"
+                    y="8"
+                    width="4"
+                    height="12"
+                    rx="1"
+                    fill="url(#tradCandle)"
+                  />
+                  <ellipse
+                    cx="54"
+                    cy="6"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#tradGlow)"
+                  />
+                </svg>
+                <span>Traditional</span>
+              </button>
+              <button class="style-btn" data-style="oil" title="Oil Candelabra">
+                <svg viewBox="0 0 60 50">
+                  <defs>
+                    <linearGradient
+                      id="oilWood"
+                      x1="0%"
+                      y1="0%"
+                      x2="0%"
+                      y2="100%"
+                    >
+                      <stop offset="0%" style="stop-color: #a0522d" />
+                      <stop offset="50%" style="stop-color: #8b4513" />
+                      <stop offset="100%" style="stop-color: #5d3a1a" />
+                    </linearGradient>
+                    <linearGradient
+                      id="oilGold"
+                      x1="0%"
+                      y1="100%"
+                      x2="0%"
+                      y2="0%"
+                    >
+                      <stop offset="0%" style="stop-color: #daa520" />
+                      <stop offset="50%" style="stop-color: #ffd700" />
+                      <stop offset="100%" style="stop-color: #ffec8b" />
+                    </linearGradient>
+                    <filter id="oilGlow">
+                      <feGaussianBlur stdDeviation="1.5" result="blur" />
+                      <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <!-- Wooden base -->
+                  <rect
+                    x="5"
+                    y="42"
+                    width="50"
+                    height="6"
+                    rx="2"
+                    fill="url(#oilWood)"
+                  />
+                  <ellipse
+                    cx="30"
+                    cy="42"
+                    rx="25"
+                    ry="3"
+                    fill="url(#oilWood)"
+                  />
+                  <!-- Center stem -->
+                  <rect
+                    x="28"
+                    y="18"
+                    width="4"
+                    height="24"
+                    rx="1"
+                    fill="url(#oilWood)"
+                  />
+                  <!-- Oil cups with glass effect and golden oil -->
+                  <ellipse
+                    cx="7"
+                    cy="28"
+                    rx="5"
+                    ry="3"
+                    fill="rgba(200,220,255,0.3)"
+                    stroke="rgba(255,255,255,0.5)"
+                    stroke-width="0.5"
+                  />
+                  <ellipse
+                    cx="7"
+                    cy="26"
+                    rx="4"
+                    ry="5"
+                    fill="url(#oilGold)"
+                    opacity="0.9"
+                  />
+                  <ellipse
+                    cx="6"
+                    cy="24"
+                    rx="1.5"
+                    ry="2"
+                    fill="#fff"
+                    opacity="0.4"
+                  />
+                  <ellipse
+                    cx="7"
+                    cy="20"
+                    rx="2"
+                    ry="3"
+                    fill="#ff6600"
+                    filter="url(#oilGlow)"
+                  />
+                  <ellipse
+                    cx="16"
+                    cy="28"
+                    rx="5"
+                    ry="3"
+                    fill="rgba(200,220,255,0.3)"
+                    stroke="rgba(255,255,255,0.5)"
+                    stroke-width="0.5"
+                  />
+                  <ellipse
+                    cx="16"
+                    cy="26"
+                    rx="4"
+                    ry="5"
+                    fill="url(#oilGold)"
+                    opacity="0.9"
+                  />
+                  <ellipse
+                    cx="15"
+                    cy="24"
+                    rx="1.5"
+                    ry="2"
+                    fill="#fff"
+                    opacity="0.4"
+                  />
+                  <ellipse
+                    cx="16"
+                    cy="20"
+                    rx="2"
+                    ry="3"
+                    fill="#ff6600"
+                    filter="url(#oilGlow)"
+                  />
+                  <ellipse
+                    cx="24"
+                    cy="28"
+                    rx="5"
+                    ry="3"
+                    fill="rgba(200,220,255,0.3)"
+                    stroke="rgba(255,255,255,0.5)"
+                    stroke-width="0.5"
+                  />
+                  <ellipse
+                    cx="24"
+                    cy="26"
+                    rx="4"
+                    ry="5"
+                    fill="url(#oilGold)"
+                    opacity="0.9"
+                  />
+                  <ellipse
+                    cx="23"
+                    cy="24"
+                    rx="1.5"
+                    ry="2"
+                    fill="#fff"
+                    opacity="0.4"
+                  />
+                  <ellipse
+                    cx="24"
+                    cy="20"
+                    rx="2"
+                    ry="3"
+                    fill="#ff6600"
+                    filter="url(#oilGlow)"
+                  />
+                  <!-- Center shamash (elevated) -->
+                  <ellipse
+                    cx="30"
+                    cy="18"
+                    rx="6"
+                    ry="4"
+                    fill="rgba(200,220,255,0.3)"
+                    stroke="rgba(255,255,255,0.5)"
+                    stroke-width="0.5"
+                  />
+                  <ellipse cx="30" cy="16" rx="5" ry="6" fill="url(#oilGold)" />
+                  <ellipse
+                    cx="29"
+                    cy="13"
+                    rx="2"
+                    ry="2.5"
+                    fill="#fff"
+                    opacity="0.5"
+                  />
+                  <ellipse
+                    cx="30"
+                    cy="8"
+                    rx="3"
+                    ry="4"
+                    fill="#ffd700"
+                    filter="url(#oilGlow)"
+                  />
+                  <ellipse
+                    cx="36"
+                    cy="28"
+                    rx="5"
+                    ry="3"
+                    fill="rgba(200,220,255,0.3)"
+                    stroke="rgba(255,255,255,0.5)"
+                    stroke-width="0.5"
+                  />
+                  <ellipse
+                    cx="36"
+                    cy="26"
+                    rx="4"
+                    ry="5"
+                    fill="url(#oilGold)"
+                    opacity="0.9"
+                  />
+                  <ellipse
+                    cx="35"
+                    cy="24"
+                    rx="1.5"
+                    ry="2"
+                    fill="#fff"
+                    opacity="0.4"
+                  />
+                  <ellipse
+                    cx="36"
+                    cy="20"
+                    rx="2"
+                    ry="3"
+                    fill="#ff6600"
+                    filter="url(#oilGlow)"
+                  />
+                  <ellipse
+                    cx="44"
+                    cy="28"
+                    rx="5"
+                    ry="3"
+                    fill="rgba(200,220,255,0.3)"
+                    stroke="rgba(255,255,255,0.5)"
+                    stroke-width="0.5"
+                  />
+                  <ellipse
+                    cx="44"
+                    cy="26"
+                    rx="4"
+                    ry="5"
+                    fill="url(#oilGold)"
+                    opacity="0.9"
+                  />
+                  <ellipse
+                    cx="43"
+                    cy="24"
+                    rx="1.5"
+                    ry="2"
+                    fill="#fff"
+                    opacity="0.4"
+                  />
+                  <ellipse
+                    cx="44"
+                    cy="20"
+                    rx="2"
+                    ry="3"
+                    fill="#ff6600"
+                    filter="url(#oilGlow)"
+                  />
+                  <ellipse
+                    cx="53"
+                    cy="28"
+                    rx="5"
+                    ry="3"
+                    fill="rgba(200,220,255,0.3)"
+                    stroke="rgba(255,255,255,0.5)"
+                    stroke-width="0.5"
+                  />
+                  <ellipse
+                    cx="53"
+                    cy="26"
+                    rx="4"
+                    ry="5"
+                    fill="url(#oilGold)"
+                    opacity="0.9"
+                  />
+                  <ellipse
+                    cx="52"
+                    cy="24"
+                    rx="1.5"
+                    ry="2"
+                    fill="#fff"
+                    opacity="0.4"
+                  />
+                  <ellipse
+                    cx="53"
+                    cy="20"
+                    rx="2"
+                    ry="3"
+                    fill="#ff6600"
+                    filter="url(#oilGlow)"
+                  />
+                </svg>
+                <span>Oil Lamps</span>
+              </button>
+              <button
+                class="style-btn"
+                data-style="temple"
+                title="Temple Menorah"
+              >
+                <svg viewBox="0 0 60 55">
+                  <defs>
+                    <linearGradient
+                      id="templeGold"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="100%"
+                    >
+                      <stop offset="0%" style="stop-color: #fff8dc" />
+                      <stop offset="30%" style="stop-color: #ffd700" />
+                      <stop offset="70%" style="stop-color: #daa520" />
+                      <stop offset="100%" style="stop-color: #b8860b" />
+                    </linearGradient>
+                    <filter id="templeGlow">
+                      <feGaussianBlur stdDeviation="1.5" result="blur" />
+                      <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <!-- Ornate base with steps -->
+                  <rect
+                    x="10"
+                    y="48"
+                    width="40"
+                    height="5"
+                    rx="2"
+                    fill="url(#templeGold)"
+                  />
+                  <rect
+                    x="15"
+                    y="45"
+                    width="30"
+                    height="4"
+                    rx="1"
+                    fill="url(#templeGold)"
+                  />
+                  <rect
+                    x="20"
+                    y="42"
+                    width="20"
+                    height="4"
+                    rx="1"
+                    fill="url(#templeGold)"
+                  />
+                  <!-- Center stem -->
+                  <rect
+                    x="28"
+                    y="12"
+                    width="4"
+                    height="30"
+                    rx="1"
+                    fill="url(#templeGold)"
+                  />
+                  <!-- Decorative center knob -->
+                  <circle cx="30" cy="28" r="3" fill="url(#templeGold)" />
+                  <!-- Seven curved branches -->
+                  <path
+                    d="M5,10 Q5,28 12,38 L12,42"
+                    stroke="url(#templeGold)"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M12,10 Q12,25 18,35 L18,42"
+                    stroke="url(#templeGold)"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M19,10 Q19,22 24,32 L24,42"
+                    stroke="url(#templeGold)"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M55,10 Q55,28 48,38 L48,42"
+                    stroke="url(#templeGold)"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M48,10 Q48,25 42,35 L42,42"
+                    stroke="url(#templeGold)"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M41,10 Q41,22 36,32 L36,42"
+                    stroke="url(#templeGold)"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                  <!-- Golden candles -->
+                  <rect
+                    x="3"
+                    y="3"
+                    width="4"
+                    height="9"
+                    rx="1"
+                    fill="url(#templeGold)"
+                  />
+                  <rect
+                    x="10"
+                    y="3"
+                    width="4"
+                    height="9"
+                    rx="1"
+                    fill="url(#templeGold)"
+                  />
+                  <rect
+                    x="17"
+                    y="3"
+                    width="4"
+                    height="9"
+                    rx="1"
+                    fill="url(#templeGold)"
+                  />
+                  <rect
+                    x="28"
+                    y="3"
+                    width="4"
+                    height="11"
+                    rx="1"
+                    fill="url(#templeGold)"
+                  />
+                  <rect
+                    x="39"
+                    y="3"
+                    width="4"
+                    height="9"
+                    rx="1"
+                    fill="url(#templeGold)"
+                  />
+                  <rect
+                    x="46"
+                    y="3"
+                    width="4"
+                    height="9"
+                    rx="1"
+                    fill="url(#templeGold)"
+                  />
+                  <rect
+                    x="53"
+                    y="3"
+                    width="4"
+                    height="9"
+                    rx="1"
+                    fill="url(#templeGold)"
+                  />
+                  <!-- Glowing flames -->
+                  <ellipse
+                    cx="5"
+                    cy="1"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#templeGlow)"
+                  />
+                  <ellipse
+                    cx="12"
+                    cy="1"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#templeGlow)"
+                  />
+                  <ellipse
+                    cx="19"
+                    cy="1"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#templeGlow)"
+                  />
+                  <ellipse
+                    cx="30"
+                    cy="0"
+                    rx="2.5"
+                    ry="4"
+                    fill="#ffd700"
+                    filter="url(#templeGlow)"
+                  />
+                  <ellipse
+                    cx="41"
+                    cy="1"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#templeGlow)"
+                  />
+                  <ellipse
+                    cx="48"
+                    cy="1"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#templeGlow)"
+                  />
+                  <ellipse
+                    cx="55"
+                    cy="1"
+                    rx="2"
+                    ry="3"
+                    fill="#ff8c00"
+                    filter="url(#templeGlow)"
+                  />
+                </svg>
+                <span>Temple</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Menorah Preview showing current night -->
+          <div class="menorah-preview-container">
+            <div class="menorah-preview-row">
+              <svg viewBox="0 0 120 60" class="menorah-preview-svg">
+                <defs>
+                  <linearGradient
+                    id="previewFlame"
+                    x1="0%"
+                    y1="100%"
+                    x2="0%"
+                    y2="0%"
+                  >
+                    <stop offset="0%" style="stop-color: #ff4500" />
+                    <stop offset="50%" style="stop-color: #ff8c00" />
+                    <stop offset="100%" style="stop-color: #ffd700" />
+                  </linearGradient>
+                  <filter id="previewGlow">
+                    <feGaussianBlur stdDeviation="2" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+                <!-- Base -->
+                <rect
+                  x="10"
+                  y="52"
+                  width="100"
+                  height="6"
+                  rx="2"
+                  fill="#c0c0c0"
+                />
+                <!-- Center stem for shamash -->
+                <rect
+                  x="56"
+                  y="25"
+                  width="8"
+                  height="27"
+                  rx="2"
+                  fill="#c0c0c0"
+                />
+                <!-- Shamash candle -->
+                <rect
+                  x="55"
+                  y="8"
+                  width="10"
+                  height="20"
+                  rx="2"
+                  fill="#f0f0f0"
+                  class="preview-shamash"
+                />
+                <ellipse
+                  cx="60"
+                  cy="5"
+                  rx="4"
+                  ry="6"
+                  fill="url(#previewFlame)"
+                  filter="url(#previewGlow)"
+                  class="preview-flame shamash-flame"
+                />
+                <!-- Candles - 8 total, 4 on each side -->
+                <rect
+                  x="15"
+                  y="28"
+                  width="6"
+                  height="24"
+                  rx="1"
+                  fill="#4da6ff"
+                  class="preview-candle"
+                  data-pos="8"
+                />
+                <rect
+                  x="26"
+                  y="28"
+                  width="6"
+                  height="24"
+                  rx="1"
+                  fill="#4da6ff"
+                  class="preview-candle"
+                  data-pos="7"
+                />
+                <rect
+                  x="37"
+                  y="28"
+                  width="6"
+                  height="24"
+                  rx="1"
+                  fill="#4da6ff"
+                  class="preview-candle"
+                  data-pos="6"
+                />
+                <rect
+                  x="48"
+                  y="28"
+                  width="6"
+                  height="24"
+                  rx="1"
+                  fill="#4da6ff"
+                  class="preview-candle"
+                  data-pos="5"
+                />
+                <rect
+                  x="66"
+                  y="28"
+                  width="6"
+                  height="24"
+                  rx="1"
+                  fill="#4da6ff"
+                  class="preview-candle"
+                  data-pos="4"
+                />
+                <rect
+                  x="77"
+                  y="28"
+                  width="6"
+                  height="24"
+                  rx="1"
+                  fill="#4da6ff"
+                  class="preview-candle"
+                  data-pos="3"
+                />
+                <rect
+                  x="88"
+                  y="28"
+                  width="6"
+                  height="24"
+                  rx="1"
+                  fill="#4da6ff"
+                  class="preview-candle"
+                  data-pos="2"
+                />
+                <rect
+                  x="99"
+                  y="28"
+                  width="6"
+                  height="24"
+                  rx="1"
+                  fill="#4da6ff"
+                  class="preview-candle"
+                  data-pos="1"
+                />
+                <!-- Flames for candles (shown based on selected night) -->
+                <ellipse
+                  cx="18"
+                  cy="25"
+                  rx="3"
+                  ry="5"
+                  fill="url(#previewFlame)"
+                  filter="url(#previewGlow)"
+                  class="preview-flame"
+                  data-night="8"
+                  opacity="0"
+                />
+                <ellipse
+                  cx="29"
+                  cy="25"
+                  rx="3"
+                  ry="5"
+                  fill="url(#previewFlame)"
+                  filter="url(#previewGlow)"
+                  class="preview-flame"
+                  data-night="7"
+                  opacity="0"
+                />
+                <ellipse
+                  cx="40"
+                  cy="25"
+                  rx="3"
+                  ry="5"
+                  fill="url(#previewFlame)"
+                  filter="url(#previewGlow)"
+                  class="preview-flame"
+                  data-night="6"
+                  opacity="0"
+                />
+                <ellipse
+                  cx="51"
+                  cy="25"
+                  rx="3"
+                  ry="5"
+                  fill="url(#previewFlame)"
+                  filter="url(#previewGlow)"
+                  class="preview-flame"
+                  data-night="5"
+                  opacity="0"
+                />
+                <ellipse
+                  cx="69"
+                  cy="25"
+                  rx="3"
+                  ry="5"
+                  fill="url(#previewFlame)"
+                  filter="url(#previewGlow)"
+                  class="preview-flame"
+                  data-night="4"
+                  opacity="0"
+                />
+                <ellipse
+                  cx="80"
+                  cy="25"
+                  rx="3"
+                  ry="5"
+                  fill="url(#previewFlame)"
+                  filter="url(#previewGlow)"
+                  class="preview-flame"
+                  data-night="3"
+                  opacity="0"
+                />
+                <ellipse
+                  cx="91"
+                  cy="25"
+                  rx="3"
+                  ry="5"
+                  fill="url(#previewFlame)"
+                  filter="url(#previewGlow)"
+                  class="preview-flame"
+                  data-night="2"
+                  opacity="0"
+                />
+                <ellipse
+                  cx="102"
+                  cy="25"
+                  rx="3"
+                  ry="5"
+                  fill="url(#previewFlame)"
+                  filter="url(#previewGlow)"
+                  class="preview-flame"
+                  data-night="1"
+                  opacity="0"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <button
+            id="lightCandles"
+            class="action-btn primary menorah-light-btn"
+          >
+            <svg viewBox="0 0 28 32" class="flame-icon" width="28" height="32">
+              <defs>
+                <linearGradient
+                  id="btnFlameOuter"
+                  x1="0%"
+                  y1="100%"
+                  x2="0%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style="stop-color: #ff4500" />
+                  <stop offset="40%" style="stop-color: #ff8c00" />
+                  <stop offset="100%" style="stop-color: #ffd700" />
+                </linearGradient>
+                <linearGradient
+                  id="btnFlameInner"
+                  x1="0%"
+                  y1="100%"
+                  x2="0%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style="stop-color: #ffd700" />
+                  <stop offset="100%" style="stop-color: #ffffcc" />
+                </linearGradient>
+                <linearGradient
+                  id="btnCandle"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style="stop-color: #2980b9" />
+                  <stop offset="50%" style="stop-color: #5dade2" />
+                  <stop offset="100%" style="stop-color: #2980b9" />
+                </linearGradient>
+                <filter id="btnGlow">
+                  <feGaussianBlur stdDeviation="2" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <!-- Candle -->
+              <rect
+                x="10"
+                y="18"
+                width="8"
+                height="14"
+                rx="2"
+                fill="url(#btnCandle)"
+              />
+              <!-- Wick -->
+              <rect x="13" y="14" width="2" height="5" fill="#333" />
+              <!-- Outer flame -->
+              <ellipse
+                cx="14"
+                cy="8"
+                rx="6"
+                ry="10"
+                fill="url(#btnFlameOuter)"
+                filter="url(#btnGlow)"
+                class="flame-outer"
+              />
+              <!-- Inner flame -->
+              <ellipse
+                cx="14"
+                cy="9"
+                rx="3"
+                ry="6"
+                fill="url(#btnFlameInner)"
+                class="flame-inner"
+              />
+              <!-- Core -->
+              <ellipse
+                cx="14"
+                cy="11"
+                rx="1.5"
+                ry="3"
+                fill="#fff"
+                opacity="0.9"
+                class="flame-core"
+              />
+            </svg>
+            <span id="lightCandlesText">Light the Menorah</span>
+            <span class="btn-glow"></span>
+          </button>
+        </div>
+
+        <!-- Main Menorah Display -->
+        <div class="menorah-container">
+          <div class="menorah-room-bg"></div>
+          <div class="menorah-window-frame">
+            <div class="window-glass"></div>
+            <div class="window-mullion"></div>
+            <div class="window-mullion-h"></div>
+          </div>
+          <div class="menorah-moon"></div>
+          <div class="menorah-window-sill"></div>
+          <div class="menorah" id="menorah"></div>
+        </div>
+
+        <!-- Hanukkah Animated Scene -->
+        <div class="animated-scene hanukkah-scene" id="hanukkahScene">
+          <!-- Dreidel with 3D spinning motion showing all 4 letters -->
+          <div class="scene-item dreidel">
+            <div class="dreidel-3d-container">
+              <div class="dreidel-3d">
+                <!-- Handle on top -->
+                <div class="dreidel-handle-3d">
+                  <div class="handle-face handle-front"></div>
+                  <div class="handle-face handle-back"></div>
+                  <div class="handle-face handle-right"></div>
+                  <div class="handle-face handle-left"></div>
+                  <div class="handle-face handle-top"></div>
                 </div>
-            </li>
-            <li>
-                <div class="flame-1">
-                    <div class="flame-2">
-                        <div class="flame-3">
-                            <div class="flame-4">
-                                <div class="flame-5"></div>
-                            </div>
-                        </div>
-                    </div>
+
+                <!-- Top face -->
+                <div class="dreidel-top"></div>
+
+                <!-- Front face - Nun (cube body only) -->
+                <div class="dreidel-face dreidel-front">
+                  <svg viewBox="0 0 70 70">
+                    <defs>
+                      <linearGradient
+                        id="dreidelGold"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="100%"
+                      >
+                        <stop offset="0%" style="stop-color: #ffd700" />
+                        <stop offset="30%" style="stop-color: #ffec8b" />
+                        <stop offset="70%" style="stop-color: #ffd700" />
+                        <stop offset="100%" style="stop-color: #b8860b" />
+                      </linearGradient>
+                    </defs>
+                    <rect
+                      x="0"
+                      y="0"
+                      width="70"
+                      height="70"
+                      fill="url(#dreidelGold)"
+                    />
+                    <line
+                      x1="2"
+                      y1="6"
+                      x2="68"
+                      y2="6"
+                      stroke="#b8860b"
+                      stroke-width="1.5"
+                    />
+                    <line
+                      x1="2"
+                      y1="64"
+                      x2="68"
+                      y2="64"
+                      stroke="#b8860b"
+                      stroke-width="1.5"
+                    />
+                    <text
+                      x="35"
+                      y="38"
+                      text-anchor="middle"
+                      fill="#5d4037"
+                      font-size="28"
+                      font-weight="bold"
+                      font-family="serif"
+                    >
+                      נ
+                    </text>
+                    <text
+                      x="35"
+                      y="58"
+                      text-anchor="middle"
+                      fill="#8b6914"
+                      font-size="10"
+                      font-weight="bold"
+                      font-family="sans-serif"
+                    >
+                      NUN
+                    </text>
+                  </svg>
                 </div>
-            </li>
-            <li>
-                <div class="flame-1">
-                    <div class="flame-2">
-                        <div class="flame-3">
-                            <div class="flame-4">
-                                <div class="flame-5"></div>
-                            </div>
-                        </div>
-                    </div>
+
+                <!-- Right face - Gimel -->
+                <div class="dreidel-face dreidel-right">
+                  <svg viewBox="0 0 70 70">
+                    <rect
+                      x="0"
+                      y="0"
+                      width="70"
+                      height="70"
+                      fill="url(#dreidelGold)"
+                    />
+                    <line
+                      x1="2"
+                      y1="6"
+                      x2="68"
+                      y2="6"
+                      stroke="#b8860b"
+                      stroke-width="1.5"
+                    />
+                    <line
+                      x1="2"
+                      y1="64"
+                      x2="68"
+                      y2="64"
+                      stroke="#b8860b"
+                      stroke-width="1.5"
+                    />
+                    <text
+                      x="35"
+                      y="38"
+                      text-anchor="middle"
+                      fill="#5d4037"
+                      font-size="28"
+                      font-weight="bold"
+                      font-family="serif"
+                    >
+                      ג
+                    </text>
+                    <text
+                      x="35"
+                      y="58"
+                      text-anchor="middle"
+                      fill="#8b6914"
+                      font-size="10"
+                      font-weight="bold"
+                      font-family="sans-serif"
+                    >
+                      GIMEL
+                    </text>
+                  </svg>
                 </div>
-            </li>
-            <li>
-                <div class="flame-1">
-                    <div class="flame-2">
-                        <div class="flame-3">
-                            <div class="flame-4">
-                                <div class="flame-5"></div>
-                            </div>
-                        </div>
-                    </div>
+
+                <!-- Back face - Hey -->
+                <div class="dreidel-face dreidel-back">
+                  <svg viewBox="0 0 70 70">
+                    <rect
+                      x="0"
+                      y="0"
+                      width="70"
+                      height="70"
+                      fill="url(#dreidelGold)"
+                    />
+                    <line
+                      x1="2"
+                      y1="6"
+                      x2="68"
+                      y2="6"
+                      stroke="#b8860b"
+                      stroke-width="1.5"
+                    />
+                    <line
+                      x1="2"
+                      y1="64"
+                      x2="68"
+                      y2="64"
+                      stroke="#b8860b"
+                      stroke-width="1.5"
+                    />
+                    <text
+                      x="35"
+                      y="38"
+                      text-anchor="middle"
+                      fill="#5d4037"
+                      font-size="28"
+                      font-weight="bold"
+                      font-family="serif"
+                    >
+                      ה
+                    </text>
+                    <text
+                      x="35"
+                      y="58"
+                      text-anchor="middle"
+                      fill="#8b6914"
+                      font-size="10"
+                      font-weight="bold"
+                      font-family="sans-serif"
+                    >
+                      HEY
+                    </text>
+                  </svg>
                 </div>
-            </li>
-            <li class="shamesh">
-                <div class="flame-1">
-                    <div class="flame-2">
-                        <div class="flame-3">
-                            <div class="flame-4">
-                                <div class="flame-5"></div>
-                            </div>
-                        </div>
-                    </div>
+
+                <!-- Left face - Shin -->
+                <div class="dreidel-face dreidel-left">
+                  <svg viewBox="0 0 70 70">
+                    <rect
+                      x="0"
+                      y="0"
+                      width="70"
+                      height="70"
+                      fill="url(#dreidelGold)"
+                    />
+                    <line
+                      x1="2"
+                      y1="6"
+                      x2="68"
+                      y2="6"
+                      stroke="#b8860b"
+                      stroke-width="1.5"
+                    />
+                    <line
+                      x1="2"
+                      y1="64"
+                      x2="68"
+                      y2="64"
+                      stroke="#b8860b"
+                      stroke-width="1.5"
+                    />
+                    <text
+                      x="35"
+                      y="38"
+                      text-anchor="middle"
+                      fill="#5d4037"
+                      font-size="28"
+                      font-weight="bold"
+                      font-family="serif"
+                    >
+                      ש
+                    </text>
+                    <text
+                      x="35"
+                      y="58"
+                      text-anchor="middle"
+                      fill="#8b6914"
+                      font-size="10"
+                      font-weight="bold"
+                      font-family="sans-serif"
+                    >
+                      SHIN
+                    </text>
+                  </svg>
                 </div>
-            </li>
-            <li>
-                <div class="flame-1">
-                    <div class="flame-2">
-                        <div class="flame-3">
-                            <div class="flame-4">
-                                <div class="flame-5"></div>
-                            </div>
-                        </div>
-                    </div>
+
+                <!-- Pyramid bottom - 4 triangular faces tilted to meet at a point -->
+                <div class="dreidel-pyramid">
+                  <div class="dreidel-pyramid-face dreidel-pyramid-front">
+                    <svg viewBox="0 0 70 70">
+                      <polygon
+                        points="35,70 0,0 70,0"
+                        fill="url(#dreidelGold)"
+                      />
+                    </svg>
+                  </div>
+                  <div class="dreidel-pyramid-face dreidel-pyramid-right">
+                    <svg viewBox="0 0 70 70">
+                      <polygon
+                        points="35,70 0,0 70,0"
+                        fill="url(#dreidelGold)"
+                      />
+                    </svg>
+                  </div>
+                  <div class="dreidel-pyramid-face dreidel-pyramid-back">
+                    <svg viewBox="0 0 70 70">
+                      <polygon
+                        points="35,70 0,0 70,0"
+                        fill="url(#dreidelGold)"
+                      />
+                    </svg>
+                  </div>
+                  <div class="dreidel-pyramid-face dreidel-pyramid-left">
+                    <svg viewBox="0 0 70 70">
+                      <polygon
+                        points="35,70 0,0 70,0"
+                        fill="url(#dreidelGold)"
+                      />
+                    </svg>
+                  </div>
                 </div>
-            </li>
-            <li>
-                <div class="flame-1">
-                    <div class="flame-2">
-                        <div class="flame-3">
-                            <div class="flame-4">
-                                <div class="flame-5"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="flame-1">
-                    <div class="flame-2">
-                        <div class="flame-3">
-                            <div class="flame-4">
-                                <div class="flame-5"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="flame-1">
-                    <div class="flame-2">
-                        <div class="flame-3">
-                            <div class="flame-4">
-                                <div class="flame-5"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
+              </div>
+              <!-- table/surface below the Dreidel -->
+              <div class="dreidel-table">
+                <svg viewBox="0 0 160 40" class="dreidel-table-svg">
+                  <defs>
+                    <linearGradient
+                      id="tableTop"
+                      x1="0%"
+                      y1="0%"
+                      x2="0%"
+                      y2="100%"
+                    >
+                      <stop offset="0%" style="stop-color: #6d4c30" />
+                      <stop offset="50%" style="stop-color: #8b6914" />
+                      <stop offset="100%" style="stop-color: #5d3d20" />
+                    </linearGradient>
+                    <linearGradient
+                      id="tableEdge"
+                      x1="0%"
+                      y1="0%"
+                      x2="0%"
+                      y2="100%"
+                    >
+                      <stop offset="0%" style="stop-color: #5d3d20" />
+                      <stop offset="100%" style="stop-color: #3d2815" />
+                    </linearGradient>
+                  </defs>
+                  <!-- Table top surface -->
+                  <ellipse
+                    cx="80"
+                    cy="12"
+                    rx="75"
+                    ry="12"
+                    fill="url(#tableTop)"
+                  />
+                  <!-- Table edge/rim -->
+                  <path
+                    d="M5,12 L5,28 Q80,42 155,28 L155,12 Q80,26 5,12"
+                    fill="url(#tableEdge)"
+                  />
+                  <!-- Wood grain lines -->
+                  <ellipse
+                    cx="80"
+                    cy="12"
+                    rx="65"
+                    ry="8"
+                    fill="none"
+                    stroke="#4a3020"
+                    stroke-width="0.5"
+                    opacity="0.4"
+                  />
+                  <ellipse
+                    cx="80"
+                    cy="12"
+                    rx="50"
+                    ry="5"
+                    fill="none"
+                    stroke="#4a3020"
+                    stroke-width="0.5"
+                    opacity="0.3"
+                  />
+                  <!-- Highlight -->
+                  <ellipse
+                    cx="60"
+                    cy="10"
+                    rx="25"
+                    ry="4"
+                    fill="#fff"
+                    opacity="0.1"
+                  />
+                </svg>
+              </div>
+              <!-- Ground shadow -->
+              <div class="dreidel-ground-shadow"></div>
+            </div>
+          </div>
+
+          <!-- Gelt in glowing box -->
+          <div class="scene-item gelt-pile">
+            <svg viewBox="0 0 160 120" class="gelt-svg">
+              <defs>
+                <linearGradient
+                  id="coinGold"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #ffd700" />
+                  <stop offset="30%" style="stop-color: #fff8dc" />
+                  <stop offset="70%" style="stop-color: #ffd700" />
+                  <stop offset="100%" style="stop-color: #b8860b" />
+                </linearGradient>
+                <linearGradient
+                  id="boxGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #2c1810" />
+                  <stop offset="100%" style="stop-color: #1a0f0a" />
+                </linearGradient>
+                <filter
+                  id="boxGlow"
+                  x="-50%"
+                  y="-50%"
+                  width="200%"
+                  height="200%"
+                >
+                  <feGaussianBlur stdDeviation="8" result="blur" />
+                  <feFlood flood-color="#ffd700" flood-opacity="0.4" />
+                  <feComposite in2="blur" operator="in" />
+                  <feMerge>
+                    <feMergeNode />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <radialGradient id="coinShine" cx="30%" cy="30%" r="50%">
+                  <stop
+                    offset="0%"
+                    style="stop-color: #ffffff; stop-opacity: 0.8"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: #ffffff; stop-opacity: 0"
+                  />
+                </radialGradient>
+              </defs>
+              <!-- Box -->
+              <rect
+                x="20"
+                y="50"
+                width="120"
+                height="65"
+                rx="5"
+                fill="url(#boxGradient)"
+                stroke="#4a3020"
+                stroke-width="2"
+              />
+              <rect
+                x="20"
+                y="50"
+                width="120"
+                height="10"
+                rx="2"
+                fill="#3d2518"
+              />
+              <!-- Box glow effect -->
+              <rect
+                x="25"
+                y="55"
+                width="110"
+                height="55"
+                rx="3"
+                fill="#ffd700"
+                opacity="0.1"
+                class="box-glow"
+              />
+              <!-- Coins with shine -->
+              <g filter="url(#boxGlow)">
+                <ellipse
+                  cx="50"
+                  cy="95"
+                  rx="22"
+                  ry="10"
+                  fill="url(#coinGold)"
+                  class="coin coin-1"
+                />
+                <ellipse cx="48" cy="93" rx="8" ry="4" fill="url(#coinShine)" />
+                <ellipse
+                  cx="80"
+                  cy="90"
+                  rx="22"
+                  ry="10"
+                  fill="url(#coinGold)"
+                  class="coin coin-2"
+                />
+                <ellipse cx="78" cy="88" rx="8" ry="4" fill="url(#coinShine)" />
+                <ellipse
+                  cx="110"
+                  cy="95"
+                  rx="22"
+                  ry="10"
+                  fill="url(#coinGold)"
+                  class="coin coin-3"
+                />
+                <ellipse
+                  cx="108"
+                  cy="93"
+                  rx="8"
+                  ry="4"
+                  fill="url(#coinShine)"
+                />
+                <ellipse
+                  cx="65"
+                  cy="78"
+                  rx="22"
+                  ry="10"
+                  fill="url(#coinGold)"
+                  class="coin coin-4"
+                />
+                <ellipse cx="63" cy="76" rx="8" ry="4" fill="url(#coinShine)" />
+                <ellipse
+                  cx="95"
+                  cy="78"
+                  rx="22"
+                  ry="10"
+                  fill="url(#coinGold)"
+                  class="coin coin-5"
+                />
+                <ellipse cx="93" cy="76" rx="8" ry="4" fill="url(#coinShine)" />
+                <ellipse
+                  cx="80"
+                  cy="65"
+                  rx="22"
+                  ry="10"
+                  fill="url(#coinGold)"
+                  class="coin coin-6"
+                />
+                <ellipse cx="78" cy="63" rx="8" ry="4" fill="url(#coinShine)" />
+              </g>
+              <!-- Star of David on top coin -->
+              <text
+                x="80"
+                y="70"
+                text-anchor="middle"
+                fill="#8b6914"
+                font-size="12"
+              >
+                ✡
+              </text>
+            </svg>
+          </div>
+
+          <!-- Latke in cooking pan with flame -->
+          <div class="scene-item latke">
+            <svg viewBox="0 0 160 140" class="latke-svg">
+              <defs>
+                <linearGradient
+                  id="latkeGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #e8b84a" />
+                  <stop offset="40%" style="stop-color: #d4a044" />
+                  <stop offset="100%" style="stop-color: #a67c30" />
+                </linearGradient>
+                <linearGradient
+                  id="panGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #4a4a4a" />
+                  <stop offset="50%" style="stop-color: #2d2d2d" />
+                  <stop offset="100%" style="stop-color: #1a1a1a" />
+                </linearGradient>
+                <linearGradient
+                  id="panHandle"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style="stop-color: #3d3d3d" />
+                  <stop offset="50%" style="stop-color: #5a5a5a" />
+                  <stop offset="100%" style="stop-color: #3d3d3d" />
+                </linearGradient>
+                <radialGradient id="oilSheen" cx="50%" cy="50%" r="50%">
+                  <stop
+                    offset="0%"
+                    style="stop-color: #ffd700; stop-opacity: 0.3"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: #ff8c00; stop-opacity: 0.1"
+                  />
+                </radialGradient>
+                <linearGradient
+                  id="flameGrad"
+                  x1="0%"
+                  y1="100%"
+                  x2="0%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style="stop-color: #ff4500" />
+                  <stop offset="40%" style="stop-color: #ff8c00" />
+                  <stop offset="100%" style="stop-color: #ffd700" />
+                </linearGradient>
+                <linearGradient
+                  id="flameInnerGrad"
+                  x1="0%"
+                  y1="100%"
+                  x2="0%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style="stop-color: #ffd700" />
+                  <stop offset="100%" style="stop-color: #ffffcc" />
+                </linearGradient>
+                <filter id="panShadow">
+                  <feDropShadow
+                    dx="0"
+                    dy="4"
+                    stdDeviation="4"
+                    flood-color="#000"
+                    flood-opacity="0.4"
+                  />
+                </filter>
+                <filter id="flameGlow">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <!-- Flame below pan -->
+              <g class="pan-flame" filter="url(#flameGlow)">
+                <ellipse
+                  cx="70"
+                  cy="118"
+                  rx="35"
+                  ry="8"
+                  fill="#1a1a1a"
+                  opacity="0.3"
+                />
+                <path
+                  d="M40,115 Q45,100 50,115"
+                  fill="url(#flameGrad)"
+                  class="flame f1"
+                />
+                <path
+                  d="M55,115 Q60,95 65,115"
+                  fill="url(#flameGrad)"
+                  class="flame f2"
+                />
+                <path
+                  d="M70,115 Q75,90 80,115"
+                  fill="url(#flameGrad)"
+                  class="flame f3"
+                />
+                <path
+                  d="M85,115 Q90,95 95,115"
+                  fill="url(#flameGrad)"
+                  class="flame f4"
+                />
+                <path
+                  d="M95,115 Q100,100 105,115"
+                  fill="url(#flameGrad)"
+                  class="flame f5"
+                />
+                <!-- Inner flame cores -->
+                <path
+                  d="M58,115 Q62,100 66,115"
+                  fill="url(#flameInnerGrad)"
+                  class="flame-inner fi1"
+                />
+                <path
+                  d="M72,115 Q76,98 80,115"
+                  fill="url(#flameInnerGrad)"
+                  class="flame-inner fi2"
+                />
+                <path
+                  d="M86,115 Q90,100 94,115"
+                  fill="url(#flameInnerGrad)"
+                  class="flame-inner fi3"
+                />
+              </g>
+
+              <!-- Pan body -->
+              <ellipse
+                cx="70"
+                cy="70"
+                rx="55"
+                ry="30"
+                fill="url(#panGradient)"
+                filter="url(#panShadow)"
+              />
+
+              <!-- Pan handle -->
+              <path
+                d="M120,65 L120,75 L155,75 L155,65 Q155,62 152,62 L123,62 Q120,62 120,65 Z"
+                fill="url(#panHandle)"
+              />
+              <rect
+                x="118"
+                y="60"
+                width="8"
+                height="20"
+                rx="2"
+                fill="#3d3d3d"
+              />
+              <rect
+                x="150"
+                y="58"
+                width="10"
+                height="24"
+                rx="3"
+                fill="#2a2a2a"
+              />
+              <!-- Handle rivet -->
+              <circle cx="122" cy="70" r="3" fill="#555" />
+
+              <!-- Oil in pan -->
+              <ellipse cx="70" cy="68" rx="48" ry="25" fill="#2a2a2a" />
+              <ellipse
+                cx="70"
+                cy="68"
+                rx="46"
+                ry="23"
+                fill="url(#oilSheen)"
+                class="oil-shimmer"
+              />
+
+              <!-- Latke -->
+              <ellipse
+                cx="70"
+                cy="68"
+                rx="35"
+                ry="16"
+                fill="url(#latkeGradient)"
+                class="latke-body"
+              />
+              <ellipse
+                cx="70"
+                cy="66"
+                rx="30"
+                ry="13"
+                fill="#daa84a"
+                opacity="0.6"
+              />
+              <!-- Crispy golden edges -->
+              <ellipse
+                cx="70"
+                cy="68"
+                rx="35"
+                ry="16"
+                fill="none"
+                stroke="#8b6914"
+                stroke-width="2"
+                stroke-dasharray="4 3"
+                opacity="0.6"
+              />
+              <!-- Texture details -->
+              <circle cx="55" cy="64" r="3" fill="#c49638" opacity="0.7" />
+              <circle cx="78" cy="62" r="2.5" fill="#c49638" opacity="0.6" />
+              <circle cx="65" cy="70" r="2" fill="#c49638" opacity="0.5" />
+              <circle cx="85" cy="68" r="2.5" fill="#c49638" opacity="0.6" />
+
+              <!-- Sizzle bubbles -->
+              <circle
+                cx="45"
+                cy="60"
+                r="2.5"
+                fill="#fff"
+                opacity="0.7"
+                class="sizzle-bubble b1"
+              />
+              <circle
+                cx="95"
+                cy="62"
+                r="2"
+                fill="#fff"
+                opacity="0.6"
+                class="sizzle-bubble b2"
+              />
+              <circle
+                cx="55"
+                cy="75"
+                r="1.5"
+                fill="#fff"
+                opacity="0.5"
+                class="sizzle-bubble b3"
+              />
+              <circle
+                cx="88"
+                cy="73"
+                r="2"
+                fill="#fff"
+                opacity="0.6"
+                class="sizzle-bubble b4"
+              />
+              <circle
+                cx="70"
+                cy="55"
+                r="1.5"
+                fill="#fff"
+                opacity="0.4"
+                class="sizzle-bubble b5"
+              />
+
+              <!-- Steam -->
+              <path
+                d="M45,45 Q50,35 45,20"
+                stroke="#fff"
+                stroke-width="3"
+                fill="none"
+                opacity="0.4"
+                stroke-linecap="round"
+                class="steam s1"
+              />
+              <path
+                d="M70,40 Q75,28 70,12"
+                stroke="#fff"
+                stroke-width="3"
+                fill="none"
+                opacity="0.4"
+                stroke-linecap="round"
+                class="steam s2"
+              />
+              <path
+                d="M95,45 Q100,35 95,20"
+                stroke="#fff"
+                stroke-width="3"
+                fill="none"
+                opacity="0.4"
+                stroke-linecap="round"
+                class="steam s3"
+              />
+            </svg>
+          </div>
+
+          <!--  Jelly Donut (Sufganiyah) -->
+          <div class="scene-item sufganiyah">
+            <svg viewBox="0 0 100 90" class="sufganiyah-svg">
+              <defs>
+                <linearGradient
+                  id="donutGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #f5d06c" />
+                  <stop offset="50%" style="stop-color: #e8b84a" />
+                  <stop offset="100%" style="stop-color: #c9952a" />
+                </linearGradient>
+                <radialGradient id="jellyGradient" cx="50%" cy="30%" r="60%">
+                  <stop offset="0%" style="stop-color: #ff5252" />
+                  <stop offset="100%" style="stop-color: #b71c1c" />
+                </radialGradient>
+                <filter id="donutShadow">
+                  <feDropShadow
+                    dx="0"
+                    dy="3"
+                    stdDeviation="3"
+                    flood-color="#000"
+                    flood-opacity="0.3"
+                  />
+                </filter>
+              </defs>
+              <!-- Plate -->
+              <ellipse cx="50" cy="78" rx="45" ry="10" fill="#f5f5f5" />
+              <ellipse cx="50" cy="76" rx="40" ry="8" fill="#e8e8e8" />
+              <!-- Donut -->
+              <ellipse
+                cx="50"
+                cy="55"
+                rx="38"
+                ry="24"
+                fill="url(#donutGradient)"
+                filter="url(#donutShadow)"
+              />
+              <ellipse
+                cx="50"
+                cy="52"
+                rx="33"
+                ry="20"
+                fill="#f7dc6f"
+                opacity="0.4"
+              />
+              <!-- Powdered sugar -->
+              <circle cx="30" cy="48" r="2.5" fill="#fff" opacity="0.9" />
+              <circle cx="42" cy="44" r="2" fill="#fff" opacity="0.85" />
+              <circle cx="55" cy="46" r="2.5" fill="#fff" opacity="0.9" />
+              <circle cx="68" cy="50" r="2" fill="#fff" opacity="0.8" />
+              <circle cx="38" cy="58" r="1.5" fill="#fff" opacity="0.7" />
+              <circle cx="62" cy="56" r="1.5" fill="#fff" opacity="0.75" />
+              <circle cx="50" cy="62" r="2" fill="#fff" opacity="0.8" />
+              <circle cx="25" cy="55" r="1.5" fill="#fff" opacity="0.6" />
+              <circle cx="75" cy="54" r="1.5" fill="#fff" opacity="0.65" />
+              <!-- Jelly center -->
+              <ellipse
+                cx="50"
+                cy="45"
+                rx="10"
+                ry="7"
+                fill="url(#jellyGradient)"
+                class="jelly-center"
+              />
+              <ellipse
+                cx="48"
+                cy="43"
+                rx="4"
+                ry="3"
+                fill="#ff8a80"
+                opacity="0.5"
+              />
+              <!-- Jelly drip -->
+              <path
+                d="M52,52 Q58,68 55,82"
+                stroke="url(#jellyGradient)"
+                stroke-width="7"
+                fill="none"
+                stroke-linecap="round"
+                class="jelly-drip"
+              />
+              <ellipse cx="55" cy="83" rx="5" ry="3" fill="#b71c1c" />
+            </svg>
+          </div>
+
+          <!-- Oil Jug with glowing oil in a window -->
+          <div class="scene-item oil-jug">
+            <svg viewBox="0 0 100 140" class="oil-jug-svg">
+              <defs>
+                <linearGradient
+                  id="jugGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style="stop-color: #6d3d1f" />
+                  <stop offset="30%" style="stop-color: #a0522d" />
+                  <stop offset="70%" style="stop-color: #8b4513" />
+                  <stop offset="100%" style="stop-color: #5d3018" />
+                </linearGradient>
+                <linearGradient
+                  id="oilGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #ffd700" />
+                  <stop offset="100%" style="stop-color: #ff8c00" />
+                </linearGradient>
+                <radialGradient id="oilGlowGrad" cx="50%" cy="50%" r="50%">
+                  <stop
+                    offset="0%"
+                    style="stop-color: #ffd700; stop-opacity: 1"
+                  />
+                  <stop
+                    offset="50%"
+                    style="stop-color: #ff8c00; stop-opacity: 0.6"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: #ffd700; stop-opacity: 0"
+                  />
+                </radialGradient>
+                <radialGradient id="windowGlow" cx="50%" cy="30%" r="70%">
+                  <stop
+                    offset="0%"
+                    style="stop-color: #fffacd; stop-opacity: 1"
+                  />
+                  <stop
+                    offset="40%"
+                    style="stop-color: #ffd700; stop-opacity: 0.9"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: #ff8c00; stop-opacity: 0.7"
+                  />
+                </radialGradient>
+                <filter id="jugShadow">
+                  <feDropShadow
+                    dx="0"
+                    dy="4"
+                    stdDeviation="4"
+                    flood-color="#000"
+                    flood-opacity="0.4"
+                  />
+                </filter>
+                <filter
+                  id="oilGlow"
+                  x="-100%"
+                  y="-100%"
+                  width="300%"
+                  height="300%"
+                >
+                  <feGaussianBlur stdDeviation="6" result="blur" />
+                  <feFlood flood-color="#ffd700" flood-opacity="0.8" />
+                  <feComposite in2="blur" operator="in" />
+                  <feMerge>
+                    <feMergeNode />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <!-- Large glow behind jug -->
+              <ellipse
+                cx="50"
+                cy="65"
+                rx="45"
+                ry="45"
+                fill="url(#oilGlowGrad)"
+                class="jug-glow"
+              />
+
+              <!-- Jug body -->
+              <g filter="url(#jugShadow)">
+                <!-- Base -->
+                <ellipse
+                  cx="50"
+                  cy="105"
+                  rx="30"
+                  ry="12"
+                  fill="url(#jugGradient)"
+                />
+
+                <!-- Main body -->
+                <path
+                  d="M20,105 L20,50 Q20,35 35,35 L35,27 Q35,19 42,19 L58,19 Q65,19 65,27 L65,35 Q80,35 80,50 L80,105"
+                  fill="url(#jugGradient)"
+                />
+
+                <!-- Handle -->
+                <path
+                  d="M80,45 Q98,45 98,65 Q98,85 80,85"
+                  stroke="url(#jugGradient)"
+                  stroke-width="10"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+              </g>
+
+              <!-- Viewing window with glowing oil -->
+              <g class="oil-window" filter="url(#oilGlow)">
+                <ellipse cx="50" cy="75" rx="18" ry="22" fill="#3d2010" />
+                <ellipse
+                  cx="50"
+                  cy="75"
+                  rx="15"
+                  ry="19"
+                  fill="url(#windowGlow)"
+                  class="oil-inside"
+                />
+                <!-- Oil level bubbles -->
+                <circle
+                  cx="42"
+                  cy="67"
+                  r="2"
+                  fill="#fff"
+                  opacity="0.6"
+                  class="oil-bubble b1"
+                />
+                <circle
+                  cx="55"
+                  cy="73"
+                  r="1.5"
+                  fill="#fff"
+                  opacity="0.5"
+                  class="oil-bubble b2"
+                />
+                <circle
+                  cx="48"
+                  cy="80"
+                  r="1.8"
+                  fill="#fff"
+                  opacity="0.4"
+                  class="oil-bubble b3"
+                />
+                <!-- Window frame -->
+                <ellipse
+                  cx="50"
+                  cy="75"
+                  rx="18"
+                  ry="22"
+                  fill="none"
+                  stroke="#5d3018"
+                  stroke-width="3"
+                />
+              </g>
+
+              <!-- Hebrew word for oil - שמן -->
+              <text
+                x="50"
+                y="108"
+                text-anchor="middle"
+                fill="#ffd700"
+                font-size="14"
+                font-family="serif"
+                font-weight="bold"
+                style="text-shadow: 0 0 10px #ffd700"
+              >
+                שמן
+              </text>
+            </svg>
+            <!-- Label below -->
+            <div class="oil-jug-label">MIRACLE OIL</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Christmas Section -->
+      <div class="christmas-section hidden" id="christmasSection">
+        <!-- Instructions -->
+        <div class="instructions-card christmas-instructions">
+          <div class="instructions-header">
+            <svg
+              class="info-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
+            <span>Decorate Your Tree</span>
+          </div>
+          <p>
+            Customize your tree using the controls below, then select a
+            decoration type and click anywhere on the tree to place it. Choose a
+            beautiful tree topper to complete the look!
+            <strong class="removal-hint"
+              >Double-click or right-click decorations to remove them.</strong
+            >
+          </p>
+        </div>
+
+        <!-- Tree Customization -->
+        <div class="tree-customization">
+          <h3>Customize Your Tree</h3>
+          <div class="customization-grid">
+            <div class="custom-control tree-type-control">
+              <label>Tree Type</label>
+              <div class="tree-style-options">
+                <button
+                  class="tree-style-btn active"
+                  data-tree="classic"
+                  title="Classic Fir"
+                >
+                  <svg viewBox="0 0 60 55">
+                    <polygon points="30,5 8,45 52,45" fill="#1a4d1a" />
+                    <polygon points="30,12 12,42 48,42" fill="#2d6b2d" />
+                    <polygon points="30,20 16,40 44,40" fill="#3d8b3d" />
+                    <rect x="25" y="45" width="10" height="8" fill="#8b4513" />
+                  </svg>
+                  <span>Classic</span>
+                </button>
+                <button class="tree-style-btn" data-tree="pine" title="Pine">
+                  <svg viewBox="0 0 60 55">
+                    <polygon points="30,3 12,18 48,18" fill="#1a4d1a" />
+                    <polygon points="30,10 10,25 50,25" fill="#1a4d1a" />
+                    <polygon points="30,17 8,32 52,32" fill="#2d6b2d" />
+                    <polygon points="30,24 6,39 54,39" fill="#2d6b2d" />
+                    <polygon points="30,31 5,46 55,46" fill="#3d8b3d" />
+                    <rect x="25" y="46" width="10" height="7" fill="#8b4513" />
+                  </svg>
+                  <span>Pine</span>
+                </button>
+                <button
+                  class="tree-style-btn"
+                  data-tree="spruce"
+                  title="Blue Spruce"
+                >
+                  <svg viewBox="0 0 60 55">
+                    <polygon points="30,5 8,45 52,45" fill="#1a4a5a" />
+                    <polygon points="30,12 12,42 48,42" fill="#2a6a7a" />
+                    <polygon points="30,20 16,40 44,40" fill="#3a8a9a" />
+                    <rect x="25" y="45" width="10" height="8" fill="#8b4513" />
+                  </svg>
+                  <span>Spruce</span>
+                </button>
+                <button
+                  class="tree-style-btn"
+                  data-tree="slim"
+                  title="Slim Elegant"
+                >
+                  <svg viewBox="0 0 60 55">
+                    <polygon points="30,3 18,16 42,16" fill="#1a4d1a" />
+                    <polygon points="30,10 16,23 44,23" fill="#1a4d1a" />
+                    <polygon points="30,17 14,30 46,30" fill="#2d6b2d" />
+                    <polygon points="30,24 12,37 48,37" fill="#2d6b2d" />
+                    <polygon points="30,31 10,46 50,46" fill="#3d8b3d" />
+                    <rect x="26" y="46" width="8" height="7" fill="#8b4513" />
+                  </svg>
+                  <span>Slim</span>
+                </button>
+              </div>
+            </div>
+            <div class="custom-control">
+              <label for="treeSize">Size</label>
+              <input
+                type="range"
+                id="treeSize"
+                min="60"
+                max="120"
+                value="100"
+              />
+              <span class="range-value" id="treeSizeValue">100%</span>
+            </div>
+            <div class="custom-control">
+              <label for="treeFullness">Fullness</label>
+              <input
+                type="range"
+                id="treeFullness"
+                min="70"
+                max="130"
+                value="100"
+              />
+              <span class="range-value" id="treeFullnessValue">100%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decoration Controls -->
+        <div class="decoration-controls">
+          <h3>Add Decorations</h3>
+          <div class="control-group">
+            <button class="deco-btn" data-type="lights" title="String Lights">
+              <svg viewBox="0 0 40 40">
+                <circle cx="20" cy="20" r="8" fill="#ffd700" />
+                <circle
+                  cx="20"
+                  cy="20"
+                  r="12"
+                  fill="none"
+                  stroke="#ffd700"
+                  stroke-width="2"
+                  opacity="0.5"
+                />
+                <line
+                  x1="20"
+                  y1="8"
+                  x2="20"
+                  y2="2"
+                  stroke="#666"
+                  stroke-width="2"
+                />
+              </svg>
+            </button>
+            <button
+              class="deco-btn"
+              data-type="string-lights"
+              title="String Lights Strand"
+            >
+              <svg viewBox="0 0 40 40">
+                <path
+                  d="M5,15 Q20,25 35,15"
+                  stroke="#333"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <circle cx="10" cy="18" r="4" fill="#ff4444" />
+                <circle cx="20" cy="22" r="4" fill="#44ff44" />
+                <circle cx="30" cy="18" r="4" fill="#4444ff" />
+              </svg>
+            </button>
+            <button
+              class="deco-btn"
+              data-type="ornament-red"
+              title="Red Ornament"
+            >
+              <svg viewBox="0 0 40 40">
+                <circle cx="20" cy="22" r="12" fill="url(#redOrnament)" />
+                <rect x="17" y="6" width="6" height="6" rx="1" fill="#ffd700" />
+                <defs>
+                  <radialGradient id="redOrnament" cx="30%" cy="30%">
+                    <stop offset="0%" style="stop-color: #ff6b6b" />
+                    <stop offset="100%" style="stop-color: #c0392b" />
+                  </radialGradient>
+                </defs>
+              </svg>
+            </button>
+            <button
+              class="deco-btn"
+              data-type="ornament-gold"
+              title="Gold Ornament"
+            >
+              <svg viewBox="0 0 40 40">
+                <circle cx="20" cy="22" r="12" fill="url(#goldOrnament)" />
+                <rect x="17" y="6" width="6" height="6" rx="1" fill="#c0392b" />
+                <defs>
+                  <radialGradient id="goldOrnament" cx="30%" cy="30%">
+                    <stop offset="0%" style="stop-color: #ffd700" />
+                    <stop offset="100%" style="stop-color: #b8860b" />
+                  </radialGradient>
+                </defs>
+              </svg>
+            </button>
+            <button
+              class="deco-btn"
+              data-type="ornament-blue"
+              title="Blue Ornament"
+            >
+              <svg viewBox="0 0 40 40">
+                <circle cx="20" cy="22" r="12" fill="url(#blueOrnament)" />
+                <rect x="17" y="6" width="6" height="6" rx="1" fill="#ffd700" />
+                <defs>
+                  <radialGradient id="blueOrnament" cx="30%" cy="30%">
+                    <stop offset="0%" style="stop-color: #5dade2" />
+                    <stop offset="100%" style="stop-color: #2874a6" />
+                  </radialGradient>
+                </defs>
+              </svg>
+            </button>
+            <button
+              class="deco-btn"
+              data-type="ornament-silver"
+              title="Silver Ornament"
+            >
+              <svg viewBox="0 0 40 40">
+                <circle cx="20" cy="22" r="12" fill="url(#silverOrnament)" />
+                <rect x="17" y="6" width="6" height="6" rx="1" fill="#c0392b" />
+                <defs>
+                  <radialGradient id="silverOrnament" cx="30%" cy="30%">
+                    <stop offset="0%" style="stop-color: #ecf0f1" />
+                    <stop offset="100%" style="stop-color: #95a5a6" />
+                  </radialGradient>
+                </defs>
+              </svg>
+            </button>
+            <button
+              class="deco-btn"
+              data-type="ornament-green"
+              title="Green Ornament"
+            >
+              <svg viewBox="0 0 40 40">
+                <circle cx="20" cy="22" r="12" fill="url(#greenOrnament)" />
+                <rect x="17" y="6" width="6" height="6" rx="1" fill="#ffd700" />
+                <defs>
+                  <radialGradient id="greenOrnament" cx="30%" cy="30%">
+                    <stop offset="0%" style="stop-color: #66bb6a" />
+                    <stop offset="100%" style="stop-color: #2e7d32" />
+                  </radialGradient>
+                </defs>
+              </svg>
+            </button>
+            <button class="deco-btn" data-type="tinsel" title="Tinsel">
+              <svg viewBox="0 0 40 40">
+                <path
+                  d="M5,20 Q15,10 25,20 Q35,30 40,20"
+                  stroke="#c0c0c0"
+                  stroke-width="3"
+                  fill="none"
+                />
+                <path
+                  d="M5,25 Q15,15 25,25 Q35,35 40,25"
+                  stroke="#ffd700"
+                  stroke-width="2"
+                  fill="none"
+                />
+              </svg>
+            </button>
+            <button class="deco-btn" data-type="candy-cane" title="Candy Cane">
+              <svg viewBox="0 0 40 40">
+                <path
+                  d="M25,35 L25,15 Q25,5 15,5 Q5,5 5,15"
+                  stroke="#fff"
+                  stroke-width="6"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M25,35 L25,15 Q25,5 15,5 Q5,5 5,15"
+                  stroke="#c0392b"
+                  stroke-width="6"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-dasharray="6 6"
+                />
+              </svg>
+            </button>
+            <button class="deco-btn" data-type="snowflake" title="Snowflake">
+              <svg viewBox="0 0 40 40">
+                <line
+                  x1="20"
+                  y1="5"
+                  x2="20"
+                  y2="35"
+                  stroke="#fff"
+                  stroke-width="2"
+                />
+                <line
+                  x1="5"
+                  y1="20"
+                  x2="35"
+                  y2="20"
+                  stroke="#fff"
+                  stroke-width="2"
+                />
+                <line
+                  x1="9"
+                  y1="9"
+                  x2="31"
+                  y2="31"
+                  stroke="#fff"
+                  stroke-width="1.5"
+                />
+                <line
+                  x1="31"
+                  y1="9"
+                  x2="9"
+                  y2="31"
+                  stroke="#fff"
+                  stroke-width="1.5"
+                />
+                <circle cx="20" cy="20" r="3" fill="#fff" />
+              </svg>
+            </button>
+            <button class="deco-btn" data-type="present" title="Present">
+              <svg viewBox="0 0 40 40">
+                <defs>
+                  <linearGradient
+                    id="presentRed"
+                    x1="0%"
+                    y1="0%"
+                    x2="0%"
+                    y2="100%"
+                  >
+                    <stop offset="0%" style="stop-color: #e53935" />
+                    <stop offset="100%" style="stop-color: #b71c1c" />
+                  </linearGradient>
+                </defs>
+                <rect
+                  x="6"
+                  y="14"
+                  width="28"
+                  height="22"
+                  rx="2"
+                  fill="url(#presentRed)"
+                />
+                <rect
+                  x="6"
+                  y="10"
+                  width="28"
+                  height="6"
+                  rx="2"
+                  fill="#ef5350"
+                />
+                <rect x="17" y="10" width="6" height="26" fill="#ffd700" />
+                <rect x="6" y="20" width="28" height="5" fill="#ffd700" />
+                <ellipse cx="20" cy="8" rx="6" ry="4" fill="#ffd700" />
+              </svg>
+            </button>
+            <button class="deco-btn" data-type="bell" title="Bell">
+              <svg viewBox="0 0 40 40">
+                <path d="M20,5 L20,8" stroke="#ffd700" stroke-width="2" />
+                <path d="M12,28 Q12,18 20,15 Q28,18 28,28" fill="#ffd700" />
+                <ellipse cx="20" cy="28" rx="10" ry="4" fill="#daa520" />
+                <circle cx="20" cy="32" r="3" fill="#ffd700" />
+                <path
+                  d="M15,8 Q20,5 25,8 Q23,12 20,12 Q17,12 15,8"
+                  fill="#c62828"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="topper-group">
+            <span>Tree Topper:</span>
+            <button class="topper-btn" data-topper="none" title="No Topper">
+              <svg viewBox="0 0 40 40">
+                <circle
+                  cx="20"
+                  cy="20"
+                  r="15"
+                  fill="none"
+                  stroke="#888"
+                  stroke-width="2"
+                  stroke-dasharray="4 4"
+                />
+                <line
+                  x1="8"
+                  y1="8"
+                  x2="32"
+                  y2="32"
+                  stroke="#888"
+                  stroke-width="2"
+                />
+              </svg>
+              <span>None</span>
+            </button>
+            <button class="topper-btn" data-topper="star">
+              <svg viewBox="0 0 40 40">
+                <polygon
+                  points="20,2 24,15 38,15 27,23 31,38 20,29 9,38 13,23 2,15 16,15"
+                  fill="#ffd700"
+                />
+              </svg>
+              <span>Star</span>
+            </button>
+            <button class="topper-btn" data-topper="angel">
+              <svg viewBox="0 0 40 45">
+                <defs>
+                  <linearGradient
+                    id="angelDress"
+                    x1="0%"
+                    y1="0%"
+                    x2="0%"
+                    y2="100%"
+                  >
+                    <stop offset="0%" style="stop-color: #ffffff" />
+                    <stop offset="100%" style="stop-color: #e0e0e8" />
+                  </linearGradient>
+                </defs>
+                <!-- Halo -->
+                <ellipse
+                  cx="20"
+                  cy="6"
+                  rx="8"
+                  ry="2.5"
+                  fill="#ffd700"
+                  opacity="0.6"
+                />
+                <!-- Wings behind -->
+                <path
+                  d="M5,24 C1,18 3,14 9,15 C12,16 10,22 7,25 Z"
+                  fill="#fff"
+                  stroke="#e0e0e0"
+                  stroke-width="0.5"
+                />
+                <path
+                  d="M35,24 C39,18 37,14 31,15 C28,16 30,22 33,25 Z"
+                  fill="#fff"
+                  stroke="#e0e0e0"
+                  stroke-width="0.5"
+                />
+                <!-- Dress -->
+                <path
+                  d="M20,16 C15,16 12,20 10,28 C9,36 10,40 11,42 L29,42 C30,40 31,36 30,28 C28,20 25,16 20,16 Z"
+                  fill="url(#angelDress)"
+                  stroke="#d0d0d0"
+                  stroke-width="0.5"
+                />
+                <!-- Arms -->
+                <path
+                  d="M14,20 C11,21 8,22 7,21"
+                  stroke="#fce4d6"
+                  stroke-width="3"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M26,20 C29,21 32,22 33,21"
+                  stroke="#fce4d6"
+                  stroke-width="3"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <!-- Head -->
+                <circle cx="20" cy="12" r="5" fill="#fce4d6" />
+                <!-- Hair -->
+                <ellipse cx="20" cy="9" rx="4.5" ry="3" fill="#f4d03f" />
+                <!-- Face -->
+                <circle cx="18" cy="11" r="0.8" fill="#333" />
+                <circle cx="22" cy="11" r="0.8" fill="#333" />
+                <path
+                  d="M19,14 Q20,15 21,14"
+                  stroke="#d4a5a5"
+                  stroke-width="0.8"
+                  fill="none"
+                />
+              </svg>
+              <span>Angel</span>
+            </button>
+          </div>
+          <div class="action-row" style="margin-top: 14px">
+            <button id="clearDecorations" class="action-btn secondary">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"
+                />
+              </svg>
+              Clear All
+            </button>
+          </div>
+        </div>
+
+        <!-- Christmas Tree -->
+        <div class="tree-wrapper">
+          <!-- Fireplace SVG -->
+          <div class="tree-fireplace">
+            <svg viewBox="0 0 280 240">
+              <defs>
+                <linearGradient
+                  id="treeFpBrick"
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #8b4513" />
+                  <stop offset="100%" style="stop-color: #5d3018" />
+                </linearGradient>
+                <linearGradient
+                  id="treeFpMantle"
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #6d4c30" />
+                  <stop offset="100%" style="stop-color: #3d2815" />
+                </linearGradient>
+                <linearGradient
+                  id="treeFpFire1"
+                  x1="0%"
+                  y1="100%"
+                  x2="0%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style="stop-color: #ff4500" />
+                  <stop offset="50%" style="stop-color: #ff8c00" />
+                  <stop offset="100%" style="stop-color: #ffd700" />
+                </linearGradient>
+                <linearGradient
+                  id="treeFpFire2"
+                  x1="0%"
+                  y1="100%"
+                  x2="0%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style="stop-color: #ff6b00" />
+                  <stop offset="100%" style="stop-color: #ffcc00" />
+                </linearGradient>
+                <linearGradient
+                  id="treeFpStocking"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style="stop-color: #b71c1c" />
+                  <stop offset="50%" style="stop-color: #c62828" />
+                  <stop offset="100%" style="stop-color: #b71c1c" />
+                </linearGradient>
+                <filter id="treeFpGlow">
+                  <feGaussianBlur stdDeviation="4" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <!-- Fireplace main structure -->
+              <rect
+                x="10"
+                y="45"
+                width="260"
+                height="195"
+                fill="url(#treeFpBrick)"
+                rx="6"
+              />
+
+              <!-- Brick pattern -->
+              <g fill="#6d3d1f" opacity="0.5">
+                <rect x="20" y="55" width="50" height="20" rx="2" />
+                <rect x="80" y="55" width="45" height="20" rx="2" />
+                <rect x="135" y="55" width="55" height="20" rx="2" />
+                <rect x="200" y="55" width="60" height="20" rx="2" />
+                <rect x="20" y="80" width="60" height="20" rx="2" />
+                <rect x="90" y="80" width="50" height="20" rx="2" />
+                <rect x="150" y="80" width="45" height="20" rx="2" />
+                <rect x="205" y="80" width="55" height="20" rx="2" />
+              </g>
+
+              <!-- Inner opening -->
+              <rect
+                x="50"
+                y="100"
+                width="180"
+                height="130"
+                fill="#0a0505"
+                rx="8"
+              />
+              <path d="M50,100 Q140,85 230,100" fill="#0a0505" />
+
+              <!-- Mantle -->
+              <rect
+                x="5"
+                y="30"
+                width="270"
+                height="22"
+                fill="url(#treeFpMantle)"
+                rx="4"
+              />
+              <rect x="8" y="35" width="264" height="12" fill="#5d3d20" />
+
+              <!-- Cards on mantle -->
+              <g class="mantle-cards">
+                <!-- Card 1 - Red envelope -->
+                <rect
+                  x="30"
+                  y="12"
+                  width="28"
+                  height="22"
+                  fill="#c62828"
+                  rx="2"
+                  transform="rotate(-5 44 23)"
+                />
+                <rect
+                  x="32"
+                  y="14"
+                  width="24"
+                  height="8"
+                  fill="#ef5350"
+                  rx="1"
+                  transform="rotate(-5 44 18)"
+                />
+                <polygon
+                  points="44,22 32,14 56,14"
+                  fill="#e53935"
+                  transform="rotate(-5 44 18)"
+                />
+
+                <!-- Card 2 - Green card -->
+                <rect
+                  x="75"
+                  y="10"
+                  width="25"
+                  height="24"
+                  fill="#2e7d32"
+                  rx="2"
+                  transform="rotate(3 87 22)"
+                />
+                <rect
+                  x="78"
+                  y="15"
+                  width="19"
+                  height="12"
+                  fill="#43a047"
+                  rx="1"
+                  transform="rotate(3 87 21)"
+                />
+                <circle
+                  cx="87"
+                  cy="21"
+                  r="4"
+                  fill="#ffd700"
+                  transform="rotate(3 87 21)"
+                />
+
+                <!-- Card 3 - White card with tree -->
+                <rect
+                  x="200"
+                  y="8"
+                  width="26"
+                  height="26"
+                  fill="#f5f5f5"
+                  rx="2"
+                  transform="rotate(8 213 21)"
+                />
+                <polygon
+                  points="213,12 205,28 221,28"
+                  fill="#2e7d32"
+                  transform="rotate(8 213 20)"
+                />
+                <rect
+                  x="211"
+                  y="26"
+                  width="4"
+                  height="5"
+                  fill="#8b4513"
+                  transform="rotate(8 213 28)"
+                />
+
+                <!-- Card 4 - Photo frame -->
+                <rect
+                  x="235"
+                  y="10"
+                  width="24"
+                  height="24"
+                  fill="#8b4513"
+                  rx="1"
+                  transform="rotate(-3 247 22)"
+                />
+                <rect
+                  x="238"
+                  y="13"
+                  width="18"
+                  height="18"
+                  fill="#e8e0d8"
+                  rx="1"
+                  transform="rotate(-3 247 22)"
+                />
+                <circle
+                  cx="247"
+                  cy="19"
+                  r="4"
+                  fill="#fce4d6"
+                  transform="rotate(-3 247 19)"
+                />
+                <path
+                  d="M240,28 Q247,24 254,28"
+                  fill="#fce4d6"
+                  transform="rotate(-3 247 26)"
+                />
+              </g>
+
+              <!-- Fire -->
+              <g filter="url(#treeFpGlow)">
+                <path
+                  d="M100,230 Q85,190 105,160 Q115,140 110,115 Q125,145 125,175 Q135,145 145,115 Q150,155 140,175 Q155,135 165,150 Q180,175 170,200 Q185,170 175,230"
+                  fill="url(#treeFpFire1)"
+                  class="fire-flame f1"
+                />
+                <path
+                  d="M115,230 Q105,200 120,175 Q130,155 125,135 Q140,160 135,185 Q145,155 155,180 Q165,160 155,230"
+                  fill="url(#treeFpFire2)"
+                  class="fire-flame f2"
+                />
+                <path
+                  d="M130,230 Q125,210 135,195 Q140,180 138,165 Q150,185 145,205 Q155,190 150,230"
+                  fill="#ffcc00"
+                  class="fire-inner"
+                  opacity="0.9"
+                />
+              </g>
+
+              <!-- Logs -->
+              <ellipse cx="110" cy="225" rx="35" ry="10" fill="#3d2817" />
+              <ellipse cx="170" cy="225" rx="35" ry="10" fill="#4a3020" />
+              <ellipse cx="140" cy="218" rx="28" ry="8" fill="#2d1810" />
+
+              <!-- Embers -->
+              <circle
+                cx="115"
+                cy="222"
+                r="3"
+                fill="#ff4500"
+                opacity="0.8"
+                class="ember"
+              />
+              <circle
+                cx="135"
+                cy="224"
+                r="2"
+                fill="#ff6b00"
+                opacity="0.7"
+                class="ember"
+              />
+              <circle
+                cx="155"
+                cy="221"
+                r="2.5"
+                fill="#ff4500"
+                opacity="0.8"
+                class="ember"
+              />
+              <circle
+                cx="165"
+                cy="223"
+                r="2"
+                fill="#ff8c00"
+                opacity="0.7"
+                class="ember"
+              />
+
+              <!-- Stockings hanging from mantle -->
+              <!-- Stocking 1 - Red (left side) -->
+              <g
+                class="fp-stocking fp-stocking-1"
+                transform="translate(25, 45)"
+              >
+                <!-- Hook on mantle -->
+                <rect
+                  x="20"
+                  y="-18"
+                  width="16"
+                  height="6"
+                  rx="2"
+                  fill="#c9a050"
+                />
+                <path
+                  d="M28,-12 L28,0"
+                  stroke="#c9a050"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                />
+                <!-- Fluffy white cuff -->
+                <ellipse cx="33" cy="6" rx="24" ry="7" fill="#f5f5f5" />
+                <ellipse cx="33" cy="4" rx="22" ry="5" fill="#fff" />
+                <!-- Stocking body -->
+                <path
+                  d="M12,10 L12,38 Q12,50 22,56 L32,72 Q38,80 44,72 L44,56 Q52,50 52,42 L52,10"
+                  fill="#c62828"
+                />
+                <!-- Stocking shading -->
+                <path
+                  d="M12,10 L12,38 Q12,50 22,56 L32,72 Q35,76 38,74"
+                  fill="#b71c1c"
+                  opacity="0.5"
+                />
+                <!-- Snowflake decorations -->
+                <circle cx="22" cy="28" r="2.5" fill="#fff" opacity="0.8" />
+                <circle cx="40" cy="42" r="2" fill="#fff" opacity="0.6" />
+                <!-- Letter -->
+                <text
+                  x="32"
+                  y="48"
+                  text-anchor="middle"
+                  fill="#fff"
+                  font-size="12"
+                  font-weight="bold"
+                  font-family="serif"
+                >
+                  A
+                </text>
+              </g>
+              <!-- Stocking 2 - Green (center) -->
+              <g
+                class="fp-stocking fp-stocking-2"
+                transform="translate(120, 45)"
+              >
+                <!-- Hook on mantle -->
+                <rect
+                  x="20"
+                  y="-18"
+                  width="16"
+                  height="6"
+                  rx="2"
+                  fill="#c9a050"
+                />
+                <path
+                  d="M28,-12 L28,0"
+                  stroke="#c9a050"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                />
+                <!-- Fluffy white cuff -->
+                <ellipse cx="33" cy="6" rx="24" ry="7" fill="#f5f5f5" />
+                <ellipse cx="33" cy="4" rx="22" ry="5" fill="#fff" />
+                <!-- Stocking body -->
+                <path
+                  d="M12,10 L12,38 Q12,50 22,56 L32,72 Q38,80 44,72 L44,56 Q52,50 52,42 L52,10"
+                  fill="#2e7d32"
+                />
+                <!-- Stocking shading -->
+                <path
+                  d="M12,10 L12,38 Q12,50 22,56 L32,72 Q35,76 38,74"
+                  fill="#1b5e20"
+                  opacity="0.5"
+                />
+                <!-- Decorative stripes -->
+                <path d="M12,18 L52,18" stroke="#c62828" stroke-width="2.5" />
+                <path d="M12,25 L52,25" stroke="#fff" stroke-width="1.5" />
+                <path d="M12,32 L52,32" stroke="#c62828" stroke-width="2.5" />
+                <!-- Letter -->
+                <text
+                  x="32"
+                  y="52"
+                  text-anchor="middle"
+                  fill="#fff"
+                  font-size="12"
+                  font-weight="bold"
+                  font-family="serif"
+                >
+                  B
+                </text>
+              </g>
+              <!-- Stocking 3 - Gold/Tan (right side) -->
+              <g
+                class="fp-stocking fp-stocking-3"
+                transform="translate(210, 45)"
+              >
+                <!-- Hook on mantle -->
+                <rect
+                  x="20"
+                  y="-18"
+                  width="16"
+                  height="6"
+                  rx="2"
+                  fill="#c9a050"
+                />
+                <path
+                  d="M28,-12 L28,0"
+                  stroke="#c9a050"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                />
+                <!-- Fluffy white cuff with red trim -->
+                <ellipse cx="33" cy="6" rx="24" ry="7" fill="#f5f5f5" />
+                <ellipse cx="33" cy="4" rx="22" ry="5" fill="#fff" />
+                <ellipse cx="33" cy="10" rx="22" ry="2.5" fill="#c62828" />
+                <!-- Stocking body -->
+                <path
+                  d="M12,10 L12,38 Q12,50 22,56 L32,72 Q38,80 44,72 L44,56 Q52,50 52,42 L52,10"
+                  fill="#d4a056"
+                />
+                <!-- Stocking shading -->
+                <path
+                  d="M12,10 L12,38 Q12,50 22,56 L32,72 Q35,76 38,74"
+                  fill="#b8860b"
+                  opacity="0.5"
+                />
+                <!-- Plaid pattern -->
+                <path
+                  d="M12,22 L52,22"
+                  stroke="#8b4513"
+                  stroke-width="1.5"
+                  opacity="0.4"
+                />
+                <path
+                  d="M12,38 L50,38"
+                  stroke="#8b4513"
+                  stroke-width="1.5"
+                  opacity="0.4"
+                />
+                <path
+                  d="M22,10 L26,70"
+                  stroke="#8b4513"
+                  stroke-width="1.5"
+                  opacity="0.4"
+                />
+                <path
+                  d="M36,10 L42,68"
+                  stroke="#8b4513"
+                  stroke-width="1.5"
+                  opacity="0.4"
+                />
+                <!-- Letter -->
+                <text
+                  x="32"
+                  y="52"
+                  text-anchor="middle"
+                  fill="#5d4037"
+                  font-size="12"
+                  font-weight="bold"
+                  font-family="serif"
+                >
+                  C
+                </text>
+              </g>
+
+              <!-- Garland on mantle -->
+              <path
+                d="M10,40 Q70,55 140,40 Q210,25 270,40"
+                stroke="#2e7d32"
+                stroke-width="8"
+                fill="none"
+                stroke-linecap="round"
+              />
+              <circle cx="50" cy="45" r="5" fill="#c62828" />
+              <circle cx="95" cy="50" r="4" fill="#ffd700" />
+              <circle cx="140" cy="42" r="5" fill="#c62828" />
+              <circle cx="185" cy="48" r="4" fill="#ffd700" />
+              <circle cx="230" cy="44" r="5" fill="#c62828" />
+            </svg>
+          </div>
+
+          <div class="tree-container" id="treeContainer">
+            <div class="tree-topper" id="treeTopper"></div>
+            <svg
+              class="christmas-tree"
+              id="christmasTree"
+              viewBox="0 0 400 500"
+            >
+              <defs>
+                <linearGradient
+                  id="treeGradient1"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #2d5a27" />
+                  <stop offset="100%" style="stop-color: #1a3d16" />
+                </linearGradient>
+                <linearGradient
+                  id="treeGradient2"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #3d7a37" />
+                  <stop offset="100%" style="stop-color: #2d5a27" />
+                </linearGradient>
+                <linearGradient
+                  id="treeGradient3"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #4a9a42" />
+                  <stop offset="100%" style="stop-color: #3d7a37" />
+                </linearGradient>
+                <linearGradient
+                  id="trunkGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style="stop-color: #5d4037" />
+                  <stop offset="50%" style="stop-color: #8b6b4a" />
+                  <stop offset="100%" style="stop-color: #5d4037" />
+                </linearGradient>
+                <filter
+                  id="treeGlow"
+                  x="-20%"
+                  y="-20%"
+                  width="140%"
+                  height="140%"
+                >
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <!-- Trunk - rendered first so it appears behind tree layers -->
+              <rect
+                id="treeTrunk"
+                x="178"
+                y="415"
+                width="44"
+                height="55"
+                rx="3"
+                fill="url(#trunkGradient)"
+              />
+              <!-- Tree layers will be generated by JS - rendered on top of trunk -->
+              <g id="treeLayers"></g>
+            </svg>
+            <div class="decorations" id="decorations"></div>
+          </div>
+        </div>
+
+        <!-- Christmas Animated Scene -->
+        <div class="animated-scene christmas-scene" id="christmasScene">
+          <!-- Santa with Sleigh on Rooftop -->
+          <div class="scene-item santa-scene">
+            <svg viewBox="0 0 380 180" class="santa-svg">
+              <defs>
+                <linearGradient id="santaRed" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color: #e53935" />
+                  <stop offset="100%" style="stop-color: #b71c1c" />
+                </linearGradient>
+                <linearGradient
+                  id="sleighRed"
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #c62828" />
+                  <stop offset="100%" style="stop-color: #7f0000" />
+                </linearGradient>
+                <linearGradient
+                  id="sackBrown"
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #8b6914" />
+                  <stop offset="100%" style="stop-color: #5d4037" />
+                </linearGradient>
+                <radialGradient id="skinTone" cx="40%" cy="30%" r="60%">
+                  <stop offset="0%" style="stop-color: #ffe4c4" />
+                  <stop offset="100%" style="stop-color: #deb887" />
+                </radialGradient>
+                <linearGradient
+                  id="brickGrad"
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #a0522d" />
+                  <stop offset="100%" style="stop-color: #6d3d1f" />
+                </linearGradient>
+                <linearGradient id="roofGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color: #4a4a4a" />
+                  <stop offset="100%" style="stop-color: #2d2d2d" />
+                </linearGradient>
+                <linearGradient id="snowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color: #ffffff" />
+                  <stop offset="100%" style="stop-color: #e8e8e8" />
+                </linearGradient>
+                <filter id="santaShadow">
+                  <feDropShadow
+                    dx="0"
+                    dy="3"
+                    stdDeviation="3"
+                    flood-color="#000"
+                    flood-opacity="0.3"
+                  />
+                </filter>
+              </defs>
+
+              <!-- Night sky background -->
+              <rect x="0" y="0" width="380" height="120" fill="#0a1628" />
+
+              <!-- Rooftop -->
+              <polygon
+                points="0,120 190,75 380,120 380,180 0,180"
+                fill="url(#roofGrad)"
+              />
+              <!-- Roof shingles pattern -->
+              <g fill="#3a3a3a" opacity="0.5">
+                <rect x="0" y="122" width="30" height="12" rx="1" />
+                <rect x="35" y="120" width="30" height="12" rx="1" />
+                <rect x="70" y="117" width="30" height="12" rx="1" />
+                <rect x="105" y="112" width="30" height="12" rx="1" />
+                <rect x="140" y="100" width="30" height="12" rx="1" />
+                <rect x="175" y="95" width="30" height="12" rx="1" />
+                <rect x="210" y="100" width="30" height="12" rx="1" />
+                <rect x="245" y="108" width="30" height="12" rx="1" />
+                <rect x="280" y="115" width="30" height="12" rx="1" />
+                <rect x="315" y="120" width="30" height="12" rx="1" />
+                <rect x="350" y="122" width="30" height="12" rx="1" />
+              </g>
+              <!-- Snow on roof -->
+              <path
+                d="M0,118 Q30,114 60,118 Q90,120 120,115 Q150,105 180,95 Q210,92 240,98 Q270,108 300,115 Q330,120 360,117 Q380,120 380,122 L380,127 Q350,124 320,127 Q290,130 260,125 Q230,118 200,112 Q170,105 140,112 Q110,120 80,124 Q50,128 20,124 Q0,122 0,125 Z"
+                fill="url(#snowGrad)"
+              />
+
+              <!-- Large Sleigh on roof - positioned on left side -->
+              <g
+                class="sleigh"
+                filter="url(#santaShadow)"
+                transform="translate(5, 20)"
+              >
+                <!-- Main sleigh body - bigger -->
+                <path
+                  d="M10,115 Q0,115 0,105 L0,65 Q0,50 15,50 L145,50 Q160,50 160,65 L160,115 Q160,125 145,125 L15,125 Q5,125 5,115"
+                  fill="url(#sleighRed)"
+                />
+                <!-- Sleigh bottom curve -->
+                <path
+                  d="M-5,130 L165,130 Q175,130 172,122 L160,95 L5,95 L-8,122 Q-10,130 0,130"
+                  fill="url(#sleighRed)"
+                />
+                <!-- Sleigh runners - gold -->
+                <path
+                  d="M0,135 Q-15,135 -8,125 L10,125"
+                  stroke="#ffd700"
+                  stroke-width="5"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M155,135 Q170,135 163,125 L145,125"
+                  stroke="#ffd700"
+                  stroke-width="5"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <!-- Runner bars -->
+                <rect
+                  x="-10"
+                  y="132"
+                  width="175"
+                  height="4"
+                  rx="2"
+                  fill="#ffd700"
+                />
+                <!-- Gold trim on sleigh -->
+                <rect
+                  x="0"
+                  y="93"
+                  width="160"
+                  height="5"
+                  rx="2"
+                  fill="#ffd700"
+                />
+                <rect
+                  x="5"
+                  y="50"
+                  width="150"
+                  height="4"
+                  rx="2"
+                  fill="#ffd700"
+                />
+                <!-- Sleigh side decorations -->
+                <path
+                  d="M20,70 Q40,60 60,70 Q80,80 100,70 Q120,60 140,70"
+                  stroke="#ffd700"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <!-- Decorative swirl on front -->
+                <path
+                  d="M150,75 Q165,65 155,55"
+                  stroke="#ffd700"
+                  stroke-width="3"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <!-- Presents in sleigh -->
+                <rect
+                  x="15"
+                  y="60"
+                  width="35"
+                  height="30"
+                  rx="3"
+                  fill="#2e7d32"
+                />
+                <rect x="27" y="60" width="6" height="30" fill="#ffd700" />
+                <rect x="15" y="72" width="35" height="5" fill="#ffd700" />
+                <rect
+                  x="55"
+                  y="55"
+                  width="28"
+                  height="38"
+                  rx="3"
+                  fill="#c62828"
+                />
+                <rect x="65" y="55" width="5" height="38" fill="#fff" />
+                <rect x="55" y="70" width="28" height="5" fill="#fff" />
+                <circle cx="68" cy="52" r="6" fill="#ffd700" />
+                <rect
+                  x="90"
+                  y="65"
+                  width="25"
+                  height="25"
+                  rx="3"
+                  fill="#1565c0"
+                />
+                <rect x="99" y="65" width="5" height="25" fill="#ffd700" />
+                <rect x="90" y="75" width="25" height="5" fill="#ffd700" />
+                <rect
+                  x="120"
+                  y="58"
+                  width="30"
+                  height="32"
+                  rx="3"
+                  fill="#7b1fa2"
+                />
+                <rect x="132" y="58" width="5" height="32" fill="#ffd700" />
+                <rect x="120" y="70" width="30" height="5" fill="#ffd700" />
+              </g>
+
+              <!-- Santa carrying bag of toys towards chimney -->
+              <g
+                class="santa"
+                transform="translate(200, 25)"
+                filter="url(#santaShadow)"
+              >
+                <!-- Toy sack behind Santa -->
+                <ellipse
+                  cx="55"
+                  cy="85"
+                  rx="35"
+                  ry="45"
+                  fill="url(#sackBrown)"
+                />
+                <path
+                  d="M25,50 Q55,35 85,50"
+                  stroke="#5d4037"
+                  stroke-width="3"
+                  fill="none"
+                />
+                <ellipse cx="55" cy="48" rx="18" ry="8" fill="#6d4c30" />
+                <!-- Toys peeking out of bag -->
+                <circle cx="45" cy="42" r="8" fill="#e53935" />
+                <!-- Ball -->
+                <rect
+                  x="55"
+                  y="35"
+                  width="8"
+                  height="15"
+                  rx="2"
+                  fill="#2196f3"
+                />
+                <!-- Block -->
+                <path d="M68,45 L75,35 L82,45" fill="#ffd700" />
+                <!-- Star toy -->
+                <ellipse cx="38" cy="55" rx="6" ry="4" fill="#4caf50" />
+                <!-- Another toy -->
+                <rect
+                  x="42"
+                  y="50"
+                  width="6"
+                  height="10"
+                  rx="1"
+                  fill="#ffeb3b"
+                />
+
+                <!-- Santa Body -->
+                <ellipse
+                  cx="10"
+                  cy="90"
+                  rx="28"
+                  ry="24"
+                  fill="url(#santaRed)"
+                />
+                <!-- Belt -->
+                <rect
+                  x="-16"
+                  y="85"
+                  width="52"
+                  height="10"
+                  rx="2"
+                  fill="#1a1a1a"
+                />
+                <rect
+                  x="2"
+                  y="83"
+                  width="16"
+                  height="14"
+                  rx="2"
+                  fill="#ffd700"
+                />
+                <rect x="6" y="87" width="8" height="6" rx="1" fill="#1a1a1a" />
+
+                <!-- Face -->
+                <circle cx="10" cy="52" r="17" fill="url(#skinTone)" />
+                <ellipse cx="10" cy="63" rx="15" ry="9" fill="url(#skinTone)" />
+                <!-- Rosy cheeks -->
+                <circle cx="-2" cy="56" r="4" fill="#ffb6b6" opacity="0.5" />
+                <circle cx="22" cy="56" r="4" fill="#ffb6b6" opacity="0.5" />
+                <!-- Eyes -->
+                <path
+                  d="M2,48 Q7,44 12,48"
+                  stroke="#4a3728"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M8,48 Q13,44 18,48"
+                  stroke="#4a3728"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <!-- Nose -->
+                <ellipse cx="10" cy="57" rx="4" ry="3.5" fill="#e8a090" />
+                <!-- Beard -->
+                <path d="M-8,55 Q-10,85 10,93 Q30,85 28,55" fill="#f5f5f5" />
+                <path
+                  d="M-5,62 Q10,70 25,62"
+                  fill="none"
+                  stroke="#e8e8e8"
+                  stroke-width="2"
+                />
+                <path
+                  d="M-2,70 Q10,78 22,70"
+                  fill="none"
+                  stroke="#e8e8e8"
+                  stroke-width="2"
+                />
+                <!-- Mustache -->
+                <path
+                  d="M0,60 Q10,65 20,60"
+                  fill="#f0f0f0"
+                  stroke="#e8e8e8"
+                  stroke-width="1"
+                />
+
+                <!-- Hat -->
+                <path
+                  d="M-10,42 Q10,28 30,42 L35,35 Q10,12 -15,35 Z"
+                  fill="url(#santaRed)"
+                />
+                <ellipse cx="10" cy="42" rx="22" ry="5" fill="#f5f5f5" />
+                <circle cx="38" cy="30" r="7" fill="#f5f5f5" />
+
+                <!-- Arm reaching back to hold bag -->
+                <path
+                  d="M35,75 Q55,60 50,50"
+                  stroke="url(#santaRed)"
+                  stroke-width="16"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <circle cx="50" cy="50" r="7" fill="#f5f5f5" />
+                <!-- Glove -->
+
+                <!-- Right arm at side -->
+                <ellipse
+                  cx="-18"
+                  cy="85"
+                  rx="10"
+                  ry="16"
+                  fill="url(#santaRed)"
+                  transform="rotate(-10 -18 85)"
+                />
+                <circle cx="-25" cy="98" r="7" fill="#f5f5f5" />
+                <!-- Glove -->
+
+                <!-- Legs -->
+                <rect
+                  x="-8"
+                  y="108"
+                  width="14"
+                  height="25"
+                  rx="5"
+                  fill="url(#santaRed)"
+                />
+                <rect
+                  x="14"
+                  y="108"
+                  width="14"
+                  height="25"
+                  rx="5"
+                  fill="url(#santaRed)"
+                />
+                <!-- Boots -->
+                <ellipse cx="-1" cy="135" rx="10" ry="6" fill="#1a1a1a" />
+                <ellipse cx="21" cy="135" rx="10" ry="6" fill="#1a1a1a" />
+              </g>
+
+              <!-- Chimney with smoke -->
+              <g class="chimney">
+                <rect
+                  x="290"
+                  y="70"
+                  width="55"
+                  height="65"
+                  fill="url(#brickGrad)"
+                />
+                <rect
+                  x="285"
+                  y="65"
+                  width="65"
+                  height="10"
+                  rx="2"
+                  fill="#8b4513"
+                />
+                <!-- Snow on chimney -->
+                <path
+                  d="M285,65 Q305,58 320,62 Q340,56 350,65"
+                  stroke="#fff"
+                  stroke-width="4"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <!-- Brick details -->
+                <rect
+                  x="295"
+                  y="78"
+                  width="18"
+                  height="10"
+                  rx="1"
+                  fill="#7f3d1f"
+                  opacity="0.5"
+                />
+                <rect
+                  x="318"
+                  y="78"
+                  width="22"
+                  height="10"
+                  rx="1"
+                  fill="#7f3d1f"
+                  opacity="0.5"
+                />
+                <rect
+                  x="295"
+                  y="93"
+                  width="22"
+                  height="10"
+                  rx="1"
+                  fill="#7f3d1f"
+                  opacity="0.5"
+                />
+                <rect
+                  x="322"
+                  y="93"
+                  width="18"
+                  height="10"
+                  rx="1"
+                  fill="#7f3d1f"
+                  opacity="0.5"
+                />
+                <rect
+                  x="295"
+                  y="108"
+                  width="18"
+                  height="10"
+                  rx="1"
+                  fill="#7f3d1f"
+                  opacity="0.5"
+                />
+                <rect
+                  x="318"
+                  y="108"
+                  width="22"
+                  height="10"
+                  rx="1"
+                  fill="#7f3d1f"
+                  opacity="0.5"
+                />
+                <!-- Smoke -->
+                <circle
+                  cx="315"
+                  cy="50"
+                  r="10"
+                  fill="#ddd"
+                  opacity="0.6"
+                  class="smoke s1"
+                />
+                <circle
+                  cx="322"
+                  cy="38"
+                  r="8"
+                  fill="#ddd"
+                  opacity="0.5"
+                  class="smoke s2"
+                />
+                <circle
+                  cx="310"
+                  cy="26"
+                  r="6"
+                  fill="#ddd"
+                  opacity="0.4"
+                  class="smoke s3"
+                />
+                <circle
+                  cx="320"
+                  cy="15"
+                  r="5"
+                  fill="#ddd"
+                  opacity="0.3"
+                  class="smoke s4"
+                />
+              </g>
+
+              <!-- Stars -->
+              <g class="stars">
+                <polygon
+                  points="80,25 83,33 92,33 85,39 88,48 80,42 72,48 75,39 68,33 77,33"
+                  fill="#ffd700"
+                  class="twinkle-star ts1"
+                />
+                <polygon
+                  points="130,15 132,21 139,21 134,25 136,32 130,28 124,32 126,25 121,21 128,21"
+                  fill="#ffd700"
+                  class="twinkle-star ts2"
+                />
+                <polygon
+                  points="200,35 202,41 209,41 204,45 206,52 200,48 194,52 196,45 191,41 198,41"
+                  fill="#ffd700"
+                  class="twinkle-star ts3"
+                />
+                <polygon
+                  points="260,20 261,24 266,24 263,27 264,31 260,29 256,31 257,27 254,24 259,24"
+                  fill="#ffd700"
+                  class="twinkle-star ts4"
+                />
+                <!-- Moon -->
+                <circle cx="355" cy="25" r="18" fill="#fffacd" />
+                <circle cx="350" cy="22" r="15" fill="#0a1628" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Rudolph -->
+          <div class="scene-item rudolph">
+            <svg viewBox="0 0 120 140" class="rudolph-svg">
+              <defs>
+                <linearGradient id="furBrown" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color: #a0522d" />
+                  <stop offset="100%" style="stop-color: #6d3d1f" />
+                </linearGradient>
+                <linearGradient id="furLight" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color: #c9a07a" />
+                  <stop offset="100%" style="stop-color: #a0522d" />
+                </linearGradient>
+                <radialGradient id="noseGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" style="stop-color: #ff6b6b" />
+                  <stop offset="60%" style="stop-color: #e53935" />
+                  <stop offset="100%" style="stop-color: #b71c1c" />
+                </radialGradient>
+                <filter
+                  id="noseLight"
+                  x="-100%"
+                  y="-100%"
+                  width="300%"
+                  height="300%"
+                >
+                  <feGaussianBlur stdDeviation="4" result="blur" />
+                  <feFlood flood-color="#ff0000" flood-opacity="0.5" />
+                  <feComposite in2="blur" operator="in" />
+                  <feMerge>
+                    <feMergeNode />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="rudolphShadow">
+                  <feDropShadow
+                    dx="0"
+                    dy="3"
+                    stdDeviation="3"
+                    flood-color="#000"
+                    flood-opacity="0.3"
+                  />
+                </filter>
+              </defs>
+
+              <!-- Body -->
+              <ellipse
+                cx="60"
+                cy="85"
+                rx="35"
+                ry="28"
+                fill="url(#furBrown)"
+                filter="url(#rudolphShadow)"
+              />
+              <!-- Belly -->
+              <ellipse
+                cx="60"
+                cy="90"
+                rx="25"
+                ry="18"
+                fill="url(#furLight)"
+                opacity="0.5"
+              />
+
+              <!-- Neck -->
+              <ellipse cx="60" cy="55" rx="18" ry="20" fill="url(#furBrown)" />
+
+              <!-- Head -->
+              <ellipse
+                cx="60"
+                cy="35"
+                rx="20"
+                ry="18"
+                fill="url(#furBrown)"
+                filter="url(#rudolphShadow)"
+              />
+              <!-- Snout/muzzle -->
+              <ellipse cx="60" cy="50" rx="12" ry="10" fill="url(#furBrown)" />
+              <!-- Muzzle highlight -->
+              <ellipse
+                cx="60"
+                cy="52"
+                rx="9"
+                ry="7"
+                fill="url(#furLight)"
+                opacity="0.6"
+              />
+
+              <!-- Antlers -->
+              <g
+                stroke="#5d4037"
+                stroke-width="4"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <!-- Left antler -->
+                <path d="M40,22 L28,5 M28,5 L22,12 M28,5 L35,0 M28,5 L20,2" />
+                <path d="M40,22 L32,15" />
+                <!-- Right antler -->
+                <path d="M80,22 L92,5 M92,5 L98,12 M92,5 L85,0 M92,5 L100,2" />
+                <path d="M80,22 L88,15" />
+              </g>
+
+              <!-- Ears -->
+              <ellipse
+                cx="32"
+                cy="28"
+                rx="10"
+                ry="16"
+                fill="url(#furBrown)"
+                transform="rotate(-30 32 28)"
+              />
+              <ellipse
+                cx="33"
+                cy="28"
+                rx="6"
+                ry="11"
+                fill="#e8c8a8"
+                opacity="0.5"
+                transform="rotate(-30 33 28)"
+              />
+              <ellipse
+                cx="88"
+                cy="28"
+                rx="10"
+                ry="16"
+                fill="url(#furBrown)"
+                transform="rotate(30 88 28)"
+              />
+              <ellipse
+                cx="87"
+                cy="28"
+                rx="6"
+                ry="11"
+                fill="#e8c8a8"
+                opacity="0.5"
+                transform="rotate(30 87 28)"
+              />
+
+              <!-- Eyes -->
+              <ellipse cx="45" cy="32" rx="6" ry="8" fill="#fff" />
+              <ellipse cx="75" cy="32" rx="6" ry="8" fill="#fff" />
+              <!-- Pupils -->
+              <ellipse cx="46" cy="33" rx="4" ry="5" fill="#2d1810" />
+              <ellipse cx="76" cy="33" rx="4" ry="5" fill="#2d1810" />
+              <!-- Inner dark pupil -->
+              <circle cx="46" cy="34" r="2" fill="#000" />
+              <circle cx="76" cy="34" r="2" fill="#000" />
+              <!-- Eye shine highlight -->
+              <circle cx="47" cy="31" r="1.5" fill="#fff" />
+              <circle cx="77" cy="31" r="1.5" fill="#fff" />
+              <!-- Long eyelashes -->
+              <path d="M39,27 L36,23" stroke="#4a3728" stroke-width="1.5" />
+              <path d="M43,25 L41,21" stroke="#4a3728" stroke-width="1.5" />
+              <path d="M81,27 L84,23" stroke="#4a3728" stroke-width="1.5" />
+              <path d="M77,25 L79,21" stroke="#4a3728" stroke-width="1.5" />
+
+              <!-- Glowing nose -->
+              <circle
+                cx="60"
+                cy="58"
+                r="9"
+                fill="url(#noseGlow)"
+                filter="url(#noseLight)"
+                class="red-nose"
+              />
+              <ellipse
+                cx="57"
+                cy="55"
+                rx="3"
+                ry="2"
+                fill="#fff"
+                opacity="0.4"
+              />
+
+              <!-- Mouth -->
+              <path
+                d="M52,64 Q60,68 68,64"
+                fill="none"
+                stroke="#4a3728"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+
+              <!-- Legs -->
+              <rect
+                x="38"
+                y="108"
+                width="10"
+                height="28"
+                rx="4"
+                fill="url(#furBrown)"
+              />
+              <rect
+                x="72"
+                y="108"
+                width="10"
+                height="28"
+                rx="4"
+                fill="url(#furBrown)"
+              />
+              <!-- Hooves -->
+              <ellipse cx="43" cy="137" rx="6" ry="3" fill="#3d2817" />
+              <ellipse cx="77" cy="137" rx="6" ry="3" fill="#3d2817" />
+
+              <!-- Collar with bells -->
+              <path
+                d="M42,65 Q60,72 78,65"
+                stroke="#c62828"
+                stroke-width="4"
+                fill="none"
+              />
+              <circle cx="60" cy="70" r="4" fill="#ffd700" />
+              <circle cx="60" cy="70" r="2.5" fill="#b8860b" />
+            </svg>
+          </div>
+
+          <!-- TODO: Improve Gift Box bows -->
+          <!-- Gift Boxes -->
+          <div class="scene-item gifts">
+            <svg viewBox="0 0 160 120" class="gifts-svg">
+              <defs>
+                <linearGradient id="redBox" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color: #e53935" />
+                  <stop offset="100%" style="stop-color: #b71c1c" />
+                </linearGradient>
+                <linearGradient id="greenBox" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color: #43a047" />
+                  <stop offset="100%" style="stop-color: #2e7d32" />
+                </linearGradient>
+                <linearGradient id="blueBox" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color: #1e88e5" />
+                  <stop offset="100%" style="stop-color: #1565c0" />
+                </linearGradient>
+                <linearGradient
+                  id="goldRibbon"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #ffd700" />
+                  <stop offset="50%" style="stop-color: #fff8dc" />
+                  <stop offset="100%" style="stop-color: #daa520" />
+                </linearGradient>
+                <filter id="giftShadow">
+                  <feDropShadow
+                    dx="0"
+                    dy="3"
+                    stdDeviation="3"
+                    flood-color="#000"
+                    flood-opacity="0.3"
+                  />
+                </filter>
+              </defs>
+
+              <!-- Box 1 - Large Red -->
+              <g filter="url(#giftShadow)">
+                <rect
+                  x="10"
+                  y="50"
+                  width="55"
+                  height="50"
+                  rx="3"
+                  fill="url(#redBox)"
+                />
+                <rect
+                  x="10"
+                  y="44"
+                  width="55"
+                  height="12"
+                  rx="3"
+                  fill="#ef5350"
+                />
+                <rect
+                  x="32"
+                  y="44"
+                  width="12"
+                  height="56"
+                  fill="url(#goldRibbon)"
+                />
+                <rect
+                  x="10"
+                  y="62"
+                  width="55"
+                  height="10"
+                  fill="url(#goldRibbon)"
+                />
+                <!-- Bow -->
+                <ellipse
+                  cx="38"
+                  cy="42"
+                  rx="12"
+                  ry="8"
+                  fill="url(#goldRibbon)"
+                />
+                <ellipse cx="38" cy="42" rx="8" ry="5" fill="#daa520" />
+                <path
+                  d="M30,42 Q20,30 30,38"
+                  fill="url(#goldRibbon)"
+                  stroke="#b8860b"
+                  stroke-width="1"
+                />
+                <path
+                  d="M46,42 Q56,30 46,38"
+                  fill="url(#goldRibbon)"
+                  stroke="#b8860b"
+                  stroke-width="1"
+                />
+              </g>
+
+              <!-- Box 2 - Medium Green -->
+              <g filter="url(#giftShadow)">
+                <rect
+                  x="75"
+                  y="60"
+                  width="40"
+                  height="38"
+                  rx="3"
+                  fill="url(#greenBox)"
+                />
+                <rect
+                  x="75"
+                  y="54"
+                  width="40"
+                  height="10"
+                  rx="3"
+                  fill="#66bb6a"
+                />
+                <rect x="90" y="54" width="10" height="44" fill="#c62828" />
+                <rect x="75" y="72" width="40" height="8" fill="#c62828" />
+                <!-- Bow -->
+                <circle cx="95" cy="52" r="8" fill="#c62828" />
+                <circle cx="95" cy="52" r="5" fill="#e53935" />
+              </g>
+
+              <!-- Box 3 - Small Blue -->
+              <g filter="url(#giftShadow)">
+                <rect
+                  x="120"
+                  y="70"
+                  width="32"
+                  height="28"
+                  rx="3"
+                  fill="url(#blueBox)"
+                />
+                <rect
+                  x="120"
+                  y="65"
+                  width="32"
+                  height="8"
+                  rx="3"
+                  fill="#42a5f5"
+                />
+                <rect
+                  x="132"
+                  y="65"
+                  width="8"
+                  height="33"
+                  fill="url(#goldRibbon)"
+                />
+                <!-- Bow -->
+                <circle cx="136" cy="63" r="6" fill="url(#goldRibbon)" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Snowflakes with intensity control -->
+          <div class="scene-item snowflakes">
+            <div class="snow-control">
+              <button
+                class="snow-btn active"
+                data-intensity="light"
+                title="Light Snow"
+              >
+                ❄
+              </button>
+              <button
+                class="snow-btn"
+                data-intensity="moderate"
+                title="Moderate Snow"
+              >
+                ❄❄
+              </button>
+              <button class="snow-btn" data-intensity="flurry" title="Flurry">
+                ❄❄❄
+              </button>
+              <button
+                class="snow-btn"
+                data-intensity="blizzard"
+                title="Blizzard"
+              >
+                🌨️
+              </button>
+            </div>
+            <div class="snow-scene" id="snowScene">
+              <svg
+                viewBox="0 0 200 140"
+                class="snowflakes-svg"
+                preserveAspectRatio="xMidYMid meet"
+                width="100%"
+              >
+                <defs>
+                  <filter id="snowGlow">
+                    <feGaussianBlur stdDeviation="1" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+                <!-- Background gradient for depth -->
+                <rect
+                  x="0"
+                  y="0"
+                  width="200"
+                  height="140"
+                  fill="url(#snowSceneBg)"
+                />
+                <defs>
+                  <linearGradient
+                    id="snowSceneBg"
+                    x1="0%"
+                    y1="0%"
+                    x2="0%"
+                    y2="100%"
+                  >
+                    <stop offset="0%" style="stop-color: #1a2a4a" />
+                    <stop offset="100%" style="stop-color: #2a4a6a" />
+                  </linearGradient>
+                </defs>
+                <!-- Ground snow -->
+                <ellipse cx="100" cy="145" rx="110" ry="15" fill="#e8f0f8" />
+                <!-- Snowflakes container -->
+                <g id="snowflakesGroup"></g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Christmas Stocking with gifts -->
+          <div class="scene-item stocking">
+            <div class="stocking-container">
+              <svg viewBox="0 0 100 150" class="stocking-svg">
+                <defs>
+                  <linearGradient
+                    id="stockingRed"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%"
+                  >
+                    <stop offset="0%" style="stop-color: #c62828" />
+                    <stop offset="50%" style="stop-color: #e53935" />
+                    <stop offset="100%" style="stop-color: #c62828" />
+                  </linearGradient>
+                  <linearGradient
+                    id="stockingWhite"
+                    x1="0%"
+                    y1="0%"
+                    x2="0%"
+                    y2="100%"
+                  >
+                    <stop offset="0%" style="stop-color: #ffffff" />
+                    <stop offset="100%" style="stop-color: #e8e8e8" />
+                  </linearGradient>
+                  <filter id="stockingShadow">
+                    <feDropShadow
+                      dx="0"
+                      dy="3"
+                      stdDeviation="3"
+                      flood-color="#000"
+                      flood-opacity="0.3"
+                    />
+                  </filter>
+                </defs>
+
+                <!-- Stocking body -->
+                <g filter="url(#stockingShadow)">
+                  <!-- Main stocking shape -->
+                  <path
+                    d="M25,35 L25,75 Q25,95 40,105 L60,130 Q70,140 80,130 L80,105 Q85,95 85,80 L85,35"
+                    fill="url(#stockingRed)"
+                  />
+
+                  <!-- Toe curve detail -->
+                  <path
+                    d="M40,105 L60,130 Q70,140 80,130"
+                    fill="none"
+                    stroke="#b71c1c"
+                    stroke-width="2"
+                    opacity="0.5"
+                  />
+
+                  <!-- White cuff -->
+                  <rect
+                    x="20"
+                    y="25"
+                    width="70"
+                    height="20"
+                    rx="5"
+                    fill="url(#stockingWhite)"
+                  />
+                  <ellipse
+                    cx="55"
+                    cy="35"
+                    rx="35"
+                    ry="8"
+                    fill="url(#stockingWhite)"
+                  />
+
+                  <!-- Fur texture on cuff -->
+                  <path
+                    d="M25,30 Q30,28 35,30 Q40,32 45,30 Q50,28 55,30 Q60,32 65,30 Q70,28 75,30 Q80,32 85,30"
+                    stroke="#ddd"
+                    stroke-width="2"
+                    fill="none"
+                    opacity="0.6"
+                  />
+
+                  <!-- Decorative pattern -->
+                  <line
+                    x1="30"
+                    y1="50"
+                    x2="80"
+                    y2="50"
+                    stroke="#fff"
+                    stroke-width="3"
+                    opacity="0.3"
+                  />
+                  <line
+                    x1="30"
+                    y1="65"
+                    x2="80"
+                    y2="65"
+                    stroke="#fff"
+                    stroke-width="3"
+                    opacity="0.3"
+                  />
+
+                  <!-- Name tag -->
+                  <rect
+                    x="40"
+                    y="55"
+                    width="30"
+                    height="15"
+                    rx="2"
+                    fill="#fff"
+                    opacity="0.9"
+                  />
+                  <text
+                    x="55"
+                    y="66"
+                    text-anchor="middle"
+                    fill="#c62828"
+                    font-size="8"
+                    font-weight="bold"
+                  >
+                    JOY
+                  </text>
+                </g>
+
+                <!-- Gifts peeking out -->
+                <g class="stocking-gifts" id="stockingGifts">
+                  <!-- Gift 1 - wrapped box -->
+                  <g class="gift gift-1">
+                    <rect
+                      x="35"
+                      y="8"
+                      width="18"
+                      height="16"
+                      rx="2"
+                      fill="#43a047"
+                    />
+                    <rect x="42" y="8" width="4" height="16" fill="#ffd700" />
+                    <rect x="35" y="14" width="18" height="4" fill="#ffd700" />
+                    <circle cx="44" cy="6" r="4" fill="#ffd700" />
+                  </g>
+
+                  <!-- Gift 2 - candy cane -->
+                  <g class="gift gift-2">
+                    <path
+                      d="M62,20 L62,5 Q62,-2 55,-2 Q48,-2 48,5"
+                      stroke="#fff"
+                      stroke-width="5"
+                      fill="none"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M62,20 L62,5 Q62,-2 55,-2 Q48,-2 48,5"
+                      stroke="#e53935"
+                      stroke-width="5"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-dasharray="4 4"
+                    />
+                  </g>
+
+                  <!-- Gift 3 - teddy bear ear -->
+                  <g class="gift gift-3">
+                    <circle cx="75" cy="18" r="8" fill="#c49040" />
+                    <circle cx="75" cy="18" r="5" fill="#d4a056" />
+                    <circle cx="68" cy="10" r="4" fill="#c49040" />
+                    <circle cx="68" cy="10" r="2.5" fill="#d4a056" />
+                  </g>
+                </g>
+
+                <!-- Hanging loop -->
+                <path
+                  d="M50,25 Q50,15 55,15 Q60,15 60,25"
+                  stroke="#b71c1c"
+                  stroke-width="4"
+                  fill="none"
+                />
+
+                <!-- Hook/nail -->
+                <circle cx="55" cy="8" r="3" fill="#888" />
+                <rect x="53" y="5" width="4" height="5" fill="#888" />
+              </svg>
+
+              <!-- Stuff stocking button -->
+              <button
+                class="stuff-stocking-btn"
+                id="stuffStockingBtn"
+                title="Stuff the stocking!"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="14"
+                  height="14"
+                  fill="currentColor"
+                  style="vertical-align: middle; margin-right: 4px"
+                >
+                  <rect x="3" y="8" width="18" height="13" rx="2" />
+                  <rect x="6" y="4" width="12" height="4" />
+                  <rect
+                    x="10"
+                    y="8"
+                    width="4"
+                    height="13"
+                    fill="currentColor"
+                    opacity="0.6"
+                  />
+                  <path
+                    d="M8,4 Q12,1 16,4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                </svg>
+                Stuff!
+              </button>
+            </div>
+          </div>
+
+          <!-- Cozy Fireplace with Stockings -->
+          <div class="scene-item fireplace">
+            <svg viewBox="0 0 200 160" class="fireplace-svg">
+              <defs>
+                <linearGradient
+                  id="brickGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #8b4513" />
+                  <stop offset="100%" style="stop-color: #5d3018" />
+                </linearGradient>
+                <linearGradient
+                  id="fireGrad1"
+                  x1="0%"
+                  y1="100%"
+                  x2="0%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style="stop-color: #ff4500" />
+                  <stop offset="50%" style="stop-color: #ff8c00" />
+                  <stop offset="100%" style="stop-color: #ffd700" />
+                </linearGradient>
+                <linearGradient
+                  id="fireGrad2"
+                  x1="0%"
+                  y1="100%"
+                  x2="0%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style="stop-color: #ff6b00" />
+                  <stop offset="100%" style="stop-color: #ffcc00" />
+                </linearGradient>
+                <filter id="fireGlow">
+                  <feGaussianBlur stdDeviation="4" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <linearGradient
+                  id="fpStockingRed"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style="stop-color: #b71c1c" />
+                  <stop offset="50%" style="stop-color: #c62828" />
+                  <stop offset="100%" style="stop-color: #b71c1c" />
+                </linearGradient>
+              </defs>
+
+              <!-- Fireplace structure -->
+              <rect
+                x="10"
+                y="40"
+                width="180"
+                height="120"
+                fill="url(#brickGradient)"
+                rx="4"
+              />
+              <!-- Inner opening -->
+              <rect
+                x="35"
+                y="60"
+                width="130"
+                height="90"
+                fill="#1a0f0a"
+                rx="6"
+              />
+              <!-- Brick details -->
+              <g fill="#6d3d1f" opacity="0.6">
+                <rect x="15" y="45" width="30" height="15" rx="2" />
+                <rect x="50" y="45" width="25" height="15" rx="2" />
+                <rect x="80" y="45" width="35" height="15" rx="2" />
+                <rect x="120" y="45" width="25" height="15" rx="2" />
+                <rect x="150" y="45" width="35" height="15" rx="2" />
+              </g>
+              <!-- Mantle -->
+              <rect
+                x="5"
+                y="30"
+                width="190"
+                height="15"
+                fill="#3d2010"
+                rx="3"
+              />
+              <rect x="8" y="33" width="184" height="8" fill="#5d3d20" />
+
+              <!-- Fire flames -->
+              <g class="fireplace-flames" filter="url(#fireGlow)">
+                <path
+                  d="M70,150 Q60,120 75,100 Q85,85 80,70 Q90,90 90,110 Q95,90 100,70 Q105,95 100,110 Q110,85 115,95 Q125,115 120,130 Q130,110 125,150"
+                  fill="url(#fireGrad1)"
+                  class="flame flame-main"
+                />
+                <path
+                  d="M85,150 Q80,130 90,115 Q95,100 92,85 Q100,100 98,120 Q105,100 108,120 Q115,105 110,150"
+                  fill="url(#fireGrad2)"
+                  class="flame flame-inner"
+                />
+                <path
+                  d="M95,150 Q93,140 97,130 Q100,120 98,110 Q105,125 102,140 Q108,130 105,150"
+                  fill="#ffcc00"
+                  class="flame flame-core"
+                  opacity="0.9"
+                />
+              </g>
+
+              <!-- Logs -->
+              <ellipse cx="75" cy="145" rx="25" ry="8" fill="#3d2817" />
+              <ellipse cx="125" cy="145" rx="25" ry="8" fill="#4a3020" />
+              <ellipse cx="100" cy="140" rx="20" ry="6" fill="#2d1810" />
+
+              <!-- Embers/coals -->
+              <circle cx="80" cy="148" r="3" fill="#ff4500" class="ember e1" />
+              <circle cx="95" cy="149" r="2" fill="#ff6b00" class="ember e2" />
+              <circle
+                cx="110"
+                cy="147"
+                r="2.5"
+                fill="#ff4500"
+                class="ember e3"
+              />
+              <circle cx="120" cy="149" r="2" fill="#ff8c00" class="ember e4" />
+
+              <!-- Stockings hanging from mantle -->
+              <g class="fp-stocking fp-stocking-1" transform="translate(25, 8)">
+                <path
+                  d="M10,22 L10,42 Q10,52 18,58 L28,72 Q32,78 38,72 L38,58 Q42,52 42,45 L42,22"
+                  fill="url(#fpStockingRed)"
+                />
+                <rect
+                  x="8"
+                  y="18"
+                  width="36"
+                  height="8"
+                  rx="3"
+                  fill="#f5f5f5"
+                />
+                <text
+                  x="26"
+                  y="48"
+                  text-anchor="middle"
+                  fill="#fff"
+                  font-size="8"
+                  font-weight="bold"
+                >
+                  A
+                </text>
+              </g>
+              <g class="fp-stocking fp-stocking-2" transform="translate(80, 8)">
+                <path
+                  d="M10,22 L10,42 Q10,52 18,58 L28,72 Q32,78 38,72 L38,58 Q42,52 42,45 L42,22"
+                  fill="#2e7d32"
+                />
+                <rect
+                  x="8"
+                  y="18"
+                  width="36"
+                  height="8"
+                  rx="3"
+                  fill="#f5f5f5"
+                />
+                <text
+                  x="26"
+                  y="48"
+                  text-anchor="middle"
+                  fill="#fff"
+                  font-size="8"
+                  font-weight="bold"
+                >
+                  B
+                </text>
+              </g>
+              <g
+                class="fp-stocking fp-stocking-3"
+                transform="translate(135, 8)"
+              >
+                <path
+                  d="M10,22 L10,42 Q10,52 18,58 L28,72 Q32,78 38,72 L38,58 Q42,52 42,45 L42,22"
+                  fill="url(#fpStockingRed)"
+                />
+                <rect
+                  x="8"
+                  y="18"
+                  width="36"
+                  height="8"
+                  rx="3"
+                  fill="#f5f5f5"
+                />
+                <text
+                  x="26"
+                  y="48"
+                  text-anchor="middle"
+                  fill="#fff"
+                  font-size="8"
+                  font-weight="bold"
+                >
+                  C
+                </text>
+              </g>
+
+              <!-- Garland on mantle -->
+              <path
+                d="M10,35 Q50,45 100,35 Q150,25 190,35"
+                stroke="#2e7d32"
+                stroke-width="6"
+                fill="none"
+                stroke-linecap="round"
+              />
+              <circle cx="30" cy="38" r="4" fill="#c62828" />
+              <circle cx="60" cy="40" r="3" fill="#ffd700" />
+              <circle cx="100" cy="35" r="4" fill="#c62828" />
+              <circle cx="140" cy="38" r="3" fill="#ffd700" />
+              <circle cx="170" cy="36" r="4" fill="#c62828" />
+            </svg>
+          </div>
+
+          <!-- Gingerbread Man -->
+          <div class="scene-item gingerbread">
+            <svg viewBox="0 0 80 110" class="gingerbread-svg">
+              <defs>
+                <linearGradient
+                  id="gingerGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #d4a056" />
+                  <stop offset="50%" style="stop-color: #c49040" />
+                  <stop offset="100%" style="stop-color: #a67028" />
+                </linearGradient>
+                <linearGradient
+                  id="gingerDark"
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #b8864a" />
+                  <stop offset="100%" style="stop-color: #8b6030" />
+                </linearGradient>
+                <filter id="gingerShadow">
+                  <feDropShadow
+                    dx="0"
+                    dy="2"
+                    stdDeviation="2"
+                    flood-color="#000"
+                    flood-opacity="0.25"
+                  />
+                </filter>
+              </defs>
+
+              <g filter="url(#gingerShadow)">
+                <!-- Head -->
+                <circle cx="40" cy="22" r="18" fill="url(#gingerGradient)" />
+                <!-- Edge detail -->
+                <circle
+                  cx="40"
+                  cy="22"
+                  r="16"
+                  fill="none"
+                  stroke="#8b6030"
+                  stroke-width="1"
+                  stroke-dasharray="2 2"
+                  opacity="0.5"
+                />
+
+                <!-- Body -->
+                <ellipse
+                  cx="40"
+                  cy="55"
+                  rx="16"
+                  ry="20"
+                  fill="url(#gingerGradient)"
+                />
+
+                <!-- Arms -->
+                <ellipse
+                  cx="12"
+                  cy="50"
+                  rx="14"
+                  ry="8"
+                  fill="url(#gingerGradient)"
+                />
+                <ellipse
+                  cx="68"
+                  cy="50"
+                  rx="14"
+                  ry="8"
+                  fill="url(#gingerGradient)"
+                />
+                <!-- Arm icing -->
+                <path
+                  d="M5,50 L19,50"
+                  stroke="#fff"
+                  stroke-width="3"
+                  stroke-dasharray="3 3"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M61,50 L75,50"
+                  stroke="#fff"
+                  stroke-width="3"
+                  stroke-dasharray="3 3"
+                  stroke-linecap="round"
+                />
+
+                <!-- Legs -->
+                <ellipse
+                  cx="28"
+                  cy="88"
+                  rx="10"
+                  ry="18"
+                  fill="url(#gingerGradient)"
+                />
+                <ellipse
+                  cx="52"
+                  cy="88"
+                  rx="10"
+                  ry="18"
+                  fill="url(#gingerGradient)"
+                />
+                <!-- Leg icing -->
+                <path
+                  d="M28,78 L28,98"
+                  stroke="#fff"
+                  stroke-width="3"
+                  stroke-dasharray="3 3"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M52,78 L52,98"
+                  stroke="#fff"
+                  stroke-width="3"
+                  stroke-dasharray="3 3"
+                  stroke-linecap="round"
+                />
+
+                <!-- Face -->
+                <!-- Eyes -->
+                <circle cx="33" cy="18" r="3" fill="#4a3020" />
+                <circle cx="47" cy="18" r="3" fill="#4a3020" />
+                <circle cx="34" cy="17" r="1" fill="#fff" />
+                <circle cx="48" cy="17" r="1" fill="#fff" />
+
+                <!-- Rosy cheeks -->
+                <circle cx="28" cy="24" r="4" fill="#e8a0a0" opacity="0.5" />
+                <circle cx="52" cy="24" r="4" fill="#e8a0a0" opacity="0.5" />
+
+                <!-- Smile -->
+                <path
+                  d="M32,28 Q40,36 48,28"
+                  fill="none"
+                  stroke="#4a3020"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                />
+
+                <!-- Bow tie -->
+                <path
+                  d="M32,40 L40,45 L48,40 L48,50 L40,45 L32,50 Z"
+                  fill="#c62828"
+                />
+                <circle cx="40" cy="45" r="3" fill="#e53935" />
+
+                <!-- Buttons -->
+                <circle cx="40" cy="55" r="4" fill="#43a047" />
+                <circle cx="40" cy="67" r="4" fill="#c62828" />
+
+                <!-- Icing decorations -->
+                <path
+                  d="M30,8 Q40,2 50,8"
+                  stroke="#fff"
+                  stroke-width="3"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
+
+    <script src="./script.js"></script>
+  </body>
 </html>
