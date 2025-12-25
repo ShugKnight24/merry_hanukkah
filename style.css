@@ -16,7 +16,7 @@
   --glass-strong: rgba(255, 255, 255, 0.14);
   --border: rgba(255, 255, 255, 0.12);
   --text-primary: #f6f7fb;
-  --text-secondary: #c8d3e8;
+  --text-secondary: #e3ecff;
   --hanukkah-accent: #6eb7ff;
   --hanukkah-deep: #1f74d6;
   --christmas-accent: #ff7b7b;
@@ -232,16 +232,16 @@ body[data-mode="christmas"] {
 .dimmer-slider {
   width: 50px;
   height: 6px;
-  -webkit-appearance: none;
   appearance: none;
+  -webkit-appearance: none;
   background: linear-gradient(90deg, #333, #666);
   border-radius: 3px;
   outline: none;
 }
 
 .dimmer-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
   appearance: none;
+  -webkit-appearance: none;
   width: 14px;
   height: 14px;
   background: linear-gradient(180deg, #ffd700, #daa520);
@@ -1961,43 +1961,6 @@ body[data-mode="christmas"] h1 {
   }
 }
 
-/* WD-40 Can Animation */
-.wd40-svg {
-  width: 90px;
-  height: 130px;
-}
-
-.wd40-svg .spray {
-  animation: spray-out 1.5s ease-in-out infinite;
-}
-
-.wd40-svg .spray.s2 {
-  animation-delay: 0.2s;
-}
-
-.wd40-svg .spray.s3 {
-  animation-delay: 0.4s;
-}
-
-@keyframes spray-out {
-  0%,
-  100% {
-    opacity: 0;
-    transform: translate(0, 0) scale(0.5);
-  }
-  20% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 0.4;
-    transform: translate(15px, -10px) scale(1.2);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(25px, -15px) scale(0.8);
-  }
-}
-
 /* Christmas Section */
 .christmas-section {
   margin-top: 28px;
@@ -2618,7 +2581,6 @@ body[data-mode="christmas"] h1 {
 
 .snowflake-particle {
   animation: snowfall linear infinite;
-  will-change: transform;
 }
 
 @keyframes snowfall {
@@ -2937,5 +2899,59 @@ body[data-mode="christmas"] h1 {
   .tree-topper {
     width: 50px;
     height: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-mode="hanukkah"] .light-bulb,
+  body[data-mode="christmas"] .light-bulb,
+  .action-btn.primary.lit .flame-icon .flame-outer,
+  .action-btn.primary.lit .flame-icon .flame-inner,
+  .action-btn.primary.lit .flame-icon .flame-core,
+  .candle-wrapper.lit .flame-group,
+  .decoration.lights .light-glow,
+  .decoration.string-lights .light-glow,
+  .dreidel-3d,
+  .dreidel-ground-shadow,
+  .ember,
+  .fp-stocking,
+  .fireplace-flame .flame-core,
+  .fireplace-flames .flame,
+  .fireplace-flames .flame-core,
+  .fireplace-flames .flame-inner,
+  .gelt-svg .box-glow,
+  .gelt-svg .coin,
+  .gifts-svg rect,
+  .gingerbread-svg,
+  .latke-svg .flame,
+  .latke-svg .flame-inner,
+  .latke-svg .oil-shimmer,
+  .latke-svg .latke-body,
+  .latke-svg .sizzle-bubble,
+  .latke-svg .steam,
+  .light-bulb,
+  .menorah-light-btn .btn-glow,
+  .menorah-window-frame::after,
+  .night-stars .star,
+  .oil-jug-svg .jug-glow,
+  .oil-jug-svg .oil-bubble,
+  .oil-jug-svg .oil-inside,
+  .oil-jug-svg .oil-surface,
+  .rudolph-svg .red-nose,
+  .santa-svg .santa,
+  .santa-svg .sleigh,
+  .santa-svg .smoke,
+  .snowflake-particle,
+  .stocking-gifts .gift.visible,
+  .sufganiyah-svg .jelly-center,
+  .sufganiyah-svg .jelly-drip,
+  .tree-fireplace .fire-flame,
+  .tree-fireplace .fire-inner,
+  .tree-fireplace .fp-stocking,
+  .tree-topper.angel svg,
+  .tree-topper.star svg,
+  .twinkle-star,
+  .wire.lights-off .light-bulb {
+    animation: none !important;
   }
 }

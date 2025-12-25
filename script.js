@@ -1,3 +1,5 @@
+// TODO: Add error handling for potentially missing DOM elements
+// Can create a single object to store all DOM elements, not really needed for DOM elements we "know" are always present
 // DOM Elements
 const modeToggle = document.getElementById("modeToggle");
 const mainTitle = document.getElementById("mainTitle");
@@ -78,6 +80,7 @@ const treeTypes = {
 };
 
 // String Lights
+// TODO: Account for screen resizing
 function initStringLights() {
   stringLights.innerHTML = "";
   const lightCount = Math.floor(window.innerWidth / 50);
@@ -127,6 +130,7 @@ function initLightDimmer() {
   }
 }
 
+// TODO: Abstract candle creation and simplify
 // Menorah
 function createCandleSVG(height, color, isShemash = false, style = "modern") {
   const wrapper = document.createElement("div");
@@ -248,6 +252,7 @@ function createCandleSVG(height, color, isShemash = false, style = "modern") {
     `;
   }
 
+  // TODO: Account for ID on 257 - currently generates duplicate IDs when candles have same height
   wrapper.innerHTML = `
     <svg class="candle-svg" viewBox="0 0 40 ${height + 75}" style="height: ${
     height + 75
@@ -302,14 +307,24 @@ function createCandleSVG(height, color, isShemash = false, style = "modern") {
 
 function adjustColor(color, amount) {
   const hex = color.replace("#", "");
-  const r = Math.max(0, Math.min(255, parseInt(hex.substr(0, 2), 16) + amount));
-  const g = Math.max(0, Math.min(255, parseInt(hex.substr(2, 2), 16) + amount));
-  const b = Math.max(0, Math.min(255, parseInt(hex.substr(4, 2), 16) + amount));
+  const r = Math.max(
+    0,
+    Math.min(255, parseInt(hex.substring(0, 2), 16) + amount)
+  );
+  const g = Math.max(
+    0,
+    Math.min(255, parseInt(hex.substring(2, 4), 16) + amount)
+  );
+  const b = Math.max(
+    0,
+    Math.min(255, parseInt(hex.substring(4, 6), 16) + amount)
+  );
   return `#${r.toString(16).padStart(2, "0")}${g
     .toString(16)
     .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
 }
 
+// TODO: Create templates of the menorah candles as opposed to generating them dynamically each time
 function initMenorah() {
   menorah.innerHTML = "";
   const style = menorahStyles[menorahStyle];
@@ -357,6 +372,7 @@ function extinguishCandles() {
   const candles = menorah.querySelectorAll(".candle-wrapper");
 
   candles.forEach((candle, index) => {
+    // TODO: Clean up timeouts
     setTimeout(() => {
       const flame = candle.querySelector(".flame-group");
       if (flame) {
@@ -393,6 +409,7 @@ function lightCandles(night) {
 
   for (let i = 0; i < night; i++) {
     const candleIndex = lightOrder[i];
+    // TODO: Clean up timeouts
     setTimeout(() => {
       const candle = candles[candleIndex];
       const flame = candle.querySelector(".flame-group");
@@ -593,10 +610,13 @@ function generateTree() {
 
   // Update trunk first - render before tree layers so it appears behind
   const trunk = document.getElementById("treeTrunk");
-  trunk.setAttribute("y", baseY + 5);
-  trunk.setAttribute("height", "55");
-  trunk.setAttribute("width", "44");
-  trunk.setAttribute("x", "178");
+  if (!trunk) return;
+  if (trunk) {
+    trunk.setAttribute("y", baseY + 5);
+    trunk.setAttribute("height", "55");
+    trunk.setAttribute("width", "44");
+    trunk.setAttribute("x", "178");
+  }
 
   // Render layers from bottom to top so upper layers appear on top (and on top of trunk)
   layers.forEach((layer) => {
@@ -625,6 +645,7 @@ function generateTree() {
 }
 
 // Decorations
+// TODO: IDs will cause issues if multiple decorations of the same type are added
 const decorationSVGs = {
   lights: `
     <svg viewBox="0 0 30 30" width="25" height="25">
@@ -832,6 +853,7 @@ const topperSVGs = {
 };
 
 // Preview element for decoration placement
+// TODO: Look into this setup and simplify
 let decorationPreview = null;
 
 function createDecorationPreview() {
@@ -877,6 +899,7 @@ function hideDecorationPreview() {
   }
 }
 
+// TODO: Add accessibility features via keyboard controls
 function addDecoration(e) {
   if (!selectedDecoType) return;
 
@@ -904,6 +927,7 @@ function addDecoration(e) {
   // Add animation on place
   deco.style.animation = "decoration-place 0.3s ease-out";
 
+  // TODO: Delegate event listeners to parent container instead of individual decorations
   // Right-click to remove (not regular click to prevent accidental removal)
   deco.addEventListener("contextmenu", (e) => {
     e.preventDefault();
@@ -914,6 +938,7 @@ function addDecoration(e) {
 
   // Double-click to remove
   deco.addEventListener("dblclick", (e) => {
+    e.preventDefault();
     e.stopPropagation();
     deco.style.animation = "decoration-remove 0.3s ease-in forwards";
     setTimeout(() => deco.remove(), 300);
@@ -1090,11 +1115,13 @@ function createSnowflake(size = "small") {
   ];
 
   const shapeIndex = Math.floor(Math.random() * shapes.length);
+  // TODO: build snowflake geometry in a non innerHTML way... DOM methods or another approach?
   flake.innerHTML = shapes[shapeIndex];
 
   return flake;
 }
 
+// TODO: Resets each time, reapproach
 function generateSnowflakes(intensity) {
   const snowGroup = document.getElementById("snowflakesGroup");
   const snowScene = document.getElementById("snowScene");
